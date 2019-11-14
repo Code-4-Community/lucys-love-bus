@@ -5,9 +5,9 @@
     </div>
 
     <div class="navlinks">
-      <router-link to="about-us" tag="button">About Us</router-link>
-      <router-link to="events" tag="button">Events</router-link>
-      <router-link to="login" tag="button">Log In</router-link>
+      <router-link to="/about-us" tag="button">About Us</router-link>
+      <router-link to="/events" tag="button">Events</router-link>
+      <router-link to="/authentication" tag="button">Log In</router-link>
     </div>
   </div>
 </template>

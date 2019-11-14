@@ -35,12 +35,12 @@ export default new Router({
       redirect: '/authentication/login',
       children: [
         {
-          path: '/login',
+          path: 'login',
           name: 'login',
           component: Login,
         },
         {
-          path: '/sign-up',
+          path: 'sign-up',
           name: 'sign-up',
           component: SignUp,
         },

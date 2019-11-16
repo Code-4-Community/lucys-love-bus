@@ -61,13 +61,11 @@ export default {
 
 <style lang="less" scoped>
   .login-container {
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    button {
-      width: 20%;
-    }
+    background-color: gray;
   }
 </style>

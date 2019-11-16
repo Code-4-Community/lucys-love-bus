@@ -13,9 +13,9 @@
       <button @click="signup"> Signup </button>
     </div>
     <div class="error">
-      <p v-show="!!inputError[0]"> {{inputError[0]}} </p>
-      <p v-show="!!inputError[1]"> {{inputError[1]}} </p>
-      <p v-show="!!inputError[2]"> {{inputError[2]}} </p>
+      <p v-show="inputError[0]"> {{inputError[0]}} </p>
+      <p v-show="inputError[1]"> {{inputError[1]}} </p>
+      <p v-show="inputError[2]"> {{inputError[2]}} </p>
       <p v-if="this.serverError"> {{this.serverError}} </p>
     </div>
   </div>
@@ -42,7 +42,10 @@ export default {
       this.serverError = '';
     },
     validate() {
-      return this.validateUser() && this.validateEmail() && this.validatePassword();
+      const err1 = this.validateUser();
+      const err2 = this.validateEmail();
+      const err3 = this.validatePassword();
+      return err1 && err2 && err3;
     },
     validateUser() {
       if (!this.name[0] || !this.name[1]) {
@@ -102,13 +105,10 @@ export default {
 
 <style lang="less" scoped>
   .sign-up-container {
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    button {
-      width: 20%;
-    }
   }
 </style>

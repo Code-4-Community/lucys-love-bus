@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1> Signup </h1>
-    <slot name="sign-up-header"> default header </slot>
-    <slot name="sign-up-description"> default description </slot>
-    <div class="sign-up-container">
-      <slot name="sign-up-prompt"> default prompt </slot>
+    <h4> Join the Sajni Center Community! </h4>
+    <p> A very detailed signup description </p>
+    <div class="auth-container">
+      <strong> Sign up for a family account </strong>
       <input v-model="name[0]" type="text" placeholder="First Name">
       <input v-model="name[1]" type="text" placeholder="Last Name">
       <input v-model="email" type="text" placeholder="Email">
@@ -70,7 +70,7 @@ export default {
       return false;
     },
     validatePassword() {
-      if (!this.password[0] || !this.password[1]) {
+      if (!this.password[0] && !this.password[1]) {
         this.inputError.splice(2, 1, 'Password cannot be empty');
       } else if (this.password[0] !== this.password[1]) {
         this.inputError.splice(2, 1, 'Passwords do not match');
@@ -104,11 +104,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .sign-up-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
 </style>

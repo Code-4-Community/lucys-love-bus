@@ -1,18 +1,18 @@
 <template>
   <div>
     <h1>Login</h1>
-    <slot name="login-header"> default header </slot>
-    <slot name="login-description"> default description </slot>
-    <div class="login-container">
-      <slot name="login-prompt"> default prompt </slot>
+    <h4> Welcome! </h4>
+    <p> A very detailed login description </p>
+    <div class="auth-container">
+      <strong> Sign in to your account </strong>
       <input v-model="email" @focus="resetSubmit" type="text" placeholder="Email Address" />
       <input v-model="password" @focus="resetSubmit" type="password" placeholder="Password"/>
       <button @click="submit"> Login </button>
       <router-link to="sign-up" tag="a"> Don't have an account? Sign up here! </router-link>
     </div>
     <div class="error">
-      <p v-if="!inputValid() && submitted"> Enter an email and password </p>
-      <p v-if="error && submitted">{{error}}</p>
+      <p v-if="submitted && !inputValid()"> Enter an email and password </p>
+      <p v-if="submitted && error">{{error}}</p>
     </div>
   </div>
 </template>
@@ -60,12 +60,4 @@ export default {
 
 
 <style lang="less" scoped>
-  .login-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: gray;
-  }
 </style>

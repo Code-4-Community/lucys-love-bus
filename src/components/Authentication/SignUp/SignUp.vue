@@ -5,19 +5,17 @@
     <p> A very detailed signup description </p>
     <div class="auth-container">
       <strong> Sign up for a family account </strong>
-      <input v-model="name[0]" type="text" placeholder="First Name">
-      <input v-model="name[1]" type="text" placeholder="Last Name">
+      <input v-model="firstName" type="text" placeholder="First Name">
+      <input v-model="lastName" type="text" placeholder="Last Name">
       <input v-model="email" type="text" placeholder="Email">
       <input v-model="password[0]" type="password" placeholder="Password">
       <input v-model="password[1]" type="password" placeholder="Retype Password">
       <button @click="signup"> Signup </button>
     </div>
-    <div class="error">
-      <p v-show="inputError[0]"> {{inputError[0]}} </p>
-      <p v-show="inputError[1]"> {{inputError[1]}} </p>
-      <p v-show="inputError[2]"> {{inputError[2]}} </p>
-      <p v-if="this.serverError"> {{this.serverError}} </p>
-    </div>
+    <ul class="error">
+      <li v-for="(err, index) in inputError" :key="index" v-show="err"> {{err}} </li>
+      <li v-if="this.serverError"> {{this.serverError}} </li>
+    </ul>
   </div>
 </template>
 
@@ -26,7 +24,8 @@ export default {
   name: 'SignupForm',
   data() {
     return {
-      name: ['', ''],
+      firstName: '',
+      lastName: '',
       email: '',
       password: ['', ''],
       inputError: ['', '', ''],
@@ -35,7 +34,8 @@ export default {
   },
   methods: {
     resetInput() {
-      this.name = ['', ''];
+      this.firstName = '';
+      this.lastName = '';
       this.email = '';
       this.password = ['', ''];
       this.inputError = ['', '', ''];
@@ -48,7 +48,7 @@ export default {
       return err1 && err2 && err3;
     },
     validateUser() {
-      if (!this.name[0] || !this.name[1]) {
+      if (!this.firstName || !this.lastName[1]) {
         this.inputError.splice(0, 1, 'Name cannot be empty');
       } else {
         this.inputError.splice(0, 1, '');
@@ -85,8 +85,8 @@ export default {
       this.serverError = '';
       if (this.validate()) {
         const user = {
-          firstName: this.name[0],
-          lastName: this.name[1],
+          firstName: this.firstName,
+          lastName: this.lastName,
           email: this.email,
           password: this.password[0],
         };
@@ -102,6 +102,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-</style>

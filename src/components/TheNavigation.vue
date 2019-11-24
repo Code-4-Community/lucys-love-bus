@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="title">
-      <router-link to="home" tag="h3">[LOGO]</router-link>
+      <router-link to="/" tag="h3">[LOGO]</router-link>
     </div>
 
     <div class="navlinks">

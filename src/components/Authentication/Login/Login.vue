@@ -52,7 +52,7 @@ export default {
         const user = {
           email: this.email,
           password: this.password,
-          keepSignedIn: this.keepSignedIn,
+          remember_me: this.keepSignedIn,
         };
         try {
           await this.$store.dispatch('login', user);
@@ -66,3 +66,4 @@ export default {
   },
 };
 </script>
+  

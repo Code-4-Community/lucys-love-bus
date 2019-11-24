@@ -85,8 +85,8 @@ export default {
       this.serverError = '';
       if (this.validate()) {
         const user = {
-          firstName: this.firstName,
-          lastName: this.lastName,
+          first_name: this.firstName,
+          last_name: this.lastName,
           email: this.email,
           password: this.password[0],
         };
@@ -95,7 +95,7 @@ export default {
           this.resetInput();
           this.$router.push('/home');
         } catch (error) {
-          this.serverError = error.message;
+          this.serverError = error.error_message;
         }
       }
     },

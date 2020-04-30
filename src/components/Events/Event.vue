@@ -23,11 +23,11 @@
             class="event-btn" tag="button">
             Edit
           </router-link>
-          <button
-            v-on:click="announce({event: event})"
-            class="event-btn">
+          <router-link
+            :to="{ name: 'create-announcement', params: { eventName: event.name}}"
+            class="event-btn" tag="button">
             Announce
-          </button>
+          </router-link>
           <button
             v-on:click="viewRSVP({event: event})"
             class="event-btn">

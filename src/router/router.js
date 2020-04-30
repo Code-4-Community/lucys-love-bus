@@ -13,6 +13,7 @@ import CheckoutView from '../views/CheckoutView.vue';
 import SingleEventView from '../views/SingleEventView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
 import UpcomingEventsView from '../views/UpcomingEventsView.vue';
+import CreateAnnouncementView from '../views/CreateAnnouncementView.vue';
 
 Vue.use(Router);
 
@@ -38,6 +39,12 @@ export default new Router({
       path: '/create-event',
       name: 'create-event',
       component: CreateEventView,
+    },
+    {
+      path: '/create-announcement',
+      name: 'create-announcement',
+      component: CreateAnnouncementView,
+      props: true,
     },
     {
       path: '/upcoming-events',

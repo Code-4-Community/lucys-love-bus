@@ -23,6 +23,12 @@
             <button class="btn--tertiary">Account Info</button>
           </div>
         </router-link>
+        <router-link :to='{name: "create-announcement", params: {eventName: sitewide}}'>
+          <div class='dash-item'>
+            <img class="thumb" src='https://images.pexels.com/photos/273011/pexels-photo-273011.jpeg?cs=srgb&dl=black-calendar-close-up-composition-273011.jpg&fm=jpg'/>
+            <button class="btn--tertiary">Sitewide Announcement</button>
+          </div>
+        </router-link>
       </div>
       <div class="announcements-list__container">
         <announcements-list />

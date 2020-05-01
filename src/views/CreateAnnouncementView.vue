@@ -3,7 +3,7 @@
     <div class="container">
         <span class="header">Make an Announcement</span>
         <div class="subheader">
-            <span v-if="eventName == sitewide">
+            <span v-if="eventName == 'sitewide'">
                 This announcement will be shown to all users.
             </span>
             <span v-else>

@@ -72,6 +72,7 @@
                        accept="image/*"/>
                 <div v-if="imageUploaded === 1">Loading image...</div>
                 <div v-else-if="imageUploaded === 2">Loading complete!</div>
+                <div v-else-if="imageUploaded === 3">An error occurred, please try again!</div>
             </div>
             <div class="form-errors">
                 <span v-show="errors.has('event image')">
@@ -129,9 +130,8 @@ export default {
             ...this.event,
             thumbnail: result.toString(),
           };
-        }).catch((error) => {
-          console.error('Error occurred converting thumbnail');
-          console.error(error);
+        }).catch(() => {
+          this.imageUploaded = 3;
         });
       }
     },
@@ -142,12 +142,7 @@ export default {
             const resp = await api.createEvent(this.event);
             if (resp.status && resp.status === 200) {
               this.event = {};
-            } else {
-              console.error(resp);
-              if (resp.response) {
-                console.error(resp.response);
-              }
-            }
+            } // else display error
           } catch (err) {
             this.error = err;
           }

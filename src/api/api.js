@@ -14,7 +14,7 @@ async function createEvent(event) {
   const body = {
     title: event.name,
     spotsAvailable: 10,
-    thumbnail: event.img,
+    thumbnail: event.thumbnail,
     details: {
       description: event.description,
       location: event.location,

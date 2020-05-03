@@ -61,6 +61,23 @@
                     {{ errors.first('what to bring') }}
                 </span>
             </div>
+
+            <div class="form-element img-upload">
+                <label>Event Image:</label>
+                <input id="input-img-upload"
+                       name="event image"
+                       type="file"
+                       v-on:change="updateEventImage"
+                       v-validate="'required'"
+                       accept="image/*"/>
+                <div v-if="imageUploaded === 1">Loading image...</div>
+                <div v-else-if="imageUploaded === 2">Loading complete!</div>
+            </div>
+            <div class="form-errors">
+                <span v-show="errors.has('event image')">
+                    {{ errors.first('event image') }}
+                </span>
+            </div>
         </div>
         <div class="buttons">
             <input type="submit" class="button" value="Create">
@@ -88,17 +105,49 @@ export default {
         description: String,
         whatToBring: String,
       */
+      imageUploaded: 0,
       event: {},
       error: '',
     };
   },
   methods: {
+    convertImage(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+    updateEventImage(event) {
+      const { files } = event.target;
+      if (files.length > 0) {
+        this.imageUploaded = 1;
+        this.convertImage(files[0]).then((result) => {
+          this.imageUploaded = 2;
+          this.event = {
+            ...this.event,
+            thumbnail: result.toString(),
+          };
+        }).catch((error) => {
+          console.error('Error occurred converting thumbnail');
+          console.error(error);
+        });
+      }
+    },
     onSubmit() {
       this.$validator.validateAll().then(async (result) => {
-        if (result) {
+        if (result && this.imageUploaded) {
           try {
-            await api.createEvent(this.event);
-            this.event = {};
+            const resp = await api.createEvent(this.event);
+            if (resp.status && resp.status === 200) {
+              this.event = {};
+            } else {
+              console.error(resp);
+              if (resp.response) {
+                console.error(resp.response);
+              }
+            }
           } catch (err) {
             this.error = err;
           }
@@ -150,6 +199,19 @@ input[type=text], input[type=date], input[type=time], textarea {
     font-size: 12pt;
 }
 
+input[type=file] {
+    margin: 0 0.8rem;
+    font-family: 'Montserrat';
+    font-size: 12pt;
+}
+
+.img-upload {
+    margin: 0.8rem;
+    font-family: 'Montserrat';
+    font-size: 12pt;
+}
+
+
 .button {
     margin: 1rem;
     font-family: 'Raleway';
@@ -164,7 +226,6 @@ span {
     font-family: 'Montserrat';
     color: red;
     font-weight: bold;
-
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <events-list :events="allEvents">
-    <template v-slot:noEventsMsg>
+  <events-list :events="upcomingEvents">
+    <template v-slot:NoEventsMsg>
       <h3>Sorry, there are no currently availible events!</h3>
     </template>
     <template v-slot:eventBtn1="slotProps">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 
 export default {
@@ -29,12 +29,18 @@ export default {
   components: {
     EventsList,
   },
+  async created() {
+    await this.setUpcomingEvents();
+  },
   computed: {
     ...mapState('events', {
-      allEvents: 'events',
+      upcomingEvents: 'upcomingEvents',
     }),
   },
   methods: {
+    ...mapActions('events', {
+      setUpcomingEvents: 'setUpcomingEvents',
+    }),
     ...mapMutations('cart', {
       registerForEvent: 'registerForEvent',
     }),

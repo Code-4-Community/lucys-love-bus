@@ -2,7 +2,7 @@
     <div>
         <slot name="header"></slot>
         <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-        <div class='pagination-wrapper'>
+        <div v-else class='pagination-wrapper'>
           <button
             class='pagination__btn'
             v-on:click='decrementCurrentPage'>Prev</button>

@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import EventsListScroll from '../components/Events/EventsListScroll.vue';
 
 export default {
@@ -37,12 +38,18 @@ export default {
   props: {
     username: String,
   },
+  async created() {
+    await this.setMyEventsFromNow();
+  },
   computed: {
-    myEvents() {
-      return this.$store.getters['events/getUsersEvents'](this.username);
-    },
+    ...mapState('events', {
+      myEvents: 'myEvents',
+    }),
   },
   methods: {
+    ...mapActions('events', {
+      setMyEventsFromNow: 'setMyEventsFromNow',
+    }),
     // cancelRegistration(event) {
     //   // console.log('canceled', event);
     // },

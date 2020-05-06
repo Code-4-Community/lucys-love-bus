@@ -5,14 +5,6 @@
         <img src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
       </router-link>
     </div>
-
-
-    <access-control :roles="[USER[ROLE.GUEST]]">
-      <div class="navlinks">
-        <router-link to="/about-us" tag="button">About Us</router-link>
-        <router-link to="/login" tag="button">Log In</router-link>
-      </div>
-    </access-control>
     <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
       <div class="navlinks">
           <router-link to="/events" tag="button">Events</router-link>

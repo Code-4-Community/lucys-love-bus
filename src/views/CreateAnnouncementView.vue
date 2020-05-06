@@ -42,7 +42,7 @@
             </router-link>
             <router-link
                 v-else
-                :to="{ name: 'upcoming-events'}"
+                :to="{ name: 'events'}"
                 class="button btn--secondary" tag="button">
                 Cancel
             </router-link>
@@ -60,7 +60,7 @@ Vue.use(VeeValidate);
 export default {
   name: 'CreateAnnouncement',
   props: {
-    // ID of event being announces (if -1, sitewide announcement)
+    // ID of event being announced (if -1, sitewide announcement)
     eventName: {
       type: String,
       required: true,

@@ -6,14 +6,12 @@
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
         <button
           class="event-btn btn--primary"
-          v-on:click="onClickCheckout">Proceed to checkout</button>
+          v-on:click="clicked">Proceed to checkout</button>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import API from '../../api/api';
-import { USER } from '../../utils/constants/user';
 
 export default {
   name: 'PaymentSummary',
@@ -24,9 +22,6 @@ export default {
     ...mapState('cart', {
       registeredEvents: 'registeredEvents',
     }),
-    ...mapState('user', {
-      adminLevel: 'adminLevel',
-    }),
     taxes() {
       return 0;
     },
@@ -35,8 +30,8 @@ export default {
     },
   },
   methods: {
-    onClickCheckout() {
-      API.handleClickCheckout(this.registeredEvents, USER[this.adminLevel]);
+    clicked() {
+      this.$emit('onClickCheckout');
     },
   },
 };

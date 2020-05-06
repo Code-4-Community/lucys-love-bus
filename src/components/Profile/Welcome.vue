@@ -2,7 +2,7 @@
   <div class="welcome">
     <img :src="familyImg"/>
     <div>
-      <span class="title">Welcome, the {{ props.name }} Family!</span>
+      <span class="title">Welcome to the Lucy's Love Bus event site!</span>
       <p>Lorem ipsum...</p>
     </div>
   </div>

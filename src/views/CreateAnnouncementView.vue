@@ -35,7 +35,7 @@
         <div class="buttons">
             <button class="button btn--primary">Save</button>
             <router-link
-                v-if="this.eventName == sitewide"
+                v-if="this.eventName == 'sitewide'"
                 :to="{ name: 'profile'}"
                 class="button btn--secondary" tag="button">
                 Cancel

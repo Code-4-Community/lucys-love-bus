@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>My Profile</h1>
-
     <Welcome :name="username"/>
     <div class="flex-horizontal">
       <div class='dash'>
@@ -11,13 +10,13 @@
             <button class="btn--tertiary">New Events</button>
           </div>
         </router-link>
-        <router-link :to='{name: "my-events", params: {username: username}}'>
+        <router-link to='/my-events'>
           <div class='dash-item'>
             <img class="thumb" src='https://static5.depositphotos.com/1037987/476/i/450/depositphotos_4767995-stock-photo-couple-giving-two-young-children.jpg'/>
             <button class="btn--tertiary">My Events</button>
           </div>
         </router-link>
-        <router-link :to='{name: "account", params: {username: username}}'>
+        <router-link to='/account'>
           <div class='dash-item'>
             <img class="thumb" src='https://static.thenounproject.com/png/17337-200.png'/>
             <button class="btn--tertiary">Account Info</button>
@@ -47,11 +46,8 @@ export default {
     Welcome,
     AnnouncementsList,
   },
-  props: {
-    username: {
-      required: true,
-      type: String,
-    },
-  },
 };
 </script>
+
+<style scoped>
+</style>

@@ -23,6 +23,10 @@
         type="password"
         placeholder="Password"
       />
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
+        <label for="rememberMe">Remember me</label>
+      </div>
       <button @click="submit" class="btn--tertiary">Login</button>
       <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
     </div>
@@ -75,7 +79,7 @@ export default {
         try {
           await authService.actions.login(user);
           // switch this to the profile component once it's made.
-          this.$router.push(`/profile/${this.email}`);
+          this.$router.push('/profile');
           this.resetInput();
           this.setUser();
         } catch (error) {

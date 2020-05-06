@@ -131,7 +131,7 @@ export default {
         };
         try {
           await authService.actions.signup(user);
-          this.$router.push(`/profile/${this.email}`);
+          this.$router.push('/profile');
           this.resetInput();
           this.setUser();
         } catch (error) {

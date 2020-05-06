@@ -1,6 +1,6 @@
 <template>
   <div>
-  <events-list :events="allEvents" currentRole="admin">
+  <events-list :events="allEvents">
     <template v-slot:noEventsMsg>
       <h3>Sorry, there are no currently availible events!</h3>
     </template>
@@ -25,11 +25,11 @@ export default {
   methods: {
     announce(payload) {
       // eslint-disable-next-line no-alert
-      alert(`Once created, link create-announcement component here for ${payload.event.name}.`);
+      alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
     },
     viewRSVP(payload) {
       // eslint-disable-next-line no-alert
-      alert(`The users registered for ${payload.event.name} are ${payload.event.users}.`);
+      alert(`The users registered for ${payload.event.title} are not loaded yet`);
     },
   },
 };

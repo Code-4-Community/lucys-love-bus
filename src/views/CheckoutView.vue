@@ -24,7 +24,9 @@
           </template>
         </events-list-scroll>
       </div>
-      <payment-summary class="payment component-wrapper"></payment-summary>
+      <payment-summary
+        class="payment component-wrapper"
+        v-on:onClickCheckout="onClickCheckout" />
       <promo-code class="codes component-wrapper"></promo-code>
     </div>
   </div>
@@ -35,6 +37,8 @@ import { mapState, mapMutations } from 'vuex';
 import EventsListScroll from '../components/Events/EventsListScroll.vue';
 import PaymentSummary from '../components/Checkout/PaymentSummary.vue';
 import PromoCode from '../components/Checkout/PromoCode.vue';
+import API from '../api/api';
+import { USER, ROLE } from '../utils/constants/user';
 
 export default {
   name: 'Checkout',
@@ -47,11 +51,28 @@ export default {
     ...mapState('cart', {
       registeredEvents: 'registeredEvents',
     }),
+    ...mapState('user', {
+      adminLevel: 'adminLevel',
+    }),
   },
   methods: {
     ...mapMutations('cart', {
       cancelRegistration: 'cancelRegistration',
     }),
+    onClickCheckout() {
+      if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
+        try {
+          API.createEventRegistration(this.registeredEvents);
+          // eslint-disable-next-line
+          alert('Successfully placed order');
+        } catch (e) {
+          // eslint-disable-next-line
+          alert("Error: " + e);
+        }
+      } else {
+        API.createEventRegistrationAndCheckoutSession(this.registeredEvents);
+      }
+    },
   },
 };
 </script>

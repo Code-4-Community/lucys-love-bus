@@ -1,12 +1,12 @@
 <template>
   <div class="event__container">
       <div class="event-img">
-          <img :src="event.img" />
+          <img :src="event.thumbnail" />
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <h3>{{ event.name }}</h3>
-              <p>{{ event.description }}</p>
+              <h3>{{ event.title }}</h3>
+              <p>{{ event.details.description }}</p>
           </div>
       </div>
        <div class="event-btns--user">
@@ -64,11 +64,11 @@ export default {
   methods: {
     announce(payload) {
       // eslint-disable-next-line no-alert
-      alert(`Once created, link create-announcement component here for ${payload.event.name}.`);
+      alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
     },
     viewRSVP(payload) {
       // eslint-disable-next-line no-alert
-      alert(`The users registered for ${payload.event.name} are ${payload.event.users}.`);
+      alert(`The users registered for ${payload.event.title} are ${payload.event.users}.`);
     },
   },
 };

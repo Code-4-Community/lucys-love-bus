@@ -47,7 +47,7 @@ export default {
     register(payload) {
       this.registerForEvent(payload);
       // eslint-disable-next-line no-alert
-      alert(`You have signed up for ${payload.event.name}.`);
+      alert(`You have signed up for ${payload.event.title}.`);
     },
   },
 };

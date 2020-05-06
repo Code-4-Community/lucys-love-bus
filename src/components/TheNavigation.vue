@@ -1,19 +1,37 @@
 <template>
   <div class="header">
     <div class="title">
-      <router-link to="/" tag="h3">[LOGO]</router-link>
+      <router-link to="/" tag="h3">
+        <img src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
+      </router-link>
     </div>
-    <div class="navlinks">
-      <router-link to="/about-us" tag="button">About Us</router-link>
-      <router-link to="/events" tag="button">Events</router-link>
-      <access-control :roles="[USER[ROLE.GUEST]]">
+
+
+    <access-control :roles="[USER[ROLE.GUEST]]">
+      <div class="navlinks">
+        <router-link to="/about-us" tag="button">About Us</router-link>
         <router-link to="/login" tag="button">Log In</router-link>
-      </access-control>
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-        <button v-on:click="logout">Log Out</button>
-      </access-control>
-      <router-link to="/checkout" tag="button">Checkout</router-link>
-    </div>
+      </div>
+    </access-control>
+    <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+      <div class="navlinks">
+          <router-link to="/events" tag="button">Events</router-link>
+          <router-link to="/my-events" tag="button">Registrations</router-link>
+          <router-link to="/checkout" tag="button">Checkout</router-link>
+          <router-link to="/profile" tag="button">Profile</router-link>
+          <button v-on:click="logout">Log Out</button>
+      </div>
+    </access-control>
+    <access-control :roles="[USER[ROLE.ADMIN]]">
+      <div class="navlinks">
+          <router-link to="/events" tag="button">Events</router-link>
+          <router-link to="/my-events" tag="button">Registrations</router-link>
+          <router-link to="/checkout" tag="button">Checkout</router-link>
+          <router-link to="/create-event" tag="button">Create Event</router-link>
+          <router-link to="/profile" tag="button">Profile</router-link>
+          <button v-on:click="logout">Log Out</button>
+      </div>
+    </access-control>
   </div>
 </template>
 
@@ -73,13 +91,12 @@ export default {
   .navlinks {
     display: flex;
     justify-content: space-between;
-    width: 25%;
     white-space: nowrap;
     button {
       display: block;
-      width: 5em;
+      width: 100%;
       height: 5em;
-      letter-spacing: 4px;
+      letter-spacing: 1px;
       font-weight: bold;
       background: none;
       text-decoration: none;

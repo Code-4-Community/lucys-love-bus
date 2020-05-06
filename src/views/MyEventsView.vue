@@ -35,9 +35,6 @@ export default {
   components: {
     EventsListScroll,
   },
-  props: {
-    username: String,
-  },
   async created() {
     await this.setMyEventsFromNow();
   },

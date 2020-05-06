@@ -10,6 +10,24 @@ function formatTimestamp(date, time) {
   return res.unix() * 1000;
 }
 
+// objToParams: takes a Javascript object and returns a string
+// that can be used as GET query parameters
+// e.g. { length: 4, name: "None" } -> ?length=4&name=none
+async function objToParams(obj) {
+  let res = '';
+  let first = true;
+  Object.entries(obj).forEach(([key, value]) => {
+    if (first) {
+      res += '?';
+      first = false;
+    } else {
+      res += '&';
+    }
+    res += `${key}=${value}`;
+  });
+  return res;
+}
+
 async function createEvent(event) {
   const body = {
     title: event.name,
@@ -33,55 +51,44 @@ async function createEvent(event) {
   return res;
 }
 
-const stripePromise = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
+const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
-async function handleClickCheckout(cartEvents, userLevel) {
-  if (userLevel === 'ADMIN' || userLevel === 'PF') {
-    const body = {
-      lineItems: cartEvents.map(event => ({
-        id: event.id,
-        name: event.title,
-        description: event.details.description,
-        amount: 5,
-        currency: 'usd',
-        quantity: 1,
-      })),
-      successUrl: `${process.env.VUE_APP_API_DOMAIN}/my-events/?session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${process.env.VUE_APP_API_DOMAIN}/checkout`,
-    };
+async function createEventRegistration(registeredEvents) {
+  const body = {
+    lineItems: registeredEvents.map(event => ({
+      id: event.id,
+      name: event.title,
+      description: event.details.description,
+      amount: 5,
+      currency: 'usd',
+      quantity: 1,
+    })),
+  };
+  return protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
+}
 
-    try {
-      await protectedResourceAxios.post('/api/v1/protected/checkout/event', body);
-      // eslint-disable-next-line
-      alert('successfully placed order');
-    } catch (e) {
-      // eslint-disable-next-line
-      alert('failed to place order')
-    }
-  } else {
-    try {
-      const body = {
-        lineItems: cartEvents.map(event => ({
-          id: event.id,
-          name: event.title,
-          description: event.details.description,
-          amount: 5,
-          currency: 'usd',
-          quantity: 1,
-        })),
-        successUrl: 'http://localhost:8080/?session_id={CHECKOUT_SESSION_ID}',
-        cancelUrl: 'http://localhost:8080/checkout',
-      };
-      const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/session', body);
-      // console.log(data);
-      const stripeResponse = await stripePromise;
-      await stripeResponse.redirectToCheckout({
-        sessionId: data,
-      });
-    } catch (e) {
-      // eslint-disable-next-line
-      alert('Error placing order');
-    }
+async function createEventRegistrationAndCheckoutSession(registeredEvents) {
+  const body = {
+    lineItems: registeredEvents.map(event => ({
+      id: event.id,
+      name: event.title,
+      description: event.details.description,
+      amount: 5,
+      currency: 'usd',
+      quantity: 1,
+    })),
+    successUrl: 'http://localhost:8080/my-events',
+    cancelUrl: 'http://localhost:8080/checkout',
+  };
+  try {
+    const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);
+    const stripe = await stripeApp;
+    await stripe.redirectToCheckout({
+      sessionId: data,
+    });
+  } catch (e) {
+    // eslint-disable-next-line
+    alert("Error creating Stripe checkout session: " + e);
   }
 }
 
@@ -112,10 +119,22 @@ async function getMyEvents(start) {
   }
 }
 
+async function getSitewideAnnouncements(paramObj) {
+  try {
+    const params = await objToParams(paramObj);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/announcements${params}`);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
-  handleClickCheckout,
   createEvent,
+  createEventRegistration,
+  createEventRegistrationAndCheckoutSession,
   getEvent,
   getUpcomingEvents,
   getMyEvents,
+  getSitewideAnnouncements,
 };

@@ -55,7 +55,7 @@ html {
 }
 
 .main-content {
-  max-width: 60em;
+  position: relative;
   margin: auto;
   padding: 2em;
 }

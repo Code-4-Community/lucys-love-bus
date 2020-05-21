@@ -49,9 +49,9 @@ textarea {
 }
 
 .left-tab {
-  position: relative;
+  position: absolute;
   left: 0;
-  top: 0;
+  top: 10vh;
   margin-bottom: -6em;
   width: 5em;
   border-radius: 0 6px 6px 0;
@@ -214,13 +214,14 @@ textarea {
 // wrapper for fields in forms laid out horizontally next to each other (e.g., first and last name)
 .h-fields {
   display: flex;
-  flex-direction: horizontal;
+  flex-direction: row;
   justify-content: space-between;
 }
 
 .input-primary {
   border: 2px solid #888888;
   border-radius: 2px;
+  box-sizing: border-box;
   font-size: 16px;
   padding: .5em;
   margin: .5em 0 .5em 0;

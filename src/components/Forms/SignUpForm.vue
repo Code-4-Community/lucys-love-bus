@@ -1,35 +1,58 @@
 <template>
   <div class="auth-container">
     <div class="h-fields">
-      <input
-        v-model="firstName"
-        class="input-primary half-input"
-        type="text"
-        placeholder="First Name*">
-      <input
-        v-model="lastName"
-        class="input-primary half-input"
-        type="text"
-        placeholder="Last Name*">
+      <div class="half-input">
+        <input
+            v-model="firstName"
+            class="input-primary"
+            type="text"
+            placeholder="First Name*">
+      </div>
+      <div class="half-input">
+        <input
+            v-model="lastName"
+            class="input-primary"
+            type="text"
+            placeholder="Last Name*">
+      </div>
     </div>
-    <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
-    <input v-model="phone" class="input-primary half-input" type="text" placeholder="Phone Number">
-    <input v-model="address" class="input-primary" type="text"  placeholder="Address">
+    <div>
+      <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
+    </div>
+    <div class="half-input">
+      <input v-model="phone"
+             class="input-primary"
+             type="text"
+             placeholder="Phone Number">
+    </div>
+    <div>
+      <input v-model="address" class="input-primary" type="text"  placeholder="Address">
+    </div>
     <div class="h-fields">
-      <input v-model="city" class="input-primary third-input" type="text" placeholder="City">
-      <input v-model="state" class="input-primary third-input" type="text" placeholder="State">
-      <input v-model="zip" class="input-primary third-input" type="text"  placeholder="Zip Code">
+      <div class="third-input">
+        <input v-model="city" class="input-primary" type="text" placeholder="City">
+      </div>
+      <div class="third-input">
+        <input v-model="state" class="input-primary" type="text" placeholder="State">
+      </div>
+      <div class="third-input">
+        <input v-model="zip" class="input-primary" type="text"  placeholder="Zip Code">
+      </div>
     </div>
-    <input
-      v-model="password[0]"
-      class="input-primary"
-      type="password"
-      placeholder="Password*">
-    <input
-      v-model="password[1]"
-      class="input-primary"
-      type="password"
-      placeholder="Confirm Password*">
+    <div>
+      <input
+          v-model="password[0]"
+          class="input-primary"
+          type="password"
+          placeholder="Password*">
+    </div>
+    <div>
+      <input
+          v-model="password[1]"
+          class="input-primary"
+          type="password"
+          placeholder="Confirm Password*">
+    </div>
     <div>
       <button @click="formCompleted" class="btn--secondary-selected"> Next Page </button> &nbsp;
       <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
@@ -144,7 +167,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '../../../assets/global-classes.less';
 
 .center h2 {
@@ -155,4 +178,8 @@ a {
   text-decoration: none;
   color: gray;
 }
+
+  .input-primary {
+    width: 100%;
+  }
 </style>

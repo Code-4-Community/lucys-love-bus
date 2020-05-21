@@ -76,7 +76,6 @@
           <h4>
             Guardian/Parent {{contact.id + 1}}
             <button class="remove-btn"
-                    v-if="contact.id > 0"
                     v-on:click="removeParent(contact.id)">
               Remove</button>
           </h4>
@@ -141,7 +140,6 @@
           <h4>
             Child {{child.id + 1}}
             <button class="remove-btn"
-                    v-if="child.id > 0"
                     v-on:click="removeChild(child.id)">
               Remove</button>
           </h4>
@@ -213,14 +211,14 @@
 <script>
 
 import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+// import authService from '../utils/service/authService';
 
 export default {
   name: 'SignupPFForm',
   props: {
     user: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   data() {
@@ -244,34 +242,8 @@ export default {
         notes: '',
       },
       additionalContacts: [
-        {
-          id: 0,
-          firstName: '',
-          lastName: '',
-          email: '',
-          shouldSendEmails: false,
-          phoneNumber: '',
-          dateOfBirth: '',
-          allergies: '',
-          diagnosis: '',
-          medication: '',
-          notes: '',
-        },
       ],
       children: [
-        {
-          id: 0,
-          firstName: '',
-          lastName: '',
-          pronouns: '',
-          dateOfBirth: '',
-          school: '',
-          schoolYear: '',
-          allergies: '',
-          diagnosis: '',
-          medications: '',
-          notes: '',
-        },
       ],
       password: ['', ''],
       inputError: [],
@@ -285,30 +257,8 @@ export default {
     }),
     resetInput() {
       this.additionalContacts = [
-        {
-          id: 0,
-          name: '',
-          phoneNumber: '',
-          address: '',
-          city: '',
-          state: '',
-          zipCode: '',
-          email: '',
-          allergies: '',
-        },
       ];
       this.children = [
-        {
-          id: 0,
-          name: '',
-          dateOfBirth: '',
-          pronouns: '',
-          schoolYear: '',
-          school: '',
-          diagnosis: '',
-          medications: '',
-          notes: '',
-        },
       ];
       this.password = ['', ''];
       this.inputError = [];
@@ -430,14 +380,14 @@ export default {
       // this is old code from the other sign up form. Must be adjusted.
       this.serverError = '';
       if (this.validate()) {
-        const family = {
-          firstName: this.mainContact.firstName,
-          lastName: this.mainContact.lastName,
-          email: this.email,
-          password: this.password[0],
-        };
+        // const family = {
+        //   firstName: this.mainContact.firstName,
+        //   lastName: this.mainContact.lastName,
+        //   email: this.email,
+        //   password: this.password[0],
+        // };
         try {
-          await authService.actions.signup(family);
+          // await authService.actions.signup(family);
           this.$router.push('/form-agreements');
           this.resetInput();
           this.setUser();

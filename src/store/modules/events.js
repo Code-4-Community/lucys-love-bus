@@ -17,6 +17,7 @@ export default {
     },
     numOfEvents: state => state.events.length,
     getEventById: state => id => state.events.find(event => event.id === id),
+    isRegistered: state => id => !!state.myEvents.find(event => event.id === id),
   },
   mutations: {
     setUpcomingEvents(state, { events }) {

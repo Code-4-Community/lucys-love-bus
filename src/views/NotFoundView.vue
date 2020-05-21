@@ -1,6 +1,6 @@
 <template>
     <div class="center">
-        <p class="title">401 Route Not Found</p>
+        <p class="title">404 Route Not Found</p>
         <div>
             It looks like this route leads nowhere...
             Head back to safety by clicking

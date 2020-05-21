@@ -1,21 +1,29 @@
 export default {
   namespaced: true,
   state: {
-    registeredEvents: [],
+    /* List-of {tickets: Integer, event: Object} */
+    cartEvents: [],
   },
   getters: {
     getSubTotal(state) {
-      return state.registeredEvents.reduce((acc, event) => acc + event.price, 0);
+      return state.cartEvents.reduce((acc, cartEvent) => acc + cartEvent.price, 0);
     },
   },
   mutations: {
-    registerForEvent(state, { event }) {
-      if (state.registeredEvents.filter(evt => evt.id === event.id).length === 0) {
-        state.registeredEvents.push(event);
+    registerForEvent(state, { tickets, event }) {
+      const stateEvent = state.cartEvents.find(cartEvent => cartEvent.id === event.id);
+      if (stateEvent) {
+        stateEvent.tickets = tickets;
+      } else {
+        const newEvent = { ...event, tickets };
+        state.cartEvents.push(newEvent);
       }
     },
     cancelRegistration(state, { event }) {
-      state.registeredEvents = state.registeredEvents.filter(evt => evt.id !== event.id);
+      state.cartEvents = state.cartEvents.filter(cartEvent => cartEvent.id !== event.id);
+    },
+    clearCart(state) {
+      state.cartEvents = [];
     },
   },
   actions: {

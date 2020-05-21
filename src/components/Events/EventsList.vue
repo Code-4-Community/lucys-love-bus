@@ -1,26 +1,35 @@
 <template>
     <div>
-        <slot name="header"></slot>
-        <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-        <div v-else class='pagination-wrapper'>
-          <button
-            class='pagination__btn'
-            v-on:click='decrementCurrentPage'>Prev</button>
-          <span><b>Page {{ currentPage + 1 }} of {{ maxPage + 1 }}</b></span>
-          <button
-            class='pagination__btn'
-            v-on:click='incrementCurrentPage'>Next</button>
+      <slot name="header"></slot>
+      <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
+      <div v-else class="events-container">
+        <event v-for="event in pageOfEvents" :key="event.id" :event="event">
+          <!-- Note that event buttons passed should be wrapped in an access control
+            or a div when being passed to get the desired flex styling -->
+          <template v-slot:btns="slotProps">
+            <slot name="eventBtns" :event="slotProps.event" />
+          </template>
+        </event>
+        <div class='pagination-wrapper'>
+          <div>
+            <div
+                v-if="!firstPage"
+                class='btn--tertiary pagination__btn'
+                v-on:click='decrementCurrentPage'>
+              Previous Page
+            </div>
+          </div>
+          <span>{{ currentPage + 1 }} of {{ maxPage }}</span>
+          <div>
+            <div
+                v-if="!lastPage"
+                class='btn--tertiary pagination__btn'
+                v-on:click='incrementCurrentPage'>
+              Next Page
+            </div>
+          </div>
         </div>
-        <div v-if="events.length > 0" class="events-container">
-          <event v-for="event in pageOfEvents" :key="event.id" :event="event">
-            <template v-slot:btn1="slotProps">
-              <slot name="eventBtn1" :event="slotProps.event"/>
-            </template>
-            <template v-slot:btn2="slotProps">
-              <slot name="eventBtn2" :event="slotProps.event"/>
-            </template>
-          </event>
-        </div>
+      </div>
     </div>
 </template>
 
@@ -34,7 +43,7 @@ export default {
   },
   data() {
     return {
-      eventsPerPage: 5,
+      eventsPerPage: 20,
       currentPage: 0,
     };
   },
@@ -55,7 +64,13 @@ export default {
     },
     // page number of the last page
     maxPage() {
-      return Math.floor(this.events.length / this.eventsPerPage);
+      return Math.ceil(this.events.length / this.eventsPerPage);
+    },
+    firstPage() {
+      return this.currentPage === 0;
+    },
+    lastPage() {
+      return this.currentPage === this.maxPage - 1;
     },
   },
   methods: {
@@ -81,23 +96,20 @@ export default {
     margin: 0 auto;
   }
 
-  .pagination-wrapper {
-    display: flex;
-    justify-content: center;
+  .events-container > div {
+    margin: 5px 0;
   }
 
-  .pagination-wrapper span {
-    display: block;
+  .pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   .pagination__btn {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    background-color: @button-bg;
-    color: @button-color;
-    padding: 1em 3em 1em 3em;
-    border-radius: 4px;
-    border: none;
+    margin: 0;
+    padding: 6px 3px;
+    border-radius: 6px;
     cursor: pointer;
   }
 </style>

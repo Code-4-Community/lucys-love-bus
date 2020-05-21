@@ -23,6 +23,9 @@
         type="password"
         placeholder="Password"
       />
+      <div class="error">
+        <p v-if="submitted && error" class="error-message">{{error}}</p>
+      </div>
       <button @click="submit" class="login-btn btn--tertiary">Login</button>
       <router-link class="forgot-password" to="forgot-password-request" tag="a">
         Forgot your password?
@@ -30,10 +33,6 @@
       <router-link to="sign-up-landing" tag="a">
         Don't have an account?
       </router-link>
-    </div>
-    <div class="error">
-      <p v-if="submitted && !inputValid">Enter an email and password</p>
-      <p v-if="submitted && error">{{error}}</p>
     </div>
   </div>
 </template>
@@ -68,6 +67,9 @@ export default {
     },
     validateInput() {
       this.inputValid = this.email && this.password;
+      if (!this.inputValid) {
+        this.error = 'Please enter an email and password';
+      }
       return this.inputValid;
     },
     async submit() {
@@ -83,7 +85,11 @@ export default {
           this.resetInput();
           this.setUser();
         } catch (error) {
-          this.error = error.message;
+          if (error.response.status === 401) {
+            this.error = 'The email address or password you entered is incorrect.';
+          } else {
+            this.error = error.response.data;
+          }
         }
       }
     },
@@ -108,7 +114,6 @@ export default {
   max-width: 80%;
   margin: 0 auto;
 }
-
 
 .auth-container {
   text-align: left;
@@ -135,6 +140,13 @@ export default {
 
 .forgot-password {
   margin-bottom: 3px;
+}
+
+.error-message {
+  color: red;
+  text-align: left;
+  font-size: 0.8rem;
+  margin-top: 0;
 }
 
 a {

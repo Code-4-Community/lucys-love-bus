@@ -3,11 +3,8 @@
     <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
     <div v-else>
       <event v-for="event in events" :key="event.id" :event="event" >
-        <template v-slot:btn1="slotProps">
-          <slot name="eventBtn1" :event="slotProps.event" />
-        </template>
-        <template v-slot:btn2="slotProps">
-          <slot name="eventBtn2" :event="slotProps.event"/>
+        <template v-slot:btns="slotProps">
+          <slot name="eventBtns" :event="slotProps.event" />
         </template>
       </event>
     </div>
@@ -18,7 +15,7 @@
 import Event from './Event.vue';
 
 export default {
-  name: 'EventsListScroll',
+  name: 'EventsListCheckout',
   components: {
     Event,
   },

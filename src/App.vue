@@ -57,6 +57,6 @@ html {
 .main-content {
   max-width: 60em;
   margin: auto;
-  padding: 4em;
+  padding: 2em;
 }
 </style>

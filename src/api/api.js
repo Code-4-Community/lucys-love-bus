@@ -21,7 +21,9 @@ async function objToParams(obj) {
 
 async function createEvent(event) {
   try {
-    return await protectedResourceAxios.post('/api/v1/protected/events/', event);
+    return await protectedResourceAxios.post('/api/v1/protected/events/', event, {
+      timeout: 10000, // Allow 10 seconds for sending the image
+    });
   } catch (err) {
     return err;
   }
@@ -69,7 +71,7 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
       currency: 'usd',
       quantity: 1,
     })),
-    successUrl: 'http://localhost:8080/my-events',
+    successUrl: 'http://localhost:8080/event-registration-confirmation/success',
     cancelUrl: 'http://localhost:8080/checkout',
   };
   try {
@@ -104,11 +106,20 @@ async function getUpcomingEvents() {
 
 async function getMyEvents(start) {
   try {
-    const { data } = await protectedResourceAxios.get(`/api/v1//protected/events/signed_up?start=${start}`);
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/signed_up?start=${start}`);
     return data.events;
   } catch (err) {
     return err;
   }
+}
+
+async function createAnnouncement(body, eventId) {
+  let path = '/api/v1/protected/announcements';
+  if (eventId !== null) {
+    path += `/${eventId}`;
+  }
+  const { data } = await protectedResourceAxios.post(path, body);
+  return data;
 }
 
 async function getSitewideAnnouncements(paramObj) {
@@ -131,6 +142,34 @@ async function getEventAnnouncements(id) {
   }
 }
 
+async function getPfRequests() {
+  try {
+    const path = '/api/v1/protected/requests';
+    const { data } = await protectedResourceAxios.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
+async function approveRequest(requestId) {
+  try {
+    const path = `/api/v1/protected/requests/${requestId}/approve`;
+    return await protectedResourceAxios.post(path);
+  } catch (err) {
+    return err;
+  }
+}
+
+async function rejectRequest(requestId) {
+  try {
+    const path = `/api/v1/protected/requests/${requestId}/reject`;
+    return await protectedResourceAxios.post(path);
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   createEvent,
   editEvent,
@@ -142,4 +181,8 @@ export default {
   getMyEvents,
   getSitewideAnnouncements,
   getEventAnnouncements,
+  createAnnouncement,
+  getPfRequests,
+  approveRequest,
+  rejectRequest,
 };

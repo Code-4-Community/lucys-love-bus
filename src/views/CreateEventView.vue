@@ -19,7 +19,7 @@
             </div>
             <div class="form-element">
                 <input
-                    v-validate="'required'"
+                    v-on:change="updateStartDate"
                     v-model="event.details.start"
                     name="start time"
                     type="datetime-local"
@@ -27,15 +27,23 @@
                     size="30">
                 <p>to</p>
                 <input
-                    v-validate="'required'"
+                    v-on:change="updateEndDate"
                     v-model="event.details.end"
                     name="end time"
                     type="datetime-local"
                     step="300"
                     size="30">
             </div>
+            <div class="time-errors">
+                <p class="form-errors error" v-show="invalidStartDate">
+                    The start date/time is required
+                </p>
+                <p class="form-errors error" v-show="invalidEndDate">
+                    The end date/time is required
+                </p>
+            </div>
             <div class="form-element">
-                <input v-validate="'required|integer'" v-model="event.spotsAvailible"
+                <input v-validate="'required|integer'" v-model="event.spotsAvailable"
                  name="name"  type="number" placeholder="Spots Availible">
             </div>
             <div class="form-element">
@@ -56,7 +64,12 @@
             </div>
         </div>
         <div class="buttons">
-            <input type="submit" class="button" value="Create">
+            <button type="submit"
+                   :class="(errors.items.length > 0 || invalidStartDate || invalidEndDate)
+                            ? 'button btn-disabled' : 'button'"
+                   :disabled="(errors.items.length > 0 || invalidStartDate || invalidEndDate)">
+                Create
+            </button>
         </div>
     </div>
     </form>
@@ -96,6 +109,8 @@ export default {
         details: {},
       },
       error: '',
+      invalidStartDate: false,
+      invalidEndDate: false,
     };
   },
   computed: {
@@ -166,17 +181,39 @@ export default {
       }
     },
     /**
+    * Handles on change for start date.
+    */
+    updateStartDate() {
+      this.invalidStartDate = !this.event.details.start;
+    },
+    /**
+     * Handles on change for start date.
+     */
+    updateEndDate() {
+      this.invalidEndDate = !this.event.details.end;
+    },
+    /**
      * Validates and sends the event (included the encoded image) to the web server,
      * where the web server will validate and upload the image to S3 and return the URL.
      */
     onSubmit() {
+      this.updateStartDate();
+      this.updateEndDate();
       this.$validator.validateAll().then(async (result) => {
         if (result) {
+          if (this.invalidStartDate || this.invalidEndDate) {
+            return;
+          }
+
           try {
             let resp;
 
-            this.event.details.start = moment(this.event.details.start).format('X');
-            this.event.details.end = moment(this.event.details.end).format('X');
+            this.event.details.start = moment(this.event.details.start).valueOf();
+            this.event.details.end = moment(this.event.details.end).valueOf();
+
+            if (this.event.thumbnail === undefined) {
+              this.event.thumbnail = null;
+            }
 
             if (!this.isEditing) {
               resp = await api.createEvent(this.event);
@@ -236,6 +273,18 @@ export default {
     font-family: 'Montserrat';
 }
 
+.error {
+    margin: 1rem 75px 1rem 1rem;
+    text-align: left;
+    font-family: 'Montserrat';
+    color: red;
+    font-weight: bold;
+}
+
+.time-errors {
+    display: flex;
+}
+
 input[type=text], input[type=datetime-local], input[type=number], textarea {
     margin: 0.8rem;
     padding: 0.8rem;
@@ -265,6 +314,11 @@ input[type=file] {
     border-radius: 6pt;
     background-color: black;
     color: #eeeeee;
+}
+
+.btn-disabled {
+    cursor: not-allowed;
+    background-color: #454545;
 }
 
 span {

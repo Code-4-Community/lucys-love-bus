@@ -1,65 +1,123 @@
 <template>
   <div class="event-container">
-    <div class="event-name float-right">
-      <h1>{{ singleEvent.title }}</h1>
-    </div>
-    <div class="event-img">
-      <img :src="singleEvent.img" alt="Event Image">
-    </div>
-     <div class="event-info">
-      <p>Location: {{ singleEvent.details.location }}</p>
-      <p>Time: {{ date }}, {{startTime}}-{{endTime}}</p>
-      <p>Event Announcements:</p>
-      <div class="announcements-list__container">
-        <announcements-list :eventID="eventId"/>
+    <div class="top-content">
+      <div class="event-title">
+        {{ singleEvent.title }}
+      </div>
+      <div>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <div v-if="isRegistered" class="signed-up-message">
+            You're signed up!
+          </div>
+          <button v-else-if="singleEvent.spotsAvailable > 0"
+                  class="register-button"
+                  @click="openEventModal">
+            Sign Up!
+          </button>
+          <div v-else class="sold-out-message">
+            Sold Out!
+          </div>
+        </access-control>
       </div>
     </div>
-    <div class="event-description">
-      <p>Event Description: {{ singleEvent.details.description }}</p>
+    <div class="announcement-container">
+      <!--  TODO: Styling for event specific announcements   -->
     </div>
-    <div class="event-buttons">
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <button v-if="registered" class="btn--primary">Unregister</button>
-        <button v-else class="btn--primary">Register!</button>
-        <router-link to="/events" tag="button" class="btn--tertiary">
-          Back To Events
-        </router-link>
-      </access-control>
-      <access-control :roles="[USER[ROLE.ADMIN]]">
-        <button
-          class="btn--primary"
-          v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
-          Edit Event
-        </button>
-        <button
-          class="btn--tertiary"
-          v-on:click="deleteEvent(singleEvent.id), $router.push('/events')">
-          Delete Event
-        </button>
-        <router-link to="/events" tag="button" class="btn--tertiary">
-          Back To Events
-        </router-link>
-      </access-control>
+    <div class="middle-content">
+      <div class="event-img">
+        <img v-if="singleEvent.thumbnail" :src="singleEvent.thumbnail" />
+        <img v-else src="https://www.guidestar.org/ViewEdoc.aspx?eDocId=5734064&approved=True" />
+      </div>
+      <div class="event-info">
+        <div class="info-block">
+          <p class="subheader">Who</p>
+          There are
+          <span class="spotsAvailable">{{ singleEvent.spotsAvailable }}</span>
+          open spots of
+          <span class="capacity">{{ singleEvent.capacity }}</span>
+          total
+        </div>
+        <div class="info-block">
+          <p class="subheader">When</p>
+          {{ date }}, {{startTime}}-{{endTime}}
+        </div>
+        <div class="info-block">
+          <p class="subheader">Where</p>
+          {{ singleEvent.details.location }}
+        </div>
+        <div class="info-block">
+          <p class="subheader">What</p>
+          {{ singleEvent.details.description }}
+        </div>
+      </div>
     </div>
+    <div class="bottom-content">
+      <div class="event-buttons">
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+          <router-link to="/events" tag="button" class="back-to-event-btn single-event-btn">
+            Back To Events
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link tag="button"  class="btn-secondary single-event-btn"
+                       :to="{name: 'create-announcement',
+                       params: {eventName: singleEvent.title, eventId: singleEvent.id}}"
+          >
+            Make Announcement
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <button
+              class="btn-secondary single-event-btn"
+              v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
+            Edit Event
+          </button>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <button
+              class="btn-secondary single-event-btn"
+              v-on:click="deleteEvent(singleEvent.id), $router.push('/events')">
+            Delete Event
+          </button>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <button
+              class="btn-primary single-event-btn"
+              v-on:click="viewRSVP(singleEvent), $router.push('/events')">
+            View RSVPs
+          </button>
+        </access-control>
+        <access-control v-if="isRegistered" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <button class="btn-primary single-event-btn">
+            Unregister
+          </button>
+        </access-control>
+      </div>
+    </div>
+    <EventModal :open="openModal"
+                :event="singleEvent"
+                @close-event-modal="closeEventModal"
+                @add-to-cart="addEventToCart"
+    />
   </div>
 </template>
 
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
+import EventModal from '../components/Events/EventModal.vue';
 import {
   USER, ROLE,
 } from '../utils/constants/user';
-import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
 
 export default {
   name: 'SingleEvent',
   components: {
     AccessControl,
-    AnnouncementsList,
+    EventModal,
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
@@ -74,11 +132,17 @@ export default {
       },
       USER,
       ROLE,
+      openModal: false,
     };
   },
   computed: {
-    registered() {
-      return true; // will be fetched from store in future
+    ...mapGetters('events', {
+      registered: 'isRegistered',
+    }),
+    isRegistered() {
+      /* TODO: The vuex getter depends on myEvents which are reset when refreshing a page
+      *   If a user refreshes this page it'll always say they're not signed up.  */
+      return this.registered(this.eventId);
     },
     date() {
       return moment(this.singleEvent.details.start).format('dddd, MMMM Do YYYY');
@@ -94,9 +158,32 @@ export default {
     ...mapActions('events', {
       deleteEvent: 'deleteEvent',
     }),
+    ...mapMutations('cart', {
+      registerForEvent: 'registerForEvent',
+    }),
+    openEventModal() {
+      this.openModal = true;
+    },
+    closeEventModal() {
+      this.openModal = false;
+    },
+    addEventToCart(payload) {
+      this.openModal = false;
+      this.registerForEvent(payload);
+      // eslint-disable-next-line no-alert
+      alert(`You have added ${payload.tickets} tickets for ${payload.event.title} to your cart.`);
+    },
     async getSingleEvent() {
       const res = await api.getEvent(this.eventId);
       return res;
+    },
+    announce(payload) {
+      // eslint-disable-next-line no-alert
+      alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
+    },
+    viewRSVP(event) {
+      // eslint-disable-next-line no-alert
+      alert(`${event.title} RSVP To be Implemented!`);
     },
   },
   async created() {
@@ -109,61 +196,103 @@ export default {
 @import '../../assets/global-classes.less';
 
 .event-container {
-  display: grid;
-  height: 100%;
-  max-width: 40em;
-  margin: auto;
-  grid-template-rows: 10% 25em auto;
-  grid-template-columns: 60% 40%;
-  font-family: 'Montserrat';
+  display: flex;
+  flex-direction: column;
 }
-.event-name {
-  grid-row: 1 ;
-  grid-column: 1;
+
+.top-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.event-title {
   text-align: left;
-  h1 {
-    margin: 0em;
-  }
+  font-size: 2.3rem;
 }
-.event-description{
-  grid-row: 3;
-  grid-column: 1;
-  text-align: left;
+.signed-up-message {
+  font-size: 1.5rem;
+  color: green;
+  font-weight: bold;
 }
-.event-buttons {
-  grid-row: 3;
-  grid-column: 2;
-  button {
-    width: 8em;
-    display: block;
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 2px;
-    border: none;
-    color: white;
-    margin: 1em auto 1em auto;
-    cursor: pointer;
-  }
+.sold-out-message {
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bold;
 }
-.event-info {
-  grid-row: 2;
-  grid-column: 2;
-  text-align: left;
-  padding-left: 2em;
+.register-button {
+  background-color: @tangerine;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 12px;
+  cursor: pointer;
 }
-/* .event-announcements {
-  grid-row: 3 / 4;
-  grid-column: 2 / 3;
-} */
+
+.middle-content {
+  display: inline;
+  margin-top: 10px;
+}
 .event-img {
-  grid-row: 2;
-  grid-column: 1;
-  width: 100%;
-  height: 100%;
-  background-color: grey;
+  position: relative;
+  float: left;
+  max-width: 50%;
+  height: auto;
 }
-img {
-  width: 70%;
+.event-img > img {
+  float: left;
+  width: 90%;
+}
+
+.event-info {
+  text-align: left;
+}
+.info-block {
+  margin-bottom: 10px;
+}
+.subheader {
+  font-family: Dekko;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.spotsAvailable {
+  font-weight: bold;
+}
+.capacity {
+  font-weight: bold;
+}
+
+
+.event-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: baseline;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+.single-event-btn {
+  border-radius: 4px;
+  padding: 0 6px;
+  cursor: pointer;
+}
+.back-to-event-btn {
+  background-color: @tangerine;
+  border: 2px solid @tangerine;
+  color: white;
+}
+.btn-primary {
+  background-color: @green-apple;
+  border: 2px solid @green-apple;
+  color: white;
+}
+.btn-secondary {
+  background-color: white;
+  border: 2px solid @tangerine;
+  color: @tangerine;
 }
 
 

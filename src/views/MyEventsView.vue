@@ -1,39 +1,34 @@
 <template>
   <div>
-    <h1>My Events</h1>
-    <h3>Here are the events you have registered for</h3>
-    <div class="scroll-container">
-      <events-list-scroll :events="myEvents">
-        <template v-slot:noEventsMsg>
-          <h3>Currently, you are signed up for no events!</h3>
-        </template>
-        <template v-slot:eventBtn1="slotProps">
-          <router-link
-                  :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-                  class="event-btn btn--secondary" tag="button">
-            Learn More
-          </router-link>
-        </template>
-        <template v-slot:eventBtn2="slotProps">
-          <button
-                  v-on:click="cancelRegistration(slotProps.event)"
-                  class="event-btn btn--secondary">
-            Cancel
-          </button>
-        </template>
-      </events-list-scroll>
-    </div>
+    <p class="title">My Upcoming Events</p>
+    <events-list :events="myEvents">
+      <template v-slot:noEventsMsg>
+        <h3>Currently, you are signed up for no events!</h3>
+      </template>
+      <template v-slot:eventBtns="slotProps">
+        <button
+            v-on:click="cancelRegistration(slotProps.event)"
+            class="event-btn">
+          Cancel
+        </button>
+        <router-link
+            :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
+            class="event-btn btn--secondary" tag="button">
+          Learn More
+        </router-link>
+      </template>
+    </events-list>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import EventsListScroll from '../components/Events/EventsListScroll.vue';
+import EventsList from '../components/Events/EventsList.vue';
 
 export default {
   name: 'MyEvents',
   components: {
-    EventsListScroll,
+    EventsList,
   },
   async created() {
     await this.setMyEventsFromNow();
@@ -54,13 +49,11 @@ export default {
 };
 </script>
 
-<style>
-  .scroll-container {
-    position: relative;
-    margin: 0 auto;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 40rem;
-    max-width: 55rem;
+<style lang="less" scoped>
+  @import '../../assets/global-classes.less';
+
+  .title {
+    text-align: left;
+    font-size: 2.3rem;
   }
 </style>

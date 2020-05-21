@@ -8,6 +8,7 @@ import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyEventsView from '../views/MyEventsView.vue';
 import CheckoutView from '../views/CheckoutView.vue';
+import EventRegistrationConfirmation from '../views/EventRegistrationConfirmation.vue';
 import SingleEventView from '../views/SingleEventView.vue';
 import SignUpLandingView from '../views/SignUpLandingView.vue';
 import CreateEventView from '../views/CreateEventView.vue';
@@ -19,6 +20,7 @@ import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
 import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
 import SignUpPF2View from '../views/SignUpPF2View.vue';
 import FormAgreements from '../components/Forms/FormAgreements.vue';
+import FamilyRequests from '../views/FamilyRequests.vue';
 
 Vue.use(Router);
 
@@ -44,6 +46,7 @@ export default new Router({
       path: '/create-announcement',
       name: 'create-announcement',
       component: CreateAnnouncementView,
+      props: true,
     },
     {
       path: '/edit-event/:eventId',
@@ -66,6 +69,11 @@ export default new Router({
       path: '/checkout',
       name: 'checkout',
       component: CheckoutView,
+    },
+    {
+      path: '/event-registration-confirmation/:success',
+      name: 'event-registration-confirmation',
+      component: EventRegistrationConfirmation,
     },
     {
       path: '/login',
@@ -102,6 +110,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+    },
+    {
+      path: '/family-requests',
+      name: 'family-requests',
+      component: FamilyRequests,
     },
     {
       path: '/my-events',

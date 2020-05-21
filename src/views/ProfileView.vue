@@ -1,28 +1,35 @@
 <template>
-  <div>
+  <div class="profile">
     <div class="flex-vertical">
-    <h1 style="text-align:left">My Profile</h1>
     <Welcome :name="username"/>
-    <div class="flex-horizontal">
+    <div class="content-wrapper">
       <div class="announcements-list__container">
-        <h4 class="dekko-label">Announcements</h4>
+        <h4 class="dekko-label sub-header">Announcements</h4>
         <announcements-list
             sitewide
             :count="announcementsCount"
             @open-announcement="openAnnouncementModal"/>
       </div>
       <div class='flex-vertical'>
-        <h4 class="dekko-label">Explore</h4>
-        <router-link class="explore-btn" tag="button" to='/events'>
+        <h4 class="dekko-label sub-header">Explore</h4>
+        <router-link class="explore-btn top" tag="button" to='/events'>
             Our Events
         </router-link>
-        <router-link class="explore-btn" tag="button" to='/my-events'>
-            My Events
-        </router-link>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <router-link class="explore-btn" tag="button" to='/my-events'>
+              My Events
+          </router-link>
+        </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link class="explore-btn" tag="button"
           :to='{name: "create-announcement", params: {eventName: "sitewide"}}'>
-            Sitewide Announcement
+            Make Announcement
+          </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <router-link class="explore-btn" tag="button"
+                       :to='{name: "family-requests"}'>
+            View Account Requests
           </router-link>
         </access-control>
         <router-link class="explore-btn" tag="button" to='/account'>
@@ -82,16 +89,33 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/color-constants.less';
 
+.content-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.sub-header {
+  font-size: 1.5rem;
+}
+
 .explore-btn {
   width: 12rem;
   margin: 1em;
   background-color: @green-apple;
-  color: @button-color;
+  color: black;
   font-size: 18px;
+  font-weight: bold;
+  text-align: left;
   border: none;
   padding: 1rem;
   border-radius: 4px;
   cursor: pointer;
+  clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%);
+}
+
+.top {
+  margin-top: 0;
 }
 
 </style>

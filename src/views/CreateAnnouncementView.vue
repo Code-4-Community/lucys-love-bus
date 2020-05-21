@@ -3,12 +3,12 @@
     <div class="container">
         <span class="header">Make an Announcement</span>
         <div class="subheader">
-            <span v-if="eventName == 'sitewide'">
+            <span v-if="eventId == null">
                 This announcement will be shown to all users.
             </span>
             <span v-else>
                 This announcement will be shown to anyone that has signed up or will sign up for
-                {{ this.eventName }}.
+                <span class="event-title">{{ this.eventName }}</span>.
             </span>
         </div>
         <div class="form">
@@ -33,7 +33,9 @@
             </div>
         </div>
         <div class="buttons">
-            <button class="button btn--primary">Save</button>
+            <span class="button btn--primary" @click="onSubmit">
+                Save
+            </span>
             <router-link
                 :to="{ name: 'profile'}"
                 class="button btn--secondary" tag="button">
@@ -53,10 +55,13 @@ Vue.use(VeeValidate);
 export default {
   name: 'CreateAnnouncement',
   props: {
-    // ID of event being announced (if -1, sitewide announcement)
     eventName: {
       type: String,
-      required: true,
+      default: '',
+    },
+    eventId: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -64,17 +69,19 @@ export default {
       event: {},
       a: {},
       error: '',
-      singleEvent: {
-        details: {},
-      },
     };
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       this.$validator.validateAll().then(async (result) => {
         if (result) {
           try {
-            await api.createAnnouncement(this.a);
+            const body = {
+              title: this.a.title,
+              description: this.a.description,
+            };
+            await api.createAnnouncement(body, this.eventId);
+            this.$router.push('/profile');
             this.a = {};
           } catch (err) {
             this.error = err;
@@ -106,6 +113,9 @@ export default {
     font-size: 11pt;
     font-weight: bold;
     font-family: 'Quicksand';
+}
+.event-title {
+    text-decoration: underline;
 }
 
 .form {
@@ -142,13 +152,15 @@ input[type=text] {
     font-family: 'Raleway';
     border-radius: 5pt;
     font-size: 13pt;
+    padding: 1px 6px;
+    cursor: pointer;
 }
 
 .form-errors {
-    margin: 0.3rem;
+    text-align: left;
     font-family: 'Montserrat';
     color: red;
-    font-weight: bold;
+    margin-left: 0.8rem;
 }
 
 </style>

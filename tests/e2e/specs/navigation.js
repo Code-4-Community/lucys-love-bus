@@ -21,11 +21,11 @@ describe('Testing Navigation', () => {
 
     // events
     cy.visit(eventsPath);
-    cy.contains('h1', 'Our Upcoming Events');
+    cy.contains('p', 'Our Upcoming Events');
 
     // checkout
     cy.visit(checkoutPath);
-    cy.contains('h1', 'My Cart');
+    cy.contains('p', 'My Cart');
 
     // profile
     cy.visit(profilePath);
@@ -33,7 +33,7 @@ describe('Testing Navigation', () => {
 
     // registrations
     cy.visit(registrationsPath);
-    cy.contains('h1', 'My Events');
+    cy.contains('p', 'My Upcoming Events');
   });
 
   // it('Visits all pages from landing page', () => {

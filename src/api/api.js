@@ -29,9 +29,9 @@ async function createEvent(event) {
   }
 }
 
-async function editEvent(event) {
+async function editEvent(eventId, event) {
   try {
-    return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, event);
+    return await protectedResourceAxios.put(`/api/v1/protected/events/${eventId}`, event);
   } catch (err) {
     return err;
   }

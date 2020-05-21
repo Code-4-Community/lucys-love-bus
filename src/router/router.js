@@ -18,6 +18,7 @@ import ForgotPasswordRequest from '../views/ForgotPasswordRequest.vue';
 import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
 import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
 import FamilyRequests from '../views/FamilyRequests.vue';
+import EditEventView from '../views/EditEventView.vue';
 
 Vue.use(Router);
 
@@ -48,7 +49,7 @@ export default new Router({
     {
       path: '/edit-event/:eventId',
       name: 'edit-event',
-      component: CreateEventView,
+      component: EditEventView,
       props: true,
     },
     {

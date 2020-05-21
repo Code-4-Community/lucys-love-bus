@@ -18,7 +18,7 @@
 <script>
 
 import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+// import authService from '../utils/service/authService';
 import SignUpForm from '../components/Forms/SignUpForm.vue';
 
 export default {
@@ -32,7 +32,7 @@ export default {
     }),
     async signup(user) {
       try {
-        await authService.actions.signup(user);
+        // await authService.actions.signup(user);
         this.$router.push({
           name: 'sign-up-pf-2',
           params: {

@@ -56,16 +56,12 @@
       <textarea v-model="mainContact.allergies" type="text"
                 class="input-primary" placeholder="Allergies"
                 style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-      <input
-        v-model="mainContact.diagnosis"
-        class="input-primary"
-        type="text"
-        placeholder="Diagnosis (if applicable)">
-      <input
-        v-model="mainContact.medication"
-        class="input-primary"
-        type="text"
-        placeholder="Medication (if applicable)">
+      <textarea v-model="mainContact.diagnosis" type="text"
+                class="input-primary" placeholder="Diagnosis (if applicable)"
+                style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+      <textarea v-model="mainContact.medications" type="text"
+                class="input-primary" placeholder="Medications (if applicable)"
+                style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
       <textarea v-model="mainContact.notes" type="text"
                 class="input-primary" placeholder="Other Notes"
                 style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
@@ -100,7 +96,9 @@
                     style="margin-bottom: .5rem;
                     display: flex; border: none">
               <input type="checkbox" checked="checked" v-model="contact.shouldSendEmails">
-              <span class="checkmark" style="position: relative; height: 2rem; width: 2rem;"></span>
+              <span class="checkmark"
+                    style="margin-right: 1rem; position: relative;
+                    height: 1.7rem; width: 2rem;"></span>
               Receive News & Updates?
             </label>
           </div>
@@ -115,23 +113,17 @@
           <textarea v-model="contact.allergies" type="text"
                     class="input-primary" placeholder="Allergies"
                     style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-          <input
-            v-model="contact.diagnosis"
-            class="input-primary"
-            type="text"
-            style="width: 100%; box-sizing: border-box"
-            placeholder="Diagnosis (if applicable)">
-          <input
-            v-model="contact.medication"
-            class="input-primary"
-            type="text"
-            style="width: 100%; box-sizing: border-box"
-            placeholder="Medication (if applicable)">
+          <textarea v-model="contact.diagnosis" type="text"
+                    class="input-primary" placeholder="Diagnosis (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+          <textarea v-model="contact.medications" type="text"
+                    class="input-primary" placeholder="Medications (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
           <textarea v-model="contact.notes" type="text"
                     class="input-primary" placeholder="Other Notes"
                     style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
         </div>
-        <button class="add-btn" v-on:click="addContact">+ Add Guardian or Adult</button>
+        <button class="btn--secondary" v-on:click="addContact">+ Add Guardian or Adult</button>
       </div>
 
       <div class="children">
@@ -184,19 +176,20 @@
           <textarea v-model="child.allergies" type="text"
                     class="input-primary" placeholder="Allergies"
                     style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-          <input v-model="child.diagnosis" type="text"
-                 class="input-primary" placeholder="Diagnosis (if applicable)"
-                 style="width: 100%; box-sizing: border-box">
-          <input v-model="child.medications" type="text"
-                 class="input-primary" placeholder="Current Medications"
-                 style="width: 100%; box-sizing: border-box">
+          <textarea v-model="child.diagnosis" type="text"
+                    class="input-primary" placeholder="Diagnosis (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+          <textarea v-model="child.medications" type="text"
+                    class="input-primary" placeholder="Medications (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
           <textarea v-model="child.notes" type="text"
                     class="input-primary" placeholder="Other notes"
                     style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
         </div>
-        <button class="add-btn" v-on:click="addChild">+ Add Child</button>
+        <button class="btn--secondary" v-on:click="addChild">+ Add Child</button>
       </div>
-      <button class="btn btn--secondary-selected" v-on:click="signup">Next Page</button>
+      <button style="margin-top: 1rem" class="btn btn--secondary-selected"
+              v-on:click="signup">Next Page</button>
       <div v-if="isValidForm === false" class="invalid_form--container">
         <h4>There were one or more issues with the form:</h4>
         <ul>

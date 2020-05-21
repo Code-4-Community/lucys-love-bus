@@ -5,14 +5,14 @@
         v-model="firstName"
         class="input-primary half-input"
         type="text"
-        placeholder="First Name">
+        placeholder="First Name*">
       <input
         v-model="lastName"
         class="input-primary half-input"
         type="text"
-        placeholder="Last Name">
+        placeholder="Last Name*">
     </div>
-    <input v-model="email" class="input-primary" type="text" placeholder="Email Address">
+    <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
     <input v-model="phone" class="input-primary half-input" type="text" placeholder="Phone Number">
     <input v-model="address" class="input-primary" type="text"  placeholder="Address">
     <div class="h-fields">
@@ -24,14 +24,14 @@
       v-model="password[0]"
       class="input-primary"
       type="password"
-      placeholder="Password">
+      placeholder="Password*">
     <input
       v-model="password[1]"
       class="input-primary"
       type="password"
-      placeholder="Confirm Password">
+      placeholder="Confirm Password*">
     <div>
-      <button @click="formCompleted" class="btn--tertiary"> Next Page </button> &nbsp;
+      <button @click="formCompleted" class="btn--secondary-selected"> Next Page </button> &nbsp;
       <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
         Already have an account? Log in here!
       </router-link>
@@ -92,7 +92,7 @@ export default {
     },
     validateUser() {
       if (!this.firstName || !this.lastName) {
-        this.inputError.push('Name cannot be empty');
+        this.inputError.push('Please include a first and last name');
       } else {
         return true;
       }
@@ -102,7 +102,7 @@ export default {
       // eslint-disable-next-line no-useless-escape
       const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!this.email) {
-        this.inputError.push('Email cannot be empty');
+        this.inputError.push('Please include an email address');
       } else if (!emailRegex.test(this.email)) {
         this.inputError.push('Invalid Email');
       } else {
@@ -112,7 +112,7 @@ export default {
     },
     validatePassword() {
       if (!this.password[0]) {
-        this.inputError.push('Password cannot be empty');
+        this.inputError.push('Please include a password');
       } else if (this.password[0].length < 8) {
         this.inputError.push('Password must be at least 8 characters');
       } else if (this.password[0] !== this.password[1]) {

@@ -3,22 +3,26 @@
     <div>
       <p class="header">Choose an account type & register your family!</p>
       <div class="sign-up-container">
-        <div class="btn-container">
-          <div class="btn-image"></div>
-          <h4>General Member</h4>
-          <p>
-            General Members may navigate the event calendar and purchase
-            tickets once registration is open
-          </p>
-        </div>
-        <div class="btn-container">
-          <div class="btn-image"></div>
-          <h4>Participating Family</h4>
-          <p>
-            Participating Families have early access to view events and
-            are eligible to attend free of charge
-          </p>
-        </div>
+        <router-link to="/sign-up">
+          <div class="btn-container">
+            <div class="btn-image"></div>
+            <h4>General Member</h4>
+            <p>
+              General Members may navigate the event calendar and purchase
+              tickets once registration is open
+            </p>
+          </div>
+        </router-link>
+        <router-link to="/sign-up-pf">
+          <div class="btn-container">
+            <div class="btn-image"></div>
+            <h4>Participating Family</h4>
+            <p>
+              Participating Families have early access to view events and
+              are eligible to attend free of charge
+            </p>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>

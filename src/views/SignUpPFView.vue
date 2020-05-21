@@ -1,7 +1,7 @@
 <template>
   <div>
-    <router-link :to="{name: 'profile'}" tag="div" class="left-tab">
-      Back to Options
+    <router-link :to="{name: 'login'}" tag="div" class="left-tab">
+      Back to Login
     </router-link>
     <div class="center">
       <h2> Registering as a Participating Family! </h2>
@@ -18,7 +18,7 @@
 <script>
 
 import { mapMutations } from 'vuex';
-// import authService from '../utils/service/authService';
+import authService from '../utils/service/authService';
 import SignUpForm from '../components/Forms/SignUpForm.vue';
 
 export default {
@@ -32,14 +32,14 @@ export default {
     }),
     async signup(user) {
       try {
-        // await authService.actions.signup(user);
+        await authService.actions.signup(user);
         this.$router.push({
           name: 'sign-up-pf-2',
           params: {
             user,
           },
         });
-        this.resetInput();
+        // this.resetInput();
         this.setUser();
       } catch (error) {
         // eslint-disable-next-line no-alert

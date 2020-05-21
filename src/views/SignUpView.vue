@@ -45,9 +45,9 @@ export default {
     async signup(user) {
       try {
         await authService.actions.signup(user);
-        this.$router.push('/sign-up-pf-2');
-        this.resetInput();
-        this.setUser();
+        this.$router.push('/form-agreements');
+        // this.resetInput();
+        // this.setUser();
       } catch (error) {
         // eslint-disable-next-line no-alert
         alert(error);

@@ -81,7 +81,10 @@ export default {
   methods: {
     validate() {
       this.inputError = [];
-      return this.validateAgreements();
+      const validForm = this.validateAgreements();
+      if (validForm) {
+        this.$router.push('/login');
+      }
     },
     validateAgreements() {
       let isValid = true;

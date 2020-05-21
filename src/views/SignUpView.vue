@@ -40,7 +40,7 @@ export default {
       setUser: 'setUser',
     }),
     handleCompleteForm() {
-      console.log('handled');
+      // console.log('handled');
     },
     async signup(user) {
       try {
@@ -49,7 +49,8 @@ export default {
         this.resetInput();
         this.setUser();
       } catch (error) {
-        console.log(error.message);
+        // eslint-disable-next-line no-alert
+        alert(error);
       }
     },
   },

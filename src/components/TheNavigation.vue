@@ -2,7 +2,7 @@
   <div class="header">
     <div class="title">
       <router-link to="/" tag="h3">
-        <img src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
+        <img class="header-logo" src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
       </router-link>
     </div>
     <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">

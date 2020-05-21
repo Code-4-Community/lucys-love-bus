@@ -8,6 +8,14 @@ h1 {
   margin-left: 8em;
 }
 
+textarea {
+  font-family: Arial, serif;
+}
+
+.header-logo {
+  cursor: pointer;
+}
+
 .scroll-container {
   position: relative;
   overflow-x: hidden;
@@ -28,10 +36,12 @@ h1 {
 .auth-container {
   display: flex;
   flex-direction: column;
-  background-color: white;
   padding: 2em 4em 2em 4em;
   width: 30em;
   margin: auto;
+  text-align: left;
+  background-color: @form-bg-color;
+  border-radius: 5px;
 }
 
 .center {
@@ -133,16 +143,54 @@ h1 {
   cursor: pointer;
 }
 
-.btn--primary {
-  color: white;
-  background-color: @green-apple;
+.btn {
+  border: 0;
+  background: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: .5rem;
+}
+
+.btn--disabled {
+  &:extend(.btn);
+  color: @button-color;
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+}
+
+.btn--secondary {
+   &:extend(.btn);
+   color: @tangerine;
+   background-color: @button-color;
+   border: 1px solid @tangerine;
+ }
+
+.btn--secondary-selected {
+  &:extend(.btn);
+  color: @button-color;
+  background-color: @tangerine;
+  border: 1px solid @tangerine;
+}
+
+&--selected {
+  color: @button-color;
+  background-color: @tangerine;
 }
 
 .btn--secondary {
   color: @tangerine;
-  background-color: white;
+  background-color: @button-color;
   border: 1px solid @tangerine;
-  border-radius: 4px;
+}
+
+.btn--secondary-selected {
+
+}
+
+.btn--primary-selected {
+  color: @button-color;
+  background-color: @green-apple;
+  border: 1px solid @green-apple;
 }
 
 .btn--tertiary {
@@ -178,10 +226,97 @@ h1 {
   margin: .5em 0 .5em 0;
 }
 
+.half-input {
+  width: 43%;
+}
+
+.third-input {
+  width: 27%;
+}
+
 .med-pad-left {
   padding-left: 2.5em;
 }
 
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0 !important;
+  padding-left: 3rem;
+  cursor: pointer;
+  font-size: 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: @button-color;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: @tangerine;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.form-btn-basic {
+  border: 2px solid black;
+  border-radius: 2px;
+  padding: .5rem;
+  cursor: pointer;
+}
+
+.unselected-form-btn {
+  border: 2px solid black;
+  border-radius: 2px;
+  background-color: @button-bg;
+}
+
+.selected-form-btn {
+  background: @tangerine;
+  border: 2px solid @tangerine;
+  color: white;
+}
 
 // -------------- LABELS & TEXT ------------------
 .dekko-label {

@@ -117,6 +117,7 @@ export default {
 
 .auth-container {
   text-align: left;
+  background-color: white;
 }
 
 .login {

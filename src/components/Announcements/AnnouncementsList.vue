@@ -22,6 +22,7 @@ import DateUtils from '../../utils/DateUtils';
 import api from '../../api/api';
 
 export default {
+  /* TODO: This component should probably just be for site-wide announcements */
   name: 'AnnouncementsList',
   props: {
     sitewide: Boolean,

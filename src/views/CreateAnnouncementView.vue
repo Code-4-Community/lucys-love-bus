@@ -60,8 +60,8 @@ export default {
       default: '',
     },
     eventId: {
-      type: String,
-      default: '',
+      type: Number,
+      default: null,
     },
   },
   data() {
@@ -81,7 +81,11 @@ export default {
               description: this.a.description,
             };
             await api.createAnnouncement(body, this.eventId);
-            this.$router.push('/profile');
+            if (this.eventId !== null) {
+              this.$router.push(`/event/${this.eventId}`);
+            } else {
+              this.$router.push('/profile');
+            }
             this.a = {};
           } catch (err) {
             this.error = err;

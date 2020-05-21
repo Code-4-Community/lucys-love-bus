@@ -19,15 +19,15 @@
         <access-control :roles="[USER[ROLE.ADMIN]]"
         :_class="['event-btns--admin_wrapper']">
           <router-link
-            :to="{ name: 'create-event', params: { eventId: event.id}}"
+            :to="{ name: 'edit-event', params: { eventId: event.id}}"
             class="event-btn" tag="button">
             Edit
           </router-link>
-          <button
-            v-on:click="announce({event: event})"
-            class="event-btn">
+          <router-link
+            :to="{ name: 'create-announcement', params: { eventName: event.name}}"
+            class="event-btn" tag="button">
             Announce
-          </button>
+          </router-link>
           <button
             v-on:click="viewRSVP({event: event})"
             class="event-btn">

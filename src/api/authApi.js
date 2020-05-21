@@ -37,6 +37,18 @@ function login(user) {
   return publicResourceAxios.post(API_LOGIN, user);
 }
 
+function verifyEmail(secretKey) {
+  return publicResourceAxios.post(`/api/v1/user/verify/${secretKey}`);
+}
+
+function requestPasswordReset(body) {
+  return publicResourceAxios.post('/api/v1/user/forgot_password/request', body);
+}
+
+function doPasswordReset(body) {
+  return publicResourceAxios.post('/api/v1/user/forgot_password/reset', body);
+}
+
 /**
  * @param {Object} user contains fields username, password, firstName, and lastName
  * Makes a request to the backend api.
@@ -61,6 +73,9 @@ export default {
   signup,
   logout,
   refresh,
+  verifyEmail,
+  requestPasswordReset,
+  doPasswordReset,
   setAccessTokenHeader,
   setRefreshTokenHeader,
   deleteAccessTokenHeader,

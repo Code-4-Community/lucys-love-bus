@@ -1,24 +1,17 @@
 @import './color-constants.less';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap.css');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap.css');
+@import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap.css');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap.css');
+
+h1 {
+  margin-left: 8em;
+}
 
 .scroll-container {
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.flex-horizontal {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-
-.flex-vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-h1 {
-  margin-left: 8em;
 }
 
 .flex-horizontal {
@@ -198,8 +191,6 @@ h1 {
 
 .btn--tertiary {
   background-color: @tangerine;
-  padding: 8px;
-  font-size: 16px;
   border-radius: 2px;
   border: none;
   color: white;
@@ -320,4 +311,10 @@ h1 {
   background: @tangerine;
   border: 2px solid @tangerine;
   color: white;
+}
+
+// -------------- LABELS & TEXT ------------------
+.dekko-label {
+  font-family: 'Dekko';
+  font-size: 22px;
 }

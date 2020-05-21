@@ -1,11 +1,11 @@
 <template>
   <div class="login">
-    <div class="center">
-      <router-link :to="{name: 'home'}" tag="div" class="left-tab">
-        Back to Landing Page
-      </router-link>
-      <h2>Welcome!</h2>
-      <p>Lorum Ipsum</p>
+    <div class="welcome center">
+      <p class="welcome-header">Welcome!</p>
+      <p class="welcome-body">
+        The Sajni Center: A space of hope and healing. We are excited to invite you and
+        your family to view the wide selection of group interactive therapies that we offer.
+      </p>
     </div>
     <div class="auth-container">
       <span class="form-title">Sign in to your account</span>
@@ -23,12 +23,13 @@
         type="password"
         placeholder="Password"
       />
-      <div class="remember-me">
-        <input type="checkbox" id="rememberMe" v-model="rememberMe" />
-        <label for="rememberMe">Remember me</label>
-      </div>
-      <button @click="submit" class="btn--tertiary">Login</button>
-      <router-link to="sign-up" tag="a">Don't have an account? Sign up here!</router-link>
+      <button @click="submit" class="login-btn btn--tertiary">Login</button>
+      <router-link class="forgot-password" to="forgot-password-request" tag="a">
+        Forgot your password?
+      </router-link>
+      <router-link to="sign-up-landing" tag="a">
+        Don't have an account?
+      </router-link>
     </div>
     <div class="error">
       <p v-if="submitted && !inputValid">Enter an email and password</p>
@@ -78,7 +79,6 @@ export default {
         };
         try {
           await authService.actions.login(user);
-          // switch this to the profile component once it's made.
           this.$router.push('/profile');
           this.resetInput();
           this.setUser();
@@ -94,22 +94,50 @@ export default {
 <style lang='less' scoped>
 @import '../../assets/global-classes.less';
 
+.welcome {
+  margin-bottom: 20px;
+}
+.welcome-header {
+  font-family: 'Dekko';
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.welcome-body {
+  font-size: 1rem;
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+
+.auth-container {
+  text-align: left;
+}
+
 .login {
+  background-color: #C4C4C4;
   width: 100%;
+  height: 100%;
   padding: 1em 0 3em 0;
 }
 
-.center h2 {
-  font-family: Dekko, cursive;
-  font-weight: normal
+.form-title {
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.remember-me {
-  margin: 1em 0 1em 0;
+.login-btn {
+  padding: 5px 0;
+  border-radius: 6px;
+  max-width: 30%;
+  margin-top: 10px;
+}
+
+.forgot-password {
+  margin-bottom: 3px;
 }
 
 a {
-  text-decoration: none;
   color: gray;
 }
 </style>

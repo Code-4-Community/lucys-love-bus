@@ -1,14 +1,5 @@
-import moment from 'moment';
 import { loadStripe } from '@stripe/stripe-js';
 import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
-
-function formatTimestamp(date, time) {
-  const res = moment(date, 'YYYY-MM-DD"');
-  const hour = time.substring(0, 2);
-  const minute = time.substring(3);
-  res.add(hour, 'h').add(minute, 'm');
-  return res.unix() * 1000;
-}
 
 // objToParams: takes a Javascript object and returns a string
 // that can be used as GET query parameters
@@ -29,26 +20,27 @@ async function objToParams(obj) {
 }
 
 async function createEvent(event) {
-  const body = {
-    title: event.name,
-    spotsAvailable: 10,
-    thumbnail: event.img,
-    details: {
-      description: event.description,
-      location: event.location,
-      start: formatTimestamp(event.date, event.startTime),
-      end: formatTimestamp(event.date, event.endTime),
-    },
-  };
-
-  let res;
   try {
-    res = await protectedResourceAxios.post('/api/v1/protected/events/', body);
+    return await protectedResourceAxios.post('/api/v1/protected/events/', event);
   } catch (err) {
     return err;
   }
+}
 
-  return res;
+async function editEvent(event) {
+  try {
+    return await protectedResourceAxios.post(`/api/v1/protected/events/${event.id}`, event);
+  } catch (err) {
+    return err;
+  }
+}
+
+async function deleteEvent(eventId) {
+  try {
+    return protectedResourceAxios.delete(`api/v1/protected/events/${eventId}`);
+  } catch (err) {
+    return err;
+  }
 }
 
 const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
@@ -129,12 +121,25 @@ async function getSitewideAnnouncements(paramObj) {
   }
 }
 
+async function getEventAnnouncements(id) {
+  try {
+    const path = `/api/v1/protected/announcements/${id}`;
+    const { data } = await protectedResourceAxios.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 export default {
   createEvent,
+  editEvent,
+  deleteEvent,
   createEventRegistration,
   createEventRegistrationAndCheckoutSession,
   getEvent,
   getUpcomingEvents,
   getMyEvents,
   getSitewideAnnouncements,
+  getEventAnnouncements,
 };

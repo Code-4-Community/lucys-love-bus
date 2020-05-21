@@ -25,6 +25,10 @@ export default {
     setMyEvents(state, { events }) {
       state.myEvents = events;
     },
+    deleteEvent(state, eventId) {
+      state.myEvents = state.myEvents.filter(event => event.id === eventId);
+      state.upcomingEvents = state.upcomingEvents.filter(event => event.id === eventId);
+    },
   },
   actions: {
     async setUpcomingEvents({ commit }) {
@@ -35,6 +39,19 @@ export default {
       const now = moment().format('YYYY-MM-DD HH:MM:SS');
       const events = await api.getMyEvents(now);
       commit('setMyEvents', { events });
+    },
+    async deleteEvent({ commit }, eventId) {
+      try {
+        const res = await api.deleteEvent(eventId);
+        commit('deleteEvent', eventId);
+        // eslint-disable-next-line no-alert
+        alert('Successfully deleted!');
+        return res;
+      } catch (error) {
+        // eslint-disable-next-line no-alert
+        alert('ERROR', error);
+        return error;
+      }
     },
   },
 };

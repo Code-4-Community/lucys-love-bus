@@ -216,6 +216,7 @@ textarea {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .input-primary {
@@ -239,7 +240,7 @@ textarea {
   padding-left: 2.5em;
 }
 
-.checkbox-container {
+.checkbox-label {
   display: flex;
   align-items: center;
   position: relative;
@@ -253,7 +254,7 @@ textarea {
   user-select: none;
 }
 
-.checkbox-container input {
+.checkbox-label input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -261,20 +262,12 @@ textarea {
   width: 0;
 }
 
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: @button-color;
-}
-
-.checkbox-container:hover input ~ .checkmark {
+.checkbox-label:hover input ~ .checkmark {
   background-color: #ccc;
 }
 
-.checkbox-container input:checked ~ .checkmark {
+.checkbox-label input:checked ~ .checkmark {
+  border-color: @tangerine;
   background-color: @tangerine;
 }
 
@@ -284,13 +277,13 @@ textarea {
   display: none;
 }
 
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-label input:checked ~ .checkmark:after {
   display: block;
 }
 
-.checkbox-container .checkmark:after {
-  left: 9px;
-  top: 5px;
+.checkbox-label .checkmark:after {
+  left: 15px;
+  top: 10px;
   width: 5px;
   height: 10px;
   border: solid white;

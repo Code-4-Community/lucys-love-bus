@@ -28,23 +28,23 @@
       <div class="pronoun-wrapper">
         <h4>Preferred Pronouns</h4>
         <button v-on:click="mainContact.pronouns = 'HE/HIM'"
-                :class="{'btn--secondary' : mainContact.pronouns !== 'HE/HIM',
-                         'btn--secondary-selected' : mainContact.pronouns === 'HE/HIM'}">
+                :class="{'pronoun-btn' : mainContact.pronouns !== 'HE/HIM',
+                         'pronoun-btn-selected' : mainContact.pronouns === 'HE/HIM'}">
           He/Him</button>
         <button v-on:click="mainContact.pronouns = 'SHE/HER'"
-                :class="{'btn--secondary' : mainContact.pronouns !== 'SHE/HER',
-                         'btn--secondary-selected' : mainContact.pronouns === 'SHE/HER'}">
+                :class="{'pronoun-btn' : mainContact.pronouns !== 'SHE/HER',
+                         'pronoun-btn-selected' : mainContact.pronouns === 'SHE/HER'}">
           She/Her</button>
         <button v-on:click="mainContact.pronouns = 'THEY/THEM'"
-                :class="{'btn--secondary' : mainContact.pronouns !== 'THEY/THEM',
-                         'btn--secondary-selected' : mainContact.pronouns === 'THEY/THEM'}">
+                :class="{'pronoun-btn' : mainContact.pronouns !== 'THEY/THEM',
+                         'pronoun-btn-selected' : mainContact.pronouns === 'THEY/THEM'}">
           They/Them</button>
       </div>
       <div>
         <input
             class="input-primary"
             type="text"
-            v-bind:placeholder="this.user.email"
+            v-bind:placeholder="mainContact.email"
             disabled="True">
       </div>
       <div class="h-fields">
@@ -105,20 +105,36 @@
                   placeholder="Last Name">
             </div>
           </div>
+          <div class="pronoun-wrapper">
+            <h4>Preferred Pronouns</h4>
+            <button v-on:click="contact.pronouns = 'HE/HIM'"
+                    :class="{'pronoun-btn' : contact.pronouns !== 'HE/HIM',
+                         'pronoun-btn-selected' : contact.pronouns === 'HE/HIM'}">
+              He/Him</button>
+            <button v-on:click="contact.pronouns = 'SHE/HER'"
+                    :class="{'pronoun-btn' : contact.pronouns !== 'SHE/HER',
+                         'pronoun-btn-selected' : contact.pronouns === 'SHE/HER'}">
+              She/Her</button>
+            <button v-on:click="contact.pronouns = 'THEY/THEM'"
+                    :class="{'pronoun-btn' : contact.pronouns !== 'THEY/THEM',
+                         'pronoun-btn-selected' : contact.pronouns === 'THEY/THEM'}">
+              They/Them</button>
+          </div>
           <div class="h-fields">
-            <input v-model="contact.email" type="text"
-              class="input-primary"
-              placeholder="Email Address"
-              style="width: 60%">
-            <label class="checkbox-container input-primary"
-                    style="margin-bottom: .5rem;
-                    display: flex; border: none">
-              <input type="checkbox" checked="checked" v-model="contact.shouldSendEmails">
-              <span class="checkmark"
-                    style="margin-right: 1rem; position: relative;
-                    height: 1.7rem; width: 2rem;"></span>
-              Receive News & Updates?
-            </label>
+            <div class="two-third-input">
+              <input v-model="contact.email" type="text"
+                     class="input-primary"
+                     placeholder="Email Address">
+            </div>
+            <div class="checkbox-container">
+              <label class="checkbox-label input-primary">
+                <input type="checkbox" checked="checked" v-model="contact.shouldSendEmails">
+                <span class="checkmark"/>
+                <span class="checkbox-message">
+                  Receive News & Updates?
+                </span>
+              </label>
+            </div>
           </div>
           <div class="h-fields">
             <div class="half-input">
@@ -154,10 +170,10 @@
           </div>
         </div>
         <div class="button-row">
-          <button class="add-btn" v-on:click="addContact">
+          <button class="add-remove-btn" v-on:click="addContact">
             + Add Adult
           </button>
-          <button class="remove-btn"
+          <button class="add-remove-btn"
                   v-if="additionalContacts.length"
                   v-on:click="removeParent">
             - Remove Adult
@@ -190,16 +206,16 @@
           <div class="pronoun-wrapper">
             <h4>Preferred Pronouns</h4>
             <button v-on:click="child.pronouns = 'HE/HIM'"
-                    :class="{'btn--secondary' : child.pronouns !== 'HE/HIM',
-                         'btn--secondary-selected' : child.pronouns === 'HE/HIM'}">
+                    :class="{'pronoun-btn' : child.pronouns !== 'HE/HIM',
+                         'pronoun-btn-selected' : child.pronouns === 'HE/HIM'}">
               He/Him</button>
             <button v-on:click="child.pronouns = 'SHE/HER'"
-                    :class="{'btn--secondary' : child.pronouns !== 'SHE/HER',
-                         'btn--secondary-selected' : child.pronouns === 'SHE/HER'}">
+                    :class="{'pronoun-btn' : child.pronouns !== 'SHE/HER',
+                         'pronoun-btn-selected' : child.pronouns === 'SHE/HER'}">
               She/Her</button>
             <button v-on:click="child.pronouns = 'THEY/THEM'"
-                    :class="{'btn--secondary' : child.pronouns !== 'THEY/THEM',
-                         'btn--secondary-selected' : child.pronouns === 'THEY/THEM'}">
+                    :class="{'pronoun-btn' : child.pronouns !== 'THEY/THEM',
+                         'pronoun-btn-selected' : child.pronouns === 'THEY/THEM'}">
               They/Them</button>
           </div>
           <div class="half-input">
@@ -241,18 +257,20 @@
           </div>
         </div>
         <div class="button-row">
-          <button class="add-btn" v-on:click="addChild">
+          <button class="add-remove-btn" v-on:click="addChild">
             + Add Child
           </button>
-          <button class="remove-btn"
+          <button class="add-remove-btn"
                   v-if="children.length"
                   v-on:click="removeChild">
             - Remove Child
           </button>
         </div>
       </div>
-      <button style="margin-top: 1rem" class="btn btn--secondary-selected"
-              v-on:click="signup">Next Page</button>
+      <div class="next-page-btn-row">
+        <button class="btn btn--secondary-selected next-page-btn"
+                v-on:click="signup">Next Page</button>
+      </div>
       <div v-if="isValidForm === false" class="invalid_form--container">
         <h4>There were one or more issues with the form:</h4>
         <ul>
@@ -280,27 +298,19 @@ export default {
   data() {
     return {
       mainContact: {
-        firstName: this.user.firstName,
-        lastName: this.user.lastName,
+        firstName: this.user.firstName || '',
+        lastName: this.user.lastName || '',
         pronouns: '',
-        email: '',
-        phoneNumber: this.user.phoneNumber,
+        email: this.user.email || '',
+        phoneNumber: this.user.phoneNumber || '',
         dateOfBirth: '',
-        location: {
-          address: '',
-          city: '',
-          state: '',
-          zipCode: '',
-        },
-        allergies: '',
+        allergies: this.user.allergies || '',
         diagnosis: '',
         medications: '',
         notes: '',
       },
-      additionalContacts: [
-      ],
-      children: [
-      ],
+      additionalContacts: [],
+      children: [],
       password: ['', ''],
       inputError: [],
       serverError: '',
@@ -312,10 +322,8 @@ export default {
       setUser: 'setUser',
     }),
     resetInput() {
-      this.additionalContacts = [
-      ];
-      this.children = [
-      ];
+      this.additionalContacts = [];
+      this.children = [];
       this.password = ['', ''];
       this.inputError = [];
       this.serverError = '';
@@ -331,10 +339,14 @@ export default {
         id: tempId,
         firstName: '',
         lastName: '',
+        pronouns: '',
         phoneNumber: '',
         email: '',
         shouldSendEmails: false,
         allergies: '',
+        diagnosis: '',
+        medications: '',
+        notes: '',
       });
     },
     addChild() {
@@ -351,6 +363,7 @@ export default {
         pronouns: '',
         schoolYear: '',
         school: '',
+        allergies: '',
         diagnosis: '',
         medications: '',
         notes: '',
@@ -467,6 +480,9 @@ export default {
   .half-input {
     width: 43%;
   }
+  .two-third-input {
+    width: 66%;
+  }
 
   .center h2 {
     font-family: Dekko, cursive;
@@ -477,25 +493,39 @@ export default {
     color: gray;
   }
 
+  .checkbox-container {
+    margin-left: 6px;
+  }
+  .checkbox-label {
+    border: none;
+    padding: 0 6px;
+  }
+  .checkmark {
+    border: 2px solid #888;
+    border-radius: 6px;
+    height: 30px;
+    width: 30px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+  .checkbox-message {
+    font-size: 1rem;
+    margin-left: 6px;
+  }
+
   .button-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .add-btn {
+  .add-remove-btn {
     padding: 0 1rem 1rem 0;
     background: 0;
     border: 0;
     cursor: pointer;
     font-size: 1rem;
-  }
-  .remove-btn {
-    padding: 0 1rem 1rem 0;
-    background: 0;
-    border: 0;
-    cursor: pointer;
-    font-size: 1rem;
+    outline: none;
   }
 
   .pronoun-wrapper {
@@ -503,9 +533,39 @@ export default {
     align-items: center;
     justify-content: space-between;
   }
+  .pronoun-btn {
+    border: 2px solid #888;
+    border-radius: 4px;
+    padding: 9px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+
+    background-color: transparent;
+  }
+  .pronoun-btn-selected {
+    border: 2px solid @tangerine;
+    border-radius: 4px;
+    padding: 9px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+
+    background-color: @tangerine;
+    color: white;
+  }
 
   .pronoun-wrapper h4 {
     font-weight: normal;
+  }
+
+  .next-page-btn-row {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .next-page-btn {
+    width: 30%;
   }
 
   .invalid_form--container {

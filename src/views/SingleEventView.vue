@@ -20,8 +20,8 @@
         </access-control>
       </div>
     </div>
-    <div class="announcement-container">
-      <!--  TODO: Styling for event specific announcements   -->
+    <div class="announcement-container" v-if="announcements.length > 0">
+      <event-announcements-list :announcementsProp="announcements" />
     </div>
     <div class="middle-content">
       <div class="event-img">
@@ -109,6 +109,7 @@ import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import EventModal from '../components/Events/EventModal.vue';
+import EventAnnouncementsList from '../components/Announcements/EventAnnouncementsList.vue';
 import {
   USER, ROLE,
 } from '../utils/constants/user';
@@ -116,6 +117,7 @@ import {
 export default {
   name: 'SingleEvent',
   components: {
+    EventAnnouncementsList,
     AccessControl,
     EventModal,
   },
@@ -130,6 +132,7 @@ export default {
       singleEvent: {
         details: {},
       },
+      announcements: [],
       USER,
       ROLE,
       openModal: false,
@@ -177,6 +180,10 @@ export default {
       const res = await api.getEvent(this.eventId);
       return res;
     },
+    async getEventAnnouncements() {
+      const res = await api.getEventAnnouncements(this.eventId);
+      return res.announcements;
+    },
     announce(payload) {
       // eslint-disable-next-line no-alert
       alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
@@ -188,6 +195,7 @@ export default {
   },
   async created() {
     this.singleEvent = await this.getSingleEvent();
+    this.announcements = await this.getEventAnnouncements();
   },
 };
 </script>

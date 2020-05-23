@@ -29,8 +29,11 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-              :to="{ name: 'create-announcement', params: { eventName: slotProps.event.name}}"
-              class="event-btn" tag="button">
+              class="event-btn"
+              tag="button"
+              :to="{name: 'create-announcement',
+                    params: {eventName: slotProps.event.title, eventId: slotProps.event.id}}"
+          >
             Announce
           </router-link>
         </access-control>

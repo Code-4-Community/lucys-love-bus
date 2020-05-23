@@ -59,8 +59,7 @@
           <input
               v-model="mainContact.dateOfBirth"
               class="input-primary"
-              type="text"
-              placeholder="Date of Birth    DD/MM/YYYY">
+              type="date">
         </div>
       </div>
       <div>
@@ -143,7 +142,8 @@
                      placeholder="PhoneNumber">
             </div>
             <div class="half-input">
-              <input v-model="contact.dateOfBirth" type="text"
+              <input v-model="contact.dateOfBirth"
+                     type="date"
                      class="input-primary"
                      placeholder="Date of Birth    DD/MM/YYYY">
             </div>
@@ -222,7 +222,7 @@
             <input
                 v-model="child.dateOfBirth"
                 class="input-primary"
-                type="text"
+                type="date"
                 placeholder="Date of Birth  DD/MM/YYYY">
           </div>
           <div class="h-fields">
@@ -285,7 +285,7 @@
 <script>
 
 import { mapMutations } from 'vuex';
-// import authService from '../utils/service/authService';
+import api from '../api/api';
 
 export default {
   name: 'SignupPFForm',
@@ -358,7 +358,8 @@ export default {
       }
       this.children.push({
         id: tempId,
-        name: '',
+        firstName: '',
+        lastName: '',
         dateOfBirth: '',
         pronouns: '',
         schoolYear: '',
@@ -439,18 +440,16 @@ export default {
       return validChildren;
     },
     async signup() {
-      // TODO when backend routes are set up
-      // this is old code from the other sign up form. Must be adjusted.
       this.serverError = '';
       if (this.validate()) {
-        // const family = {
-        //   firstName: this.mainContact.firstName,
-        //   lastName: this.mainContact.lastName,
-        //   email: this.email,
-        //   password: this.password[0],
-        // };
+        const body = {
+          mainContact: this.mainContact,
+          additionalContacts: this.additionalContacts,
+          children: this.children,
+        };
         try {
-          // await authService.actions.signup(family);
+          await api.addContactInfo(body);
+          await api.makePfRequest();
           this.$router.push('/form-agreements');
           this.resetInput();
           this.setUser();
@@ -552,10 +551,6 @@ export default {
 
     background-color: @tangerine;
     color: white;
-  }
-
-  .pronoun-wrapper h4 {
-    font-weight: normal;
   }
 
   .next-page-btn-row {

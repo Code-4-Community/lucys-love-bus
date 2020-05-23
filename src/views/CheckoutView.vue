@@ -1,31 +1,41 @@
 <template>
   <div>
     <p class="title">My Cart</p>
-    <p class="subtitle">You have the following events ready to checkout:</p>
-    <div class="events component-wrapper">
-      <events-list-checkout :events="cartEvents">
-        <template v-slot:NoEventsMsg>
-          <h3>You have no events in your cart!</h3>
-        </template>
-        <template v-slot:eventBtns="slotProps">
-          <div>
-            {{ slotProps.event.tickets }} Tickets Reserved
-          </div>
-          <router-link
-            :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="event-btn" tag="button">
-            Event Page
-          </router-link>
-          <button
-            v-on:click="cancelRegistration({event: slotProps.event})"
-            class="event-btn btn--secondary">
-            Remove
-          </button>
-        </template>
-      </events-list-checkout>
+    <div v-if="hasEvents">
+      <p class="subtitle">You have the following events ready to checkout:</p>
+      <div class="events component-wrapper">
+        <events-list-checkout :events="cartEvents">
+          <template v-slot:NoEventsMsg>
+            <h3>You have no events in your cart!</h3>
+          </template>
+          <template v-slot:eventBtns="slotProps">
+            <div>
+              {{ slotProps.event.tickets }} Tickets Reserved
+            </div>
+            <router-link
+                :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
+                class="event-btn" tag="button">
+              Event Page
+            </router-link>
+            <button
+                v-on:click="cancelRegistration({event: slotProps.event})"
+                class="event-btn btn--secondary">
+              Remove
+            </button>
+          </template>
+        </events-list-checkout>
+      </div>
+      <div class="checkout-btn" @click="checkout">
+        Ready to Checkout?
+      </div>
     </div>
-    <div class="checkout-btn" @click="checkout">
-      Ready to Checkout?
+    <div v-else>
+      <p class="subtitle"></p>
+      <div class="subtitle">
+        You don't have any events in your cart.
+        See what's coming up
+        <router-link to="/events">here</router-link>.
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +58,9 @@ export default {
     ...mapState('user', {
       adminLevel: 'adminLevel',
     }),
+    hasEvents() {
+      return this.cartEvents.length > 0;
+    },
   },
   methods: {
     ...mapMutations('cart', {
@@ -81,6 +94,9 @@ export default {
 .subtitle {
   text-align: left;
   font-size: 1.5rem;
+}
+.subtitle > a {
+  text-decoration: underline;
 }
 
 .checkout-btn {

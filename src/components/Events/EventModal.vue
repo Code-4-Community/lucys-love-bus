@@ -21,13 +21,13 @@
         </div>
         <div class="btn-bar">
           <button
-              class="cancel-btn btn"
+              class="btn--secondary event-modal-btn"
               @click="cancel"
           >
             Cancel
           </button>
           <button
-              class="add-btn btn"
+              class="btn--primary event-modal-btn"
               @click="add"
               :disabled="tickets < 1"
           >
@@ -95,6 +95,7 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
+  @import '../../../assets/global-classes.less';
 
   .modal-fade-enter,
   .modal-fade-leave-active {
@@ -172,27 +173,11 @@ export default {
     flex-direction: row;
     justify-content: space-between;
   }
-  .btn {
-    border: none;
+  .event-modal-btn {
     border-radius: 6px;
     padding: 3px 24px;
     font-size: 1rem;
     cursor: pointer;
-  }
-  .cancel-btn {
-    color: @tangerine;
-    background-color: white;
-    border: 1px solid @tangerine;
-  }
-  .add-btn {
-    color: white;
-    background-color: @button-bg;
-    border: 1px solid @button-bg;
-  }
-  .add-btn:disabled {
-    cursor: auto;
-    background-color: @button-bg-disabled;
-    border: 1px solid @button-bg-disabled;
   }
 
 </style>

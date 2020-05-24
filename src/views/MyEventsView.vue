@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">My Upcoming Events</p>
+    <p class="title">My Registered Events</p>
     <events-list :events="myEvents">
       <template v-slot:noEventsMsg>
         <h3>Currently, you are signed up for no events!</h3>

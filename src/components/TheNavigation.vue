@@ -5,11 +5,11 @@
         <img class="header-logo" src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
       </router-link>
     </div>
-    <access-control _class="navlinks" :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-      <access-control _class="header-btn" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+    <access-control class="navlinks" :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+      <access-control class="header-btn" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
         <router-link to="/my-events" tag="button">My Events</router-link>
       </access-control>
-      <access-control _class="header-btn" :roles="[USER[ROLE.ADMIN]]">
+      <access-control class="header-btn" :roles="[USER[ROLE.ADMIN]]">
         <router-link to="/create-event" tag="button">Create Event</router-link>
       </access-control>
       <div class="header-btn">

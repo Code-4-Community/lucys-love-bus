@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../assets/global-classes.less';
+  @import '../../assets/global-classes.less';
 
   .background {
     position: absolute;
@@ -102,11 +102,4 @@ export default {
     color: red;
     font-size: 0.8rem;
   }
-
-  .submit-btn {
-    padding: 5px 0;
-    border-radius: 6px;
-    max-width: 30%;
-  }
-
 </style>

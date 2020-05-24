@@ -8,12 +8,12 @@
       <template v-slot:eventBtns="slotProps">
         <button
             v-on:click="cancelRegistration(slotProps.event)"
-            class="event-btn">
+            class="event-side-btn btn--primary">
           Cancel
         </button>
         <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="event-btn btn--secondary" tag="button">
+            class="event-side-btn btn--secondary" tag="button">
           Learn More
         </router-link>
       </template>

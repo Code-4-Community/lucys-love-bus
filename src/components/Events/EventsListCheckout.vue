@@ -1,7 +1,7 @@
 <template>
   <div class="scroll-container">
-    <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-    <div v-else>
+    <slot v-if="events.length === 0" name="NoEventsMsg" />
+    <div v-else class="events-container">
       <event v-for="event in events" :key="event.id" :event="event" >
         <template v-slot:btns="slotProps">
           <slot name="eventBtns" :event="slotProps.event" />
@@ -32,4 +32,12 @@ export default {
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
   @import '../../../assets/global-classes.less';
+
+  .events-container {
+    margin: 0 auto;
+  }
+
+  .events-container > div {
+    margin: 5px 0;
+  }
 </style>

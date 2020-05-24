@@ -32,15 +32,15 @@
                 <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
             </div>
         </div>
-        <div class="buttons">
-            <span class="button btn--primary" @click="onSubmit">
-                Save
-            </span>
+        <div class="btn-row">
             <router-link
                 :to="{ name: 'profile'}"
-                class="button btn--secondary" tag="button">
+                class="create-form-btn btn--secondary" tag="button">
                 Cancel
             </router-link>
+            <div class="create-form-btn btn--primary" @click="onSubmit">
+                Save
+            </div>
         </div>
     </div>
     </form>
@@ -97,8 +97,7 @@ export default {
 };
 </script>
 
-<style scoped>
-@import '../../assets/color-constants.less';
+<style lang="less" scoped>
 @import '../../assets/global-classes.less';
 
 .container {
@@ -151,13 +150,11 @@ input[type=text] {
     font-weight: bold;
 }
 
-.button {
-    margin: 1rem;
-    font-family: 'Raleway';
-    border-radius: 5pt;
-    font-size: 13pt;
-    padding: 1px 6px;
-    cursor: pointer;
+.btn-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 1rem;
 }
 
 .form-errors {

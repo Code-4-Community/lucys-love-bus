@@ -57,12 +57,12 @@
           <router-link
               to="/upcoming-events"
               tag="button"
-              class="back-to-event-btn single-event-btn">
+              class="btn--tertiary single-event-btn">
             Back To Events
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
-          <router-link tag="button"  class="btn-secondary single-event-btn"
+          <router-link tag="button"  class="btn--secondary single-event-btn"
                        :to="{name: 'create-announcement',
                        params: {eventName: singleEvent.title, eventId: singleEvent.id}}"
           >
@@ -71,21 +71,21 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn-secondary single-event-btn"
+              class="btn--secondary single-event-btn"
               v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
             Edit Event
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn-secondary single-event-btn"
+              class="btn--secondary single-event-btn"
               v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
             Delete Event
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn-primary single-event-btn"
+              class="btn--primary single-event-btn"
               v-on:click="viewRSVP(singleEvent), $router.push('/events')">
             View RSVPs
           </button>
@@ -285,25 +285,15 @@ export default {
   margin-top: 6px;
   margin-bottom: 20px;
 }
+.event-buttons > div {
+  width: 15%;
+}
 .single-event-btn {
+  width: 100%;
+  font-size: 1rem;
   border-radius: 4px;
   padding: 0 6px;
   cursor: pointer;
-}
-.back-to-event-btn {
-  background-color: @tangerine;
-  border: 2px solid @tangerine;
-  color: white;
-}
-.btn-primary {
-  background-color: @green-apple;
-  border: 2px solid @green-apple;
-  color: white;
-}
-.btn-secondary {
-  background-color: white;
-  border: 2px solid @tangerine;
-  color: @tangerine;
 }
 
 

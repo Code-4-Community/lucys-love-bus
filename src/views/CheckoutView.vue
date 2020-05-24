@@ -6,6 +6,7 @@
       <div class="events component-wrapper">
         <events-list-checkout :events="cartEvents">
           <template v-slot:NoEventsMsg>
+            <!-- TODO: This is unused since we're doing our own empty checking in this component -->
             <h3>You have no events in your cart!</h3>
           </template>
           <template v-slot:eventBtns="slotProps">
@@ -14,12 +15,12 @@
             </div>
             <router-link
                 :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-                class="event-btn" tag="button">
+                class="event-side-btn btn--secondary" tag="button">
               Event Page
             </router-link>
             <button
                 v-on:click="cancelRegistration({event: slotProps.event})"
-                class="event-btn btn--secondary">
+                class="event-side-btn btn--secondary">
               Remove
             </button>
           </template>
@@ -34,7 +35,7 @@
       <div class="subtitle">
         You don't have any events in your cart.
         See what's coming up
-        <router-link to="/events">here</router-link>.
+        <router-link to="/upcoming-events">here</router-link>.
       </div>
     </div>
   </div>
@@ -83,7 +84,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '../../assets/color-constants.less';
 @import '../../assets/global-classes.less';
 

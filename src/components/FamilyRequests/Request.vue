@@ -12,10 +12,10 @@
       </div>
     </div>
     <div class="request-action-buttons">
-      <button class="action-btn approve-btn" @click="approve">
+      <button class="request-btn btn--primary" @click="approve">
         Approve
       </button>
-      <button class="action-btn reject-btn" @click="reject">
+      <button class="request-btn btn--secondary" @click="reject">
         Reject
       </button>
     </div>
@@ -61,6 +61,7 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
+  @import '../../../assets/global-classes.less';
 
   .request-block {
     display: grid;
@@ -103,20 +104,9 @@ export default {
     justify-content: space-around;
   }
 
-  .action-btn {
-    border: none;
+  .request-btn {
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-  }
-  .approve-btn {
-    color: @button-color;
-    background-color: @button-bg;
-    border: 1px solid @button-bg;
-  }
-  .reject-btn {
-    color: @tangerine;
-    background-color: white;
-    border: 1px solid @tangerine;
   }
 </style>

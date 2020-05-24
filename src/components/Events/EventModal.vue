@@ -29,6 +29,7 @@
           <button
               class="add-btn btn"
               @click="add"
+              :disabled="tickets < 1"
           >
             Add to Cart
           </button>
@@ -187,6 +188,11 @@ export default {
     color: white;
     background-color: @button-bg;
     border: 1px solid @button-bg;
+  }
+  .add-btn:disabled {
+    cursor: auto;
+    background-color: @button-bg-disabled;
+    border: 1px solid @button-bg-disabled;
   }
 
 </style>

@@ -26,7 +26,7 @@
       <div class="error">
         <p v-if="submitted && error" class="error-message">{{error}}</p>
       </div>
-      <button @click="submit" class="login-btn btn--tertiary">Login</button>
+      <button @click="submit" class="login-btn submit-btn btn--tertiary">Login</button>
       <router-link class="forgot-password" to="forgot-password-request" tag="a">
         Forgot your password?
       </router-link>
@@ -133,10 +133,6 @@ export default {
 }
 
 .login-btn {
-  padding: 5px 0;
-  border-radius: 6px;
-  max-width: 30%;
-  margin-top: 10px;
 }
 
 .forgot-password {

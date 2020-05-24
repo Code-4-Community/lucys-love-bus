@@ -268,7 +268,7 @@
         </div>
       </div>
       <div class="next-page-btn-row">
-        <button class="btn btn--secondary-selected next-page-btn"
+        <button class="btn--tertiary submit-btn"
                 v-on:click="signup">Next Page</button>
       </div>
       <div v-if="isValidForm === false" class="invalid_form--container">
@@ -558,9 +558,6 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-  }
-  .next-page-btn {
-    width: 30%;
   }
 
   .invalid_form--container {

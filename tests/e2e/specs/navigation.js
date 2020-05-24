@@ -33,7 +33,7 @@ describe('Testing Navigation', () => {
 
     // registrations
     cy.visit(registrationsPath);
-    cy.contains('p', 'My Upcoming Events');
+    cy.contains('p', 'My Registered Events');
   });
 
   // it('Visits all pages from landing page', () => {

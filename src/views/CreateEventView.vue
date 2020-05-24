@@ -21,7 +21,7 @@ export default {
     async createEvent({ event }) {
       const response = await api.createEvent(event);
       if (response) {
-        await this.$router.push('/events');
+        await this.$router.push('/upcoming-events');
       }
     },
   },

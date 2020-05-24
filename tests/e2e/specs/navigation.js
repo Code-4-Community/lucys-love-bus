@@ -2,7 +2,7 @@
 describe('Testing Navigation', () => {
   // const baseURL = 'http://localhost:8080/';
   // const homePath = '/';
-  const eventsPath = '/events';
+  const eventsPath = '/upcoming-events';
   const checkoutPath = '/checkout';
   const profilePath = '/profile';
   const registrationsPath = '/my-events';

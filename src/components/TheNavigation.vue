@@ -7,7 +7,7 @@
     </div>
     <access-control _class="navlinks" :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
       <access-control _class="header-btn" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <router-link to="/events" tag="button">My Events</router-link>
+        <router-link to="/my-events" tag="button">My Events</router-link>
       </access-control>
       <access-control _class="header-btn" :roles="[USER[ROLE.ADMIN]]">
         <router-link to="/create-event" tag="button">Create Event</router-link>

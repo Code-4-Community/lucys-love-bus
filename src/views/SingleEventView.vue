@@ -54,7 +54,10 @@
     <div class="bottom-content">
       <div class="event-buttons">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-          <router-link to="/events" tag="button" class="back-to-event-btn single-event-btn">
+          <router-link
+              to="/upcoming-events"
+              tag="button"
+              class="back-to-event-btn single-event-btn">
             Back To Events
           </router-link>
         </access-control>
@@ -76,7 +79,7 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
               class="btn-secondary single-event-btn"
-              v-on:click="deleteEvent(singleEvent.id), $router.push('/events')">
+              v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
             Delete Event
           </button>
         </access-control>

@@ -12,7 +12,7 @@
       </div>
       <div class='flex-vertical'>
         <h4 class="dekko-label sub-header">Explore</h4>
-        <router-link class="explore-btn top" tag="button" to='/events'>
+        <router-link class="explore-btn top" tag="button" to='/upcoming-events'>
             Our Events
         </router-link>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">

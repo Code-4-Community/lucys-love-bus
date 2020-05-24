@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import EventsView from '../views/EventsView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
 import SignUpPFView from '../views/SignUpPFView.vue';
@@ -34,9 +33,9 @@ export default new Router({
       component: LoginView,
     },
     {
-      path: '/events',
-      name: 'events',
-      component: EventsView,
+      path: '/upcoming-events',
+      name: 'upcoming-events-view',
+      component: UpcomingEventsView,
     },
     {
       path: '/create-event',
@@ -54,11 +53,6 @@ export default new Router({
       name: 'edit-event',
       component: EditEventView,
       props: true,
-    },
-    {
-      path: '/upcoming-events',
-      name: 'upcoming-events',
-      component: UpcomingEventsView,
     },
     {
       path: '/event/:eventId',

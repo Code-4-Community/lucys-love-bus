@@ -114,4 +114,13 @@ export default {
 <style scoped>
 @import '../../../assets/global-classes.less';
 @import '../../../assets/color-constants.less';
+
+label > .input-primary {
+  margin-top: 0;
+}
+
+label {
+  font-size: 10px;
+  cursor: pointer;
+}
 </style>

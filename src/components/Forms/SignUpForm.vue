@@ -212,4 +212,14 @@ a {
   .input-primary {
     width: 100%;
   }
+
+
+label > .input-primary {
+  margin-top: 0;
+}
+
+label {
+  font-size: 10px;
+  cursor: pointer;
+}
 </style>

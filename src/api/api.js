@@ -170,6 +170,17 @@ async function rejectRequest(requestId) {
   }
 }
 
+async function addContactInfo(body) {
+  const path = '/api/v1/protected/user/contact_info';
+  // eslint-disable-next-line no-return-await
+  return protectedResourceAxios.post(path, body);
+}
+
+async function makePfRequest() {
+  const path = 'api/v1/protected/requests';
+  return protectedResourceAxios.post(path);
+}
+
 export default {
   createEvent,
   editEvent,
@@ -185,4 +196,6 @@ export default {
   getPfRequests,
   approveRequest,
   rejectRequest,
+  addContactInfo,
+  makePfRequest,
 };

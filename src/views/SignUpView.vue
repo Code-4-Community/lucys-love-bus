@@ -7,7 +7,7 @@
       <h2> Join the Sajni Center! </h2>
       <p class="text-wrap">
         If you wish to join events for free and learn about more opportunities,
-        sign this form to request to be appoved by our team!
+        sign this form to request to be approved by our team!
       </p>
     </div>
     <SignUpForm @formCompleted="signup"/>

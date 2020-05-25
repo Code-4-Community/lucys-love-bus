@@ -11,18 +11,24 @@
       <h3>More About You (Account Owner)</h3>
       <div class="h-fields">
         <div class="half-input">
-          <input
-              v-model="mainContact.firstName"
-              class="input-primary"
-              type="text"
-              placeholder="First Name">
+          <label>
+            First Name
+            <input
+                v-model="mainContact.firstName"
+                class="input-primary"
+                type="text"
+                placeholder="First Name">
+          </label>
         </div>
         <div class="half-input">
-          <input
-              v-model="mainContact.lastName"
-              class="input-primary"
-              type="text"
-              placeholder="Last Name">
+          <label>
+            Last Name
+            <input
+                v-model="mainContact.lastName"
+                class="input-primary"
+                type="text"
+                placeholder="Last Name">
+          </label>
         </div>
       </div>
       <div class="pronoun-wrapper">
@@ -41,46 +47,67 @@
           They/Them</button>
       </div>
       <div>
-        <input
-            class="input-primary"
-            type="text"
-            v-bind:placeholder="mainContact.email"
-            disabled="True">
+        <label>
+          Email
+          <input
+              class="input-primary"
+              type="text"
+              v-bind:placeholder="mainContact.email"
+              disabled="True">
+        </label>
       </div>
       <div class="h-fields">
         <div class="half-input">
-          <input
-              v-model="mainContact.phoneNumber"
-              class="input-primary"
-              type="text"
-              placeholder="Phone Number">
+          <label>
+            Phone Number
+            <input
+                v-model="mainContact.phoneNumber"
+                class="input-primary"
+                type="text"
+                placeholder="Phone Number">
+          </label>
         </div>
         <div class="half-input">
-          <input
-              v-model="mainContact.dateOfBirth"
-              class="input-primary"
-              type="date">
+          <label>
+            Date of Birth
+            <input
+                v-model="mainContact.dateOfBirth"
+                class="input-primary"
+                type="date">
+          </label>
         </div>
       </div>
       <div>
-        <textarea v-model="mainContact.allergies" type="text"
-                  class="input-primary" placeholder="Allergies"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        <label>
+          Allergies
+          <textarea v-model="mainContact.allergies" type="text"
+                    class="input-primary" placeholder="Allergies"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        </label>
       </div>
       <div>
-        <textarea v-model="mainContact.diagnosis" type="text"
-                  class="input-primary" placeholder="Diagnosis (if applicable)"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        <label>
+          Diagnosis (if applicable)
+          <textarea v-model="mainContact.diagnosis" type="text"
+                    class="input-primary" placeholder="Diagnosis (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        </label>
       </div>
       <div>
-        <textarea v-model="mainContact.medications" type="text"
-                  class="input-primary" placeholder="Medications (if applicable)"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        <label>
+          Medications (if applicable)
+          <textarea v-model="mainContact.medications" type="text"
+                    class="input-primary" placeholder="Medications (if applicable)"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        </label>
       </div>
       <div>
-        <textarea v-model="mainContact.notes" type="text"
-                  class="input-primary" placeholder="Other Notes"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        <label>
+          Other Notes
+          <textarea v-model="mainContact.notes" type="text"
+                    class="input-primary" placeholder="Other Notes"
+                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        </label>
       </div>
       <div class="contacts">
         <h3>Additional Adults (18+ yrs)</h3>
@@ -90,18 +117,24 @@
           </h4>
           <div class="h-fields">
             <div class="half-input">
-              <input
-                  v-model="contact.firstName"
-                  class="input-primary"
-                  type="text"
-                  placeholder="First Name">
+              <label>
+                First Name
+                <input
+                    v-model="contact.firstName"
+                    class="input-primary"
+                    type="text"
+                    placeholder="First Name">
+              </label>
             </div>
             <div class="half-input">
-              <input
-                  v-model="contact.lastName"
-                  class="input-primary"
-                  type="text"
-                  placeholder="Last Name">
+              <label>
+                Last Name
+                <input
+                    v-model="contact.lastName"
+                    class="input-primary"
+                    type="text"
+                    placeholder="Last Name">
+              </label>
             </div>
           </div>
           <div class="pronoun-wrapper">
@@ -121,9 +154,12 @@
           </div>
           <div class="h-fields">
             <div class="two-third-input">
-              <input v-model="contact.email" type="text"
-                     class="input-primary"
-                     placeholder="Email Address">
+              <label>
+                Email Address
+                <input v-model="contact.email" type="text"
+                      class="input-primary"
+                      placeholder="Email Address">
+              </label>
             </div>
             <div class="checkbox-container">
               <label class="checkbox-label input-primary">
@@ -137,36 +173,54 @@
           </div>
           <div class="h-fields">
             <div class="half-input">
-              <input v-model="contact.phoneNumber" type="text"
-                     class="input-primary"
-                     placeholder="PhoneNumber">
+              <label>
+                Phone Number
+                <input v-model="contact.phoneNumber" type="text"
+                      class="input-primary"
+                      placeholder="PhoneNumber">
+              </label>
             </div>
             <div class="half-input">
-              <input v-model="contact.dateOfBirth"
-                     type="date"
-                     class="input-primary"
-                     placeholder="Date of Birth    DD/MM/YYYY">
+              <label>
+                Date of Birth (DD/MM/YYYY)
+                <input v-model="contact.dateOfBirth"
+                      type="date"
+                      class="input-primary"
+                      placeholder="Date of Birth    DD/MM/YYYY">
+              </label>
             </div>
           </div>
           <div>
-            <textarea v-model="contact.allergies" type="text"
-                      class="input-primary" placeholder="Allergies"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            <label>
+              Allergies
+              <textarea v-model="contact.allergies" type="text"
+                        class="input-primary" placeholder="Allergies"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="contact.diagnosis" type="text"
+            <label>
+              Diagnosis (if applicable)
+              <textarea v-model="contact.diagnosis" type="text"
                       class="input-primary" placeholder="Diagnosis (if applicable)"
                       style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="contact.medications" type="text"
-                      class="input-primary" placeholder="Medications (if applicable)"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            <label>
+              Medications (if applicable)
+              <textarea v-model="contact.medications" type="text"
+                        class="input-primary" placeholder="Medications (if applicable)"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="contact.notes" type="text"
-                      class="input-primary" placeholder="Other Notes"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            <label>
+              Other Notes
+              <textarea v-model="contact.notes" type="text"
+                        class="input-primary" placeholder="Other Notes"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            </label>
           </div>
         </div>
         <div class="button-row">
@@ -189,18 +243,24 @@
           </h4>
           <div class="h-fields">
             <div class="half-input">
-              <input
-                  v-model="child.firstName"
-                  class="input-primary"
-                  type="text"
-                  placeholder="First Name">
+              <label>
+                First Name
+                <input
+                    v-model="child.firstName"
+                    class="input-primary"
+                    type="text"
+                    placeholder="First Name">
+              </label>
             </div>
             <div class="half-input">
-              <input
-                  v-model="child.lastName"
-                  class="input-primary"
-                  type="text"
-                  placeholder="Last Name">
+              <label>
+                Last Name
+                <input
+                    v-model="child.lastName"
+                    class="input-primary"
+                    type="text"
+                    placeholder="Last Name">
+              </label>
             </div>
           </div>
           <div class="pronoun-wrapper">
@@ -219,41 +279,62 @@
               They/Them</button>
           </div>
           <div class="half-input">
-            <input
-                v-model="child.dateOfBirth"
-                class="input-primary"
-                type="date"
-                placeholder="Date of Birth  DD/MM/YYYY">
+            <label>
+              Date of Birth (DD/MM/YYYY)
+              <input
+                  v-model="child.dateOfBirth"
+                  class="input-primary"
+                  type="date"
+                  placeholder="Date of Birth  DD/MM/YYYY">
+            </label>
           </div>
           <div class="h-fields">
             <div class="half-input">
-              <input v-model="child.school" type="text"
-                     class="input-primary" placeholder="School">
+              <label>
+                School
+                <input v-model="child.school" type="text"
+                      class="input-primary" placeholder="School">
+              </label>
             </div>
             <div class="half-input">
-              <input v-model="child.schoolYear" type="text"
-                     class="input-primary" placeholder="School Year">
+              <label>
+                School Year
+                <input v-model="child.schoolYear" type="text"
+                      class="input-primary" placeholder="School Year">
+              </label>
             </div>
           </div>
           <div>
-            <textarea v-model="child.allergies" type="text"
-                      class="input-primary" placeholder="Allergies"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            <label>
+              Allergies
+              <textarea v-model="child.allergies" type="text"
+                        class="input-primary" placeholder="Allergies"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="child.diagnosis" type="text"
-                      class="input-primary" placeholder="Diagnosis (if applicable)"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            <label>
+              Diagnosis (if applicable)
+              <textarea v-model="child.diagnosis" type="text"
+                        class="input-primary" placeholder="Diagnosis (if applicable)"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="child.medications" type="text"
-                      class="input-primary" placeholder="Medications (if applicable)"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            <label>
+              Medications (if applicable)
+              <textarea v-model="child.medications" type="text"
+                        class="input-primary" placeholder="Medications (if applicable)"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+            </label>
           </div>
           <div>
-            <textarea v-model="child.notes" type="text"
-                      class="input-primary" placeholder="Other notes"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            <label>
+              Other Notes
+              <textarea v-model="child.notes" type="text"
+                        class="input-primary" placeholder="Other notes"
+                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+            </label>
           </div>
         </div>
         <div class="button-row">
@@ -566,6 +647,15 @@ export default {
     background: rgba(255, 0, 0, 0.4);
     border-radius: 5px;
     padding: 1rem;
+  }
+
+  label > .input-primary {
+    margin-top: 0;
+  }
+
+  label {
+    font-size: 0.7rem;
+    cursor: pointer;
   }
 
 </style>

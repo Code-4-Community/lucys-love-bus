@@ -87,7 +87,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import '../../assets/global-classes.less';
+
   .background {
     position: absolute;
     left: 0;
@@ -120,11 +122,5 @@ export default {
   .input-box > .error-message {
     color: red;
     font-size: 0.8rem;
-  }
-
-  .submit-btn {
-    padding: 5px 0;
-    border-radius: 6px;
-    max-width: 30%;
   }
 </style>

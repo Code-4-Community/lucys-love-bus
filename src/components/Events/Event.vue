@@ -76,6 +76,7 @@ export default {
     font-weight: lighter;
     font-size: 1.3rem;
     color: white;
+    mix-blend-mode: difference;
 
     position: absolute;
     bottom: 10px;
@@ -88,7 +89,9 @@ export default {
     position: relative;
     overflow: hidden;
     font-family: Raleway;
+    padding-left: 1rem;
     padding-right: 8px;
+    text-align: left;
   }
   .event-content:after {
     content:"";
@@ -114,11 +117,5 @@ export default {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: flex-end;
-  }
-
-  /* TODO: Do this without !important tag */
-  button {
-    padding-bottom: 4px !important;
-    padding-top: 4px !important;
   }
 </style>

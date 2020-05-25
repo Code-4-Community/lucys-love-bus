@@ -11,12 +11,14 @@ export default {
   },
   mutations: {
     registerForEvent(state, { tickets, event }) {
-      const stateEvent = state.cartEvents.find(cartEvent => cartEvent.id === event.id);
-      if (stateEvent) {
-        stateEvent.tickets = tickets;
-      } else {
-        const newEvent = { ...event, tickets };
-        state.cartEvents.push(newEvent);
+      if (tickets > 0) {
+        const stateEvent = state.cartEvents.find(cartEvent => cartEvent.id === event.id);
+        if (stateEvent) {
+          stateEvent.tickets = tickets;
+        } else {
+          const newEvent = { ...event, tickets };
+          state.cartEvents.push(newEvent);
+        }
       }
     },
     cancelRegistration(state, { event }) {

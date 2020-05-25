@@ -1,6 +1,5 @@
 <template>
     <div>
-      <slot name="header"></slot>
       <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
       <div v-else class="events-container">
         <event v-for="event in pageOfEvents" :key="event.id" :event="event">
@@ -89,7 +88,7 @@ export default {
 
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../../../assets/color-constants.less';
 
   .events-container {

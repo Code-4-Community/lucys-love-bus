@@ -124,8 +124,7 @@
       </div>
       <div class="form-box box-buttons">
         <button type="submit"
-                :class="(errors.items.length > 0 || invalidStartDate || invalidEndDate)
-                            ? 'create-btn btn btn-disabled' : 'create-btn btn'"
+                class="create-form-btn btn--primary"
                 :disabled="(errors.items.length > 0 || invalidStartDate || invalidEndDate)">
           Create
         </button>
@@ -257,6 +256,7 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
+  @import '../../../assets/global-classes.less';
 
   .event-form-container {
     margin-top: 16px;
@@ -375,16 +375,4 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
   }
-  .btn {
-    border-radius: 6px;
-    font-size: 1.3rem;
-    padding: 0 12px;
-    cursor: pointer;
-  }
-  .create-btn {
-    background-color: @button-bg;
-    border: 2px solid @button-bg;
-    color: white;
-  }
-
 </style>

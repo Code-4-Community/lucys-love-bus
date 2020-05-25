@@ -54,8 +54,8 @@
           placeholder="Confirm Password*">
     </div>
     <div>
-      <button @click="formCompleted" class="btn--secondary-selected"> Next Page </button> &nbsp;
-      <router-link :to="{name: 'login'}" class="med-pad-left" tag="a">
+      <button @click="formCompleted" class="submit-btn btn--tertiary"> Next Page </button> &nbsp;
+      <router-link :to="{name: 'login'}" class="small-pad-left" tag="a">
         Already have an account? Log in here!
       </router-link>
     </div>

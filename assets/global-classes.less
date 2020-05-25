@@ -81,65 +81,28 @@ textarea {
 
 
 // --------------Events Classes---------------
-.event__container {
-  display: grid;
-  grid-template-areas: "img content userbtns"
-                       "X admin admin";
-  grid-template-columns: 1fr 4fr 1fr;
-  grid-template-rows: 2fr 1fr;
-  margin-bottom: 2em;
-}
 
-.event-img {
-  grid-area: img;
-}
-
-.event-content {
-  grid-area: content;
-  padding-left: 1rem;
-  text-align: left;
-  .content-wrapper {
-      /* Serves to adjust how close an event's title and description are to one another.
-         Without this wrapper, css-grid reaches in and spaces out the title and description
-         text to fill the grid-area space. The content-wrapper div fixes that.
-       */
-  }
-}
-
-.event-content > h3 {
-  margin-bottom: 2em;
-  width: 100%;
-}
-
-.event-btns--user {
-  grid-area: userbtns;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.event-btns--admin_container {
-  grid-area: admin;
-  display: block;
-  padding: 0rem 1rem;
-}
-
-.event-btns--admin_wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.event-btn {
-  width: 12rem;
-  display: inline-block;
-  background-color: @button-bg;
-  border: 1px solid @button-bg;
-  color: @button-color;
+.event-side-btn {
+  width: 10rem;
+  padding: 0.5rem 1rem;
   border: none;
-  padding: 1rem;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn {
+  width: 30%;
+  padding: 5px 0;
+  margin: 10px 0 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.create-form-btn {
+  border-radius: 6px;
+  font-size: 1.3rem;
+  padding: 0 12px;
   cursor: pointer;
 }
 
@@ -151,40 +114,16 @@ textarea {
   padding: .5rem;
 }
 
-.btn--disabled {
-  &:extend(.btn);
-  color: @button-color;
-  background-color: darkgrey;
-  border: 1px solid darkgrey;
+.btn--primary {
+  background-color: @button-bg;
+  color: white;
+  border: 1px solid @button-bg;
 }
 
-.btn--secondary {
-   &:extend(.btn);
-   color: @tangerine;
-   background-color: @button-color;
-   border: 1px solid @tangerine;
- }
-
-.btn--secondary-selected {
-  &:extend(.btn);
-  color: @button-color;
-  background-color: @tangerine;
-  border: 1px solid @tangerine;
-}
-
-&--selected {
-  color: @button-color;
-  background-color: @tangerine;
-}
-
-.btn--secondary {
-  color: @tangerine;
-  background-color: @button-color;
-  border: 1px solid @tangerine;
-}
-
-.btn--secondary-selected {
-
+.btn--primary:disabled {
+  cursor: auto;
+  background-color: @button-bg-disabled;
+  border: 1px solid @button-bg-disabled;
 }
 
 .btn--primary-selected {
@@ -193,13 +132,28 @@ textarea {
   border: 1px solid @green-apple;
 }
 
-.btn--tertiary {
+.btn--disabled {
+  color: @button-color;
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+}
+
+.btn--secondary {
+   color: @tangerine;
+   background-color: @button-color;
+   border: 1px solid @tangerine;
+ }
+
+.btn--secondary-selected {
+  color: @button-color;
   background-color: @tangerine;
-  border-radius: 2px;
-  border: none;
+  border: 1px solid @tangerine;
+}
+
+.btn--tertiary {
   color: white;
-  margin: 1em 0 1em 0;
-  cursor: pointer;
+  background-color: @tangerine;
+  border: 1px solid @tangerine;
 }
 
 
@@ -236,6 +190,9 @@ textarea {
   width: 27%;
 }
 
+.small-pad-left {
+  padding-left: 1rem;
+}
 .med-pad-left {
   padding-left: 2.5em;
 }

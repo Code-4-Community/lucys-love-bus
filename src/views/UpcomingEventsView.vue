@@ -1,6 +1,19 @@
 <template>
   <div>
-    <p class="title">Our Upcoming Events</p>
+    <div class="page-header">
+      <p class="title">Our Upcoming Events</p>
+      <div v-if="cartHasEvents">
+        <div>
+          You have
+          {{ this.cartEvents.length }}
+          event{{ this.cartEvents.length > 1 ? 's' : '' }}
+          in your cart.
+        </div>
+        <router-link to="checkout">
+          Proceed to cart?
+        </router-link>
+      </div>
+    </div>
     <events-list :events="upcomingEvents">
       <template v-slot:NoEventsMsg>
         <h3>Sorry, there are currently no available events!</h3>
@@ -10,12 +23,12 @@
           <button
             v-if="slotProps.event.spotsAvailable > 0"
             v-on:click="openEventModal(slotProps.event)"
-            class="event-btn" >
+            class="event-side-btn btn--primary" >
             Register
           </button>
           <button
             v-else
-            class="event-btn sold-out"
+            class="event-side-btn sold-out"
             disabled>
             Sold Out
           </button>
@@ -23,13 +36,13 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
               :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
-              class="event-btn" tag="button">
+              class="event-side-btn btn--primary" tag="button">
             Edit
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-              class="event-btn"
+              class="event-side-btn btn--primary"
               tag="button"
               :to="{name: 'create-announcement',
                     params: {eventName: slotProps.event.title, eventId: slotProps.event.id}}"
@@ -40,7 +53,7 @@
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
           <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="event-btn btn--secondary" tag="button">
+            class="event-side-btn btn--secondary" tag="button">
             Learn More
           </router-link>
         </access-control>
@@ -83,6 +96,12 @@ export default {
     ...mapState('events', {
       upcomingEvents: 'upcomingEvents',
     }),
+    ...mapState('cart', {
+      cartEvents: 'cartEvents',
+    }),
+    cartHasEvents() {
+      return this.cartEvents.length > 0;
+    },
   },
   methods: {
     ...mapActions('events', {
@@ -101,8 +120,6 @@ export default {
     addEventToCart(payload) {
       this.openModal = false;
       this.registerForEvent(payload);
-      // eslint-disable-next-line no-alert
-      alert(`You have added ${payload.tickets} tickets for ${payload.event.title} to your cart.`);
     },
   },
 };
@@ -111,8 +128,12 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
   .title {
-    text-align: left;
     font-size: 2.3rem;
   }
 

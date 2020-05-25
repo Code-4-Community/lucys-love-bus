@@ -657,7 +657,7 @@ export default {
   }
 
   label {
-    font-size: 10px;
+    font-size: 0.7rem;
     cursor: pointer;
   }
 

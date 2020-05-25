@@ -209,9 +209,9 @@ a {
   color: gray;
 }
 
-  .input-primary {
-    width: 100%;
-  }
+.input-primary {
+  width: 100%;
+}
 
 
 label > .input-primary {
@@ -219,7 +219,7 @@ label > .input-primary {
 }
 
 label {
-  font-size: 10px;
+  font-size: 0.7rem;
   cursor: pointer;
 }
 </style>

@@ -45,7 +45,7 @@
               :disabled="disableChange">
         They/Them</button>
     </div>
-    <div class="h-fields">
+    <div class="h-fields email-input-row">
       <div class="two-third-input">
         <label>
           Email Address
@@ -161,6 +161,13 @@ export default {
   label {
     font-size: 0.7rem;
     cursor: pointer;
+  }
+
+  .email-input-row {
+    align-items: flex-end;
+  }
+  .email-input-row > .checkbox-container {
+    margin-bottom: 8px;
   }
 
   .checkbox-container {

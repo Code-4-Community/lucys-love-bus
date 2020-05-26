@@ -180,14 +180,43 @@ textarea {
   font-size: 16px;
   padding: .5em;
   margin: .5em 0 .5em 0;
+  width: 100%;
 }
 
-.half-input {
-  width: 43%;
+.pronoun-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pronoun-btn {
+  border: 2px solid #888;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  background-color: transparent;
+}
+.pronoun-btn-selected {
+  border: 2px solid @tangerine;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+
+  background-color: @tangerine;
+  color: white;
 }
 
 .third-input {
   width: 27%;
+}
+.half-input {
+  width: 43%;
+}
+.two-third-input {
+  width: 66%;
 }
 
 .small-pad-left {

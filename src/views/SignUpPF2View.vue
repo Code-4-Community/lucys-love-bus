@@ -8,220 +8,11 @@
       </p>
     </div>
     <div class="auth-container">
-      <h3>More About You (Account Owner)</h3>
-      <div class="h-fields">
-        <div class="half-input">
-          <label>
-            First Name
-            <input
-                v-model="mainContact.firstName"
-                class="input-primary"
-                type="text"
-                placeholder="First Name">
-          </label>
-        </div>
-        <div class="half-input">
-          <label>
-            Last Name
-            <input
-                v-model="mainContact.lastName"
-                class="input-primary"
-                type="text"
-                placeholder="Last Name">
-          </label>
-        </div>
-      </div>
-      <div class="pronoun-wrapper">
-        <h4>Preferred Pronouns</h4>
-        <button v-on:click="mainContact.pronouns = 'HE/HIM'"
-                :class="{'pronoun-btn' : mainContact.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : mainContact.pronouns === 'HE/HIM'}">
-          He/Him</button>
-        <button v-on:click="mainContact.pronouns = 'SHE/HER'"
-                :class="{'pronoun-btn' : mainContact.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : mainContact.pronouns === 'SHE/HER'}">
-          She/Her</button>
-        <button v-on:click="mainContact.pronouns = 'THEY/THEM'"
-                :class="{'pronoun-btn' : mainContact.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : mainContact.pronouns === 'THEY/THEM'}">
-          They/Them</button>
-      </div>
-      <div>
-        <label>
-          Email
-          <input
-              class="input-primary"
-              type="text"
-              v-bind:placeholder="mainContact.email"
-              disabled="True">
-        </label>
-      </div>
-      <div class="h-fields">
-        <div class="half-input">
-          <label>
-            Phone Number
-            <input
-                v-model="mainContact.phoneNumber"
-                class="input-primary"
-                type="text"
-                placeholder="Phone Number">
-          </label>
-        </div>
-        <div class="half-input">
-          <label>
-            Date of Birth
-            <input
-                v-model="mainContact.dateOfBirth"
-                class="input-primary"
-                type="date">
-          </label>
-        </div>
-      </div>
-      <div>
-        <label>
-          Allergies
-          <textarea v-model="mainContact.allergies" type="text"
-                    class="input-primary" placeholder="Allergies"
-                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-        </label>
-      </div>
-      <div>
-        <label>
-          Diagnosis (if applicable)
-          <textarea v-model="mainContact.diagnosis" type="text"
-                    class="input-primary" placeholder="Diagnosis (if applicable)"
-                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-        </label>
-      </div>
-      <div>
-        <label>
-          Medications (if applicable)
-          <textarea v-model="mainContact.medications" type="text"
-                    class="input-primary" placeholder="Medications (if applicable)"
-                    style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-        </label>
-      </div>
-      <div>
-        <label>
-          Other Notes
-          <textarea v-model="mainContact.notes" type="text"
-                    class="input-primary" placeholder="Other Notes"
-                    style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-        </label>
-      </div>
+      <main-contact-form v-model="mainContact" />
       <div class="contacts">
         <h3>Additional Adults (18+ yrs)</h3>
-        <div v-for="contact in additionalContacts" :key="contact.id">
-          <h4>
-            Guardian/Parent {{contact.id + 1}}
-          </h4>
-          <div class="h-fields">
-            <div class="half-input">
-              <label>
-                First Name
-                <input
-                    v-model="contact.firstName"
-                    class="input-primary"
-                    type="text"
-                    placeholder="First Name">
-              </label>
-            </div>
-            <div class="half-input">
-              <label>
-                Last Name
-                <input
-                    v-model="contact.lastName"
-                    class="input-primary"
-                    type="text"
-                    placeholder="Last Name">
-              </label>
-            </div>
-          </div>
-          <div class="pronoun-wrapper">
-            <h4>Preferred Pronouns</h4>
-            <button v-on:click="contact.pronouns = 'HE/HIM'"
-                    :class="{'pronoun-btn' : contact.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : contact.pronouns === 'HE/HIM'}">
-              He/Him</button>
-            <button v-on:click="contact.pronouns = 'SHE/HER'"
-                    :class="{'pronoun-btn' : contact.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : contact.pronouns === 'SHE/HER'}">
-              She/Her</button>
-            <button v-on:click="contact.pronouns = 'THEY/THEM'"
-                    :class="{'pronoun-btn' : contact.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : contact.pronouns === 'THEY/THEM'}">
-              They/Them</button>
-          </div>
-          <div class="h-fields">
-            <div class="two-third-input">
-              <label>
-                Email Address
-                <input v-model="contact.email" type="text"
-                      class="input-primary"
-                      placeholder="Email Address">
-              </label>
-            </div>
-            <div class="checkbox-container">
-              <label class="checkbox-label input-primary">
-                <input type="checkbox" checked="checked" v-model="contact.shouldSendEmails">
-                <span class="checkmark"/>
-                <span class="checkbox-message">
-                  Receive News & Updates?
-                </span>
-              </label>
-            </div>
-          </div>
-          <div class="h-fields">
-            <div class="half-input">
-              <label>
-                Phone Number
-                <input v-model="contact.phoneNumber" type="text"
-                      class="input-primary"
-                      placeholder="PhoneNumber">
-              </label>
-            </div>
-            <div class="half-input">
-              <label>
-                Date of Birth (DD/MM/YYYY)
-                <input v-model="contact.dateOfBirth"
-                      type="date"
-                      class="input-primary"
-                      placeholder="Date of Birth    DD/MM/YYYY">
-              </label>
-            </div>
-          </div>
-          <div>
-            <label>
-              Allergies
-              <textarea v-model="contact.allergies" type="text"
-                        class="input-primary" placeholder="Allergies"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Diagnosis (if applicable)
-              <textarea v-model="contact.diagnosis" type="text"
-                      class="input-primary" placeholder="Diagnosis (if applicable)"
-                      style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Medications (if applicable)
-              <textarea v-model="contact.medications" type="text"
-                        class="input-primary" placeholder="Medications (if applicable)"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Other Notes
-              <textarea v-model="contact.notes" type="text"
-                        class="input-primary" placeholder="Other Notes"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-            </label>
-          </div>
+        <div v-for="(contact, idx) in additionalContacts" :key="contact.id">
+          <additional-contact-form v-model="additionalContacts[idx]" :idx="idx" />
         </div>
         <div class="button-row">
           <button class="add-remove-btn" v-on:click="addContact">
@@ -237,105 +28,8 @@
 
       <div class="children">
         <h3>Children</h3>
-        <div v-for="child in children" :key="child.id">
-          <h4>
-            Child {{child.id + 1}}
-          </h4>
-          <div class="h-fields">
-            <div class="half-input">
-              <label>
-                First Name
-                <input
-                    v-model="child.firstName"
-                    class="input-primary"
-                    type="text"
-                    placeholder="First Name">
-              </label>
-            </div>
-            <div class="half-input">
-              <label>
-                Last Name
-                <input
-                    v-model="child.lastName"
-                    class="input-primary"
-                    type="text"
-                    placeholder="Last Name">
-              </label>
-            </div>
-          </div>
-          <div class="pronoun-wrapper">
-            <h4>Preferred Pronouns</h4>
-            <button v-on:click="child.pronouns = 'HE/HIM'"
-                    :class="{'pronoun-btn' : child.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : child.pronouns === 'HE/HIM'}">
-              He/Him</button>
-            <button v-on:click="child.pronouns = 'SHE/HER'"
-                    :class="{'pronoun-btn' : child.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : child.pronouns === 'SHE/HER'}">
-              She/Her</button>
-            <button v-on:click="child.pronouns = 'THEY/THEM'"
-                    :class="{'pronoun-btn' : child.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : child.pronouns === 'THEY/THEM'}">
-              They/Them</button>
-          </div>
-          <div class="half-input">
-            <label>
-              Date of Birth (DD/MM/YYYY)
-              <input
-                  v-model="child.dateOfBirth"
-                  class="input-primary"
-                  type="date"
-                  placeholder="Date of Birth  DD/MM/YYYY">
-            </label>
-          </div>
-          <div class="h-fields">
-            <div class="half-input">
-              <label>
-                School
-                <input v-model="child.school" type="text"
-                      class="input-primary" placeholder="School">
-              </label>
-            </div>
-            <div class="half-input">
-              <label>
-                School Year
-                <input v-model="child.schoolYear" type="text"
-                      class="input-primary" placeholder="School Year">
-              </label>
-            </div>
-          </div>
-          <div>
-            <label>
-              Allergies
-              <textarea v-model="child.allergies" type="text"
-                        class="input-primary" placeholder="Allergies"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Diagnosis (if applicable)
-              <textarea v-model="child.diagnosis" type="text"
-                        class="input-primary" placeholder="Diagnosis (if applicable)"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Medications (if applicable)
-              <textarea v-model="child.medications" type="text"
-                        class="input-primary" placeholder="Medications (if applicable)"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
-            </label>
-          </div>
-          <div>
-            <label>
-              Other Notes
-              <textarea v-model="child.notes" type="text"
-                        class="input-primary" placeholder="Other notes"
-                        style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
-            </label>
-          </div>
+        <div v-for="(child, idx) in children" :key="child.id">
+          <child-form v-model="children[idx]" :idx="idx" />
         </div>
         <div class="button-row">
           <button class="add-remove-btn" v-on:click="addChild">
@@ -367,6 +61,9 @@
 
 import { mapMutations } from 'vuex';
 import api from '../api/api';
+import MainContactForm from '../components/Forms/MainContactForm.vue';
+import AdditionalContactForm from '../components/Forms/AdditionalContactForm.vue';
+import ChildForm from '../components/Forms/ChildForm.vue';
 
 export default {
   name: 'SignupPFForm',
@@ -375,6 +72,11 @@ export default {
       type: Object,
       required: false,
     },
+  },
+  components: {
+    MainContactForm,
+    AdditionalContactForm,
+    ChildForm,
   },
   data() {
     return {
@@ -405,7 +107,6 @@ export default {
     resetInput() {
       this.additionalContacts = [];
       this.children = [];
-      this.password = ['', ''];
       this.inputError = [];
       this.serverError = '';
     },
@@ -546,51 +247,14 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .input-primary {
-    box-sizing: border-box;
-    width: 100%;
-  }
-
   .text-wrap {
     margin: auto;
     width: 30em;
     padding-bottom: 1em;
   }
 
-  .half-input {
-    width: 43%;
-  }
-  .two-third-input {
-    width: 66%;
-  }
-
   .center h2 {
     font-family: Dekko, cursive;
-  }
-
-  a {
-    text-decoration: none;
-    color: gray;
-  }
-
-  .checkbox-container {
-    margin-left: 6px;
-  }
-  .checkbox-label {
-    border: none;
-    padding: 0 6px;
-  }
-  .checkmark {
-    border: 2px solid #888;
-    border-radius: 6px;
-    height: 30px;
-    width: 30px;
-    margin: 0 auto;
-    background-color: transparent;
-  }
-  .checkbox-message {
-    font-size: 1rem;
-    margin-left: 6px;
   }
 
   .button-row {
@@ -608,32 +272,6 @@ export default {
     outline: none;
   }
 
-  .pronoun-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .pronoun-btn {
-    border: 2px solid #888;
-    border-radius: 4px;
-    padding: 9px 12px;
-    font-size: 1rem;
-    cursor: pointer;
-
-    background-color: transparent;
-  }
-  .pronoun-btn-selected {
-    border: 2px solid @tangerine;
-    border-radius: 4px;
-    padding: 9px 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    outline: none;
-
-    background-color: @tangerine;
-    color: white;
-  }
-
   .next-page-btn-row {
     margin-top: 1rem;
     display: flex;
@@ -647,15 +285,6 @@ export default {
     background: rgba(255, 0, 0, 0.4);
     border-radius: 5px;
     padding: 1rem;
-  }
-
-  label > .input-primary {
-    margin-top: 0;
-  }
-
-  label {
-    font-size: 0.7rem;
-    cursor: pointer;
   }
 
 </style>

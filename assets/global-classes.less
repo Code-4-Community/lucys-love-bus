@@ -180,14 +180,47 @@ textarea {
   font-size: 16px;
   padding: .5em;
   margin: .5em 0 .5em 0;
+  width: 100%;
+}
+textarea.input-primary {
+  min-width: 100%;
+  max-width: 100%;
 }
 
-.half-input {
-  width: 43%;
+.pronoun-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pronoun-btn {
+  border: 2px solid #888;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  background-color: transparent;
+}
+.pronoun-btn-selected {
+  border: 2px solid @tangerine;
+  border-radius: 4px;
+  padding: 9px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+
+  background-color: @tangerine;
+  color: white;
 }
 
 .third-input {
   width: 27%;
+}
+.half-input {
+  width: 43%;
+}
+.two-third-input {
+  width: 66%;
 }
 
 .small-pad-left {
@@ -202,7 +235,6 @@ textarea {
   align-items: center;
   position: relative;
   margin: 0 !important;
-  padding-left: 3rem;
   cursor: pointer;
   font-size: 1rem;
   -webkit-user-select: none;
@@ -228,6 +260,14 @@ textarea {
   background-color: @tangerine;
 }
 
+.checkmark {
+  border: 2px solid #888;
+  border-radius: 6px;
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+  background-color: transparent;
+}
 .checkmark:after {
   content: "";
   position: absolute;

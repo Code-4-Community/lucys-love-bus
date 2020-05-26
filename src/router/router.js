@@ -18,7 +18,7 @@ import ForgotPasswordRequest from '../views/ForgotPasswordRequest.vue';
 import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
 import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
 import SignUpPF2View from '../views/SignUpPF2View.vue';
-import FormAgreements from '../components/Forms/FormAgreements.vue';
+import SignupFormAgreements from '../views/SignupFormAgreements.vue';
 import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
 import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
@@ -100,7 +100,7 @@ export default new Router({
     {
       path: '/form-agreements',
       name: 'form-agreements',
-      component: FormAgreements,
+      component: SignupFormAgreements,
     },
     {
       path: '/profile',

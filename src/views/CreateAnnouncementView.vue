@@ -1,49 +1,61 @@
 <template>
-    <form @submit.prevent="onSubmit">
-    <div class="container">
-        <span class="header">Make an Announcement</span>
-        <div class="subheader">
-            <span v-if="eventId == null">
-                This announcement will be shown to all users.
-            </span>
-            <span v-else>
-                This announcement will be shown to anyone that has signed up or will sign up for
-                <span class="event-title">{{ this.eventName }}</span>.
-            </span>
-        </div>
-        <div class="form">
-            <div class="form-element">
-                <input
-                    v-validate="'required|max:80'"
-                    v-model="a.title"
-                    name="title"
-                    type="text"
-                    size="60"
-                    placeholder="Title">
+    <div>
+        <div class="title">
+            <div class="header">
+                Make an Announcement
             </div>
-            <div class="form-errors">
-                <span v-show="errors.has('title')">{{ errors.first('title') }}</span>
-            </div>
-            <div class="form-element">
-                <textarea v-validate="'required'" v-model="a.description" rows="10" cols="100"
-                name="description" placeholder="Description"></textarea>
-            </div>
-            <div class="form-errors">
-                <span v-show="errors.has('description')">{{ errors.first('description') }}</span>
+            <div class="subheader">
+                <span v-if="eventId == null">
+                    This announcement will be shown to all users.
+                </span>
+                    <span v-else>
+                    This announcement will be shown to anyone that has signed up or will sign up for
+                    <span class="event-title">{{ this.eventName }}</span>.
+                </span>
             </div>
         </div>
-        <div class="btn-row">
-            <router-link
-                :to="{ name: 'profile'}"
-                class="create-form-btn btn--secondary" tag="button">
-                Cancel
-            </router-link>
-            <div class="create-form-btn btn--primary" @click="onSubmit">
-                Save
+        <form @submit.prevent="onSubmit">
+            <div class="announcement-form-container">
+                <div class="form-element">
+                    <input v-validate="'required|max:80'"
+                           v-model="a.title"
+                           name="title"
+                           class="announcement-title"
+                           type="text"
+                           placeholder="Title">
+                    <div class="form-errors">
+                        <span v-show="errors.has('title')">{{ errors.first('title') }}</span>
+                    </div>
+                </div>
+                <div class="form-element description">
+                    <textarea v-validate="'required'"
+                              v-model="a.description"
+                              rows="10"
+                              cols="100"
+                              name="description"
+                              class="announcement-description"
+                              placeholder="Description" />
+                    <div class="form-errors">
+                        <span v-show="errors.has('description')">
+                            {{ errors.first('description') }}
+                        </span>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <router-link
+                        :to="{ name: 'profile'}"
+                        class="create-form-btn btn--secondary" tag="button">
+                        Cancel
+                    </router-link>
+                    <button class="create-form-btn btn--primary"
+                         @click="onSubmit"
+                        :disabled="!formComplete">
+                        Save
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-    </form>
 </template>
 
 <script>
@@ -70,6 +82,11 @@ export default {
       a: {},
       error: '',
     };
+  },
+  computed: {
+    formComplete() {
+      return this.a.title && this.a.description;
+    },
   },
   methods: {
     async onSubmit() {
@@ -100,68 +117,64 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.title {
+    text-align: left;
+    font-size: 2.3rem;
 }
-
-.header {
-    font-size: 30pt;
-    font-family: 'Quicksand';
-}
-
 .subheader {
-    margin: 0.8em;
-    font-size: 11pt;
-    font-weight: bold;
-    font-family: 'Quicksand';
+    font-size: 1.3rem;
 }
 .event-title {
     text-decoration: underline;
 }
 
-.form {
+.announcement-form-container {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
-    border: 1px solid #ccc;
-    padding: 0.4rem;
+    margin-top: 16px;
+    padding: 1rem;
+    background-color: rgba(255, 201, 91, 0.31);
+    text-align: left;
+    border-radius: 12px;
 }
 
 .form-element {
     display: flex;
-    flex-direction: row;
-    margin-right: 1rem;
-    font-family: 'Montserrat';
+    flex-direction: column;
 }
 
-input[type=text], textarea {
-    margin: 0.8rem;
-    padding: 0.8rem;
-    border: 0.1rem solid #ccc;
+.form-errors {
+    text-align: left;
+    color: red;
+    font-family: Montserrat;
+}
+
+.announcement-title {
+    width: 50%;
+    padding: 1rem;
     box-sizing: border-box;
-    font-family: 'Montserrat';
-    font-size: 12pt;
+
+    font-family: 'Quicksand';
+    font-size: 2.3rem;
+    border: .1rem solid #ccc;
+    border-radius: 3px;
 }
 
-input[type=text] {
-    font-size: 16pt;
-    font-weight: bold;
+.announcement-description {
+    margin-top: 16px;
+    padding: 1rem;
+    box-sizing: border-box;
+
+    font-family: Montserrat;
+    font-size: 12pt;
+    border: .1rem solid #ccc;
+    border-radius: 3px;
 }
 
 .btn-row {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-top: 1rem;
 }
-
-.form-errors {
-    text-align: left;
-    font-family: 'Montserrat';
-    color: red;
-    margin-left: 0.8rem;
-}
-
 </style>

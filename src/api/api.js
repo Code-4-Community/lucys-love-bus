@@ -181,6 +181,11 @@ async function makePfRequest() {
   return protectedResourceAxios.post(path);
 }
 
+async function getRequestData(requestId) {
+  const path = `api/v1/protected/requests/${requestId}`;
+  return protectedResourceAxios.get(path);
+}
+
 export default {
   createEvent,
   editEvent,
@@ -198,4 +203,5 @@ export default {
   rejectRequest,
   addContactInfo,
   makePfRequest,
+  getRequestData,
 };

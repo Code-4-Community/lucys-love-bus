@@ -7,17 +7,17 @@
       <div class="user-email">
         {{ request.user.email }}
       </div>
-      <div v-if="formattedPhoneString !== null" class="user-phone">
-        {{ formattedPhoneString }}
-      </div>
     </div>
     <div class="request-action-buttons">
-      <button class="request-btn btn--primary" @click="approve">
-        Approve
-      </button>
-      <button class="request-btn btn--secondary" @click="reject">
-        Reject
-      </button>
+      <div class="arrow" @click="viewRequest()">
+        <svg viewBox="0 0 63 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M62.7071 8.70711C63.0976 8.31658 63.0976 7.68342 62.7071 7.29289L56.3431
+          0.928932C55.9526 0.538408 55.3195 0.538408 54.9289 0.928932C54.5384 1.31946 54.5384
+          1.95262 54.9289 2.34315L60.5858 8L54.9289 13.6569C54.5384 14.0474 54.5384 14.6805
+          54.9289 15.0711C55.3195 15.4616 55.9526 15.4616 56.3431 15.0711L62.7071 8.70711ZM0
+          9H62V7H0V9Z" />
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -55,6 +55,9 @@ export default {
     reject() {
       this.rejectRequest({ requestId: this.request.id });
     },
+    viewRequest() {
+      this.$emit('viewRequest', { id: this.request.id });
+    },
   },
 };
 </script>
@@ -64,24 +67,22 @@ export default {
   @import '../../../assets/global-classes.less';
 
   .request-block {
-    display: grid;
-    grid-template-columns: 5fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "content actions";
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
     width: 100%;
-    border: 1px solid black;
-    border-radius: 6px;
-    padding: 6px 12px;
-    margin: 12px 0;
+    padding: 1rem 12px;
   }
 
   .request-info {
-    grid-area: content;
+    width: 70%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
     text-align: left;
+    padding-left: 3rem;
   }
 
   .user-name {
@@ -92,21 +93,19 @@ export default {
     font-size: 1.3rem;
     padding-left: 12px;
   }
-  .user-phone {
-    font-size: 1.3rem;
-    padding-left: 12px;
-  }
 
   .request-action-buttons {
-    grid-area: actions;
+    width: 30%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row;
+    justify-content: flex-end;
   }
-
-  .request-btn {
-    border-radius: 6px;
-    font-size: 1rem;
+  .arrow {
+    width: 40%;
+    fill: black;
     cursor: pointer;
+  }
+  .arrow:hover {
+    fill: #FBA34A;
   }
 </style>

@@ -21,6 +21,7 @@ import SignUpPF2View from '../views/SignUpPF2View.vue';
 import FormAgreements from '../components/Forms/FormAgreements.vue';
 import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
+import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
 
 Vue.use(Router);
 
@@ -110,6 +111,11 @@ export default new Router({
       path: '/family-requests',
       name: 'family-requests',
       component: FamilyRequests,
+    },
+    {
+      path: '/single-family-request/:request_id',
+      name: 'single-family-request',
+      component: SingleFamilyRequest,
     },
     {
       path: '/my-events',

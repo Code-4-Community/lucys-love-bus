@@ -2,7 +2,7 @@
   <div class="auth-container">
     <div class="h-fields">
       <div class="half-input">
-        <label>
+        <label class="input-label">
           First Name
           <input
               v-model="firstName"
@@ -12,7 +12,7 @@
         </label>
       </div>
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Last Name
           <input
               v-model="lastName"
@@ -23,13 +23,13 @@
       </div>
     </div>
     <div class="full-input">
-      <label>
+      <label class="input-label">
         Email Address
         <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
       </label>
     </div>
     <div class="half-input">
-      <label>
+      <label class="input-label">
         Phone
         <input v-model="phone"
               class="input-primary"
@@ -38,33 +38,33 @@
       </label>
     </div>
     <div class="full-input">
-      <label>
+      <label class="input-label">
         Address
         <input v-model="address" class="input-primary" type="text"  placeholder="Address">
       </label>
     </div>
     <div class="h-fields">
       <div class="third-input">
-        <label>
+        <label class="input-label">
           City
           <input v-model="city" class="input-primary" type="text" placeholder="City">
         </label>
       </div>
       <div class="third-input">
-        <label>
+        <label class="input-label">
           State
           <input v-model="state" class="input-primary" type="text" placeholder="State">
         </label>
       </div>
       <div class="third-input">
-        <label>
+        <label class="input-label">
           Zip code
           <input v-model="zip" class="input-primary" type="text"  placeholder="Zip Code">
         </label>
       </div>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Password
         <input
             v-model="password[0]"
@@ -74,7 +74,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Retype Password
         <input
             v-model="password[1]"
@@ -211,15 +211,5 @@ a {
 
 .input-primary {
   width: 100%;
-}
-
-
-label > .input-primary {
-  margin-top: 0;
-}
-
-label {
-  font-size: 0.7rem;
-  cursor: pointer;
 }
 </style>

@@ -5,7 +5,7 @@
     </h4>
     <div class="h-fields">
       <div class="half-input">
-        <label>
+        <label class="input-label">
           First Name
           <input
               v-model="value.firstName"
@@ -16,7 +16,7 @@
         </label>
       </div>
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Last Name
           <input
               v-model="value.lastName"
@@ -47,7 +47,7 @@
     </div>
     <div class="h-fields email-input-row">
       <div class="two-third-input">
-        <label>
+        <label class="input-label">
           Email Address
           <input v-model="value.email"
                  :disabled="disableChange"
@@ -68,7 +68,7 @@
     </div>
     <div class="h-fields">
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Phone Number
           <input v-model="value.phoneNumber"
                  :disabled="disableChange"
@@ -78,7 +78,7 @@
         </label>
       </div>
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Date of Birth
           <input v-model="value.dateOfBirth"
                  :disabled="disableChange"
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Allergies
         <textarea v-model="value.allergies"
                   :disabled="disableChange"
@@ -99,7 +99,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Diagnosis (if applicable)
         <textarea v-model="value.diagnosis"
                   :disabled="disableChange"
@@ -109,7 +109,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Medications (if applicable)
         <textarea v-model="value.medications"
                   :disabled="disableChange"
@@ -119,7 +119,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Other Notes
         <textarea v-model="value.notes"
                   :disabled="disableChange"
@@ -153,15 +153,6 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/global-classes.less';
-
-  label > .input-primary {
-    margin-top: 0;
-  }
-
-  label {
-    font-size: 0.7rem;
-    cursor: pointer;
-  }
 
   .email-input-row {
     align-items: flex-end;

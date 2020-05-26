@@ -3,7 +3,7 @@
     <h3>More About You (Account Owner)</h3>
     <div class="h-fields">
       <div class="half-input">
-        <label>
+        <label class="input-label">
           First Name
           <input
               v-model="value.firstName"
@@ -14,7 +14,7 @@
         </label>
       </div>
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Last Name
           <input
               v-model="value.lastName"
@@ -44,7 +44,7 @@
         They/Them</button>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Email
         <input
             class="input-primary"
@@ -55,7 +55,7 @@
     </div>
     <div class="h-fields">
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Phone Number
           <input
               v-model="value.phoneNumber"
@@ -66,7 +66,7 @@
         </label>
       </div>
       <div class="half-input">
-        <label>
+        <label class="input-label">
           Date of Birth
           <input
               v-model="value.dateOfBirth"
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Allergies
         <textarea v-model="value.allergies"
                   type="text"
@@ -87,7 +87,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Diagnosis (if applicable)
         <textarea v-model="value.diagnosis"
                   type="text"
@@ -97,7 +97,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Medications (if applicable)
         <textarea v-model="value.medications"
                   type="text"
@@ -107,7 +107,7 @@
       </label>
     </div>
     <div>
-      <label>
+      <label class="input-label">
         Other Notes
         <textarea v-model="value.notes"
                   type="text"
@@ -136,14 +136,5 @@ export default {
 
 <style lang="less" scoped>
   @import '../../../assets/global-classes.less';
-
-  label > .input-primary {
-    margin-top: 0;
-  }
-
-  label {
-    font-size: 0.7rem;
-    cursor: pointer;
-  }
 
 </style>

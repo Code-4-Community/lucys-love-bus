@@ -2,56 +2,86 @@
   <div class="auth-container">
     <div class="h-fields">
       <div class="half-input">
-        <input
-            v-model="firstName"
-            class="input-primary"
-            type="text"
-            placeholder="First Name*">
+        <label>
+          First Name
+          <input
+              v-model="firstName"
+              class="input-primary"
+              type="text"
+              placeholder="First Name*">
+        </label>
       </div>
       <div class="half-input">
-        <input
-            v-model="lastName"
-            class="input-primary"
-            type="text"
-            placeholder="Last Name*">
+        <label>
+          Last Name
+          <input
+              v-model="lastName"
+              class="input-primary"
+              type="text"
+              placeholder="Last Name*">
+        </label>
       </div>
     </div>
-    <div>
-      <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
+    <div class="full-input">
+      <label>
+        Email Address
+        <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
+      </label>
     </div>
     <div class="half-input">
-      <input v-model="phone"
-             class="input-primary"
-             type="text"
-             placeholder="Phone Number">
+      <label>
+        Phone
+        <input v-model="phone"
+              class="input-primary"
+              type="text"
+              placeholder="Phone Number">
+      </label>
     </div>
-    <div>
-      <input v-model="address" class="input-primary" type="text"  placeholder="Address">
+    <div class="full-input">
+      <label>
+        Address
+        <input v-model="address" class="input-primary" type="text"  placeholder="Address">
+      </label>
     </div>
     <div class="h-fields">
       <div class="third-input">
-        <input v-model="city" class="input-primary" type="text" placeholder="City">
+        <label>
+          City
+          <input v-model="city" class="input-primary" type="text" placeholder="City">
+        </label>
       </div>
       <div class="third-input">
-        <input v-model="state" class="input-primary" type="text" placeholder="State">
+        <label>
+          State
+          <input v-model="state" class="input-primary" type="text" placeholder="State">
+        </label>
       </div>
       <div class="third-input">
-        <input v-model="zip" class="input-primary" type="text"  placeholder="Zip Code">
+        <label>
+          Zip code
+          <input v-model="zip" class="input-primary" type="text"  placeholder="Zip Code">
+        </label>
       </div>
     </div>
     <div>
-      <input
-          v-model="password[0]"
-          class="input-primary"
-          type="password"
-          placeholder="Password*">
+      <label>
+        Password
+        <input
+            v-model="password[0]"
+            class="input-primary"
+            type="password"
+            placeholder="Password*">
+      </label>
     </div>
     <div>
-      <input
-          v-model="password[1]"
-          class="input-primary"
-          type="password"
-          placeholder="Confirm Password*">
+      <label>
+        Retype Password
+        <input
+            v-model="password[1]"
+            class="input-primary"
+            type="password"
+            placeholder="Confirm Password*">
+      </label>
     </div>
     <div>
       <button @click="formCompleted" class="submit-btn btn--tertiary"> Next Page </button> &nbsp;
@@ -179,7 +209,17 @@ a {
   color: gray;
 }
 
-  .input-primary {
-    width: 100%;
-  }
+.input-primary {
+  width: 100%;
+}
+
+
+label > .input-primary {
+  margin-top: 0;
+}
+
+label {
+  font-size: 0.7rem;
+  cursor: pointer;
+}
 </style>

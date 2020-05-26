@@ -580,14 +580,6 @@ export default {
     border: none;
     padding: 0 6px;
   }
-  .checkmark {
-    border: 2px solid #888;
-    border-radius: 6px;
-    height: 30px;
-    width: 30px;
-    margin: 0 auto;
-    background-color: transparent;
-  }
   .checkbox-message {
     font-size: 1rem;
     margin-left: 6px;

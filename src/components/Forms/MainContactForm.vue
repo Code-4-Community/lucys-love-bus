@@ -7,6 +7,7 @@
           First Name
           <input
               v-model="value.firstName"
+              :disabled="disableChange"
               class="input-primary"
               type="text"
               placeholder="First Name">
@@ -17,6 +18,7 @@
           Last Name
           <input
               v-model="value.lastName"
+              :disabled="disableChange"
               class="input-primary"
               type="text"
               placeholder="Last Name">
@@ -27,15 +29,18 @@
       <h4>Preferred Pronouns</h4>
       <button v-on:click="value.pronouns = 'HE/HIM'"
               :class="{'pronoun-btn' : value.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : value.pronouns === 'HE/HIM'}">
+                         'pronoun-btn-selected' : value.pronouns === 'HE/HIM'}"
+              :disabled="disableChange">
         He/Him</button>
       <button v-on:click="value.pronouns = 'SHE/HER'"
               :class="{'pronoun-btn' : value.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : value.pronouns === 'SHE/HER'}">
+                         'pronoun-btn-selected' : value.pronouns === 'SHE/HER'}"
+              :disabled="disableChange">
         She/Her</button>
       <button v-on:click="value.pronouns = 'THEY/THEM'"
               :class="{'pronoun-btn' : value.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : value.pronouns === 'THEY/THEM'}">
+                         'pronoun-btn-selected' : value.pronouns === 'THEY/THEM'}"
+              :disabled="disableChange">
         They/Them</button>
     </div>
     <div>
@@ -45,7 +50,7 @@
             class="input-primary"
             type="text"
             v-bind:placeholder="value.email"
-            disabled="True">
+            :disabled="true">
       </label>
     </div>
     <div class="h-fields">
@@ -54,6 +59,7 @@
           Phone Number
           <input
               v-model="value.phoneNumber"
+              :disabled="disableChange"
               class="input-primary"
               type="text"
               placeholder="Phone Number">
@@ -64,6 +70,7 @@
           Date of Birth
           <input
               v-model="value.dateOfBirth"
+              :disabled="disableChange"
               class="input-primary"
               type="date">
         </label>
@@ -72,33 +79,40 @@
     <div>
       <label>
         Allergies
-        <textarea v-model="value.allergies" type="text"
-                  class="input-primary" placeholder="Allergies"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        <textarea v-model="value.allergies"
+                  type="text"
+                  :disabled="disableChange"
+                  class="input-primary"
+                  placeholder="Allergies"/>
       </label>
     </div>
     <div>
       <label>
         Diagnosis (if applicable)
-        <textarea v-model="value.diagnosis" type="text"
-                  class="input-primary" placeholder="Diagnosis (if applicable)"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        <textarea v-model="value.diagnosis"
+                  type="text"
+                  :disabled="disableChange"
+                  class="input-primary"
+                  placeholder="Diagnosis (if applicable)"/>
       </label>
     </div>
     <div>
       <label>
         Medications (if applicable)
-        <textarea v-model="value.medications" type="text"
-                  class="input-primary" placeholder="Medications (if applicable)"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box"/>
+        <textarea v-model="value.medications"
+                  type="text"
+                  :disabled="disableChange"
+                  class="input-primary"
+                  placeholder="Medications (if applicable)"/>
       </label>
     </div>
     <div>
       <label>
         Other Notes
-        <textarea v-model="value.notes" type="text"
-                  class="input-primary" placeholder="Other Notes"
-                  style="min-width: 100%; max-width: 100%; box-sizing: border-box;"/>
+        <textarea v-model="value.notes"
+                  type="text"
+                  :disabled="disableChange"
+                  class="input-primary" placeholder="Other Notes"/>
       </label>
     </div>
   </div>
@@ -111,6 +125,10 @@ export default {
     value: {
       type: Object,
       required: true,
+    },
+    disableChange: {
+      type: Boolean,
+      default: false,
     },
   },
 };

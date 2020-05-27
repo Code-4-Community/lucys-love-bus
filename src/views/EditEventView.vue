@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">Edit Event</div>
+    <div class="page-title">Edit Event</div>
     <div v-if="finishedFetching">
       <event-form :event-prop="event" @submit-event-form="editEvent" />
     </div>
@@ -44,9 +44,6 @@ export default {
 };
 </script>
 
-<style scoped>
-  .title {
-    text-align: left;
-    font-size: 2.3rem;
-  }
+<style lang="less" scoped>
+  @import '../../assets/global-classes.less';
 </style>

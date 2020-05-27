@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">Requests to Become Participating Families</p>
+    <p class="page-title">Requests to Become Participating Families</p>
     <div class="requests-container">
       <div v-if="numberOfRequests === 0" class="no-requests-message">
         There are no outstanding requests to review!
@@ -47,11 +47,6 @@ export default {
 
 <style lang="less" scoped>
   @import '../../assets/color-constants.less';
-
-  .title {
-    text-align: left;
-    font-size: 2.3rem;
-  }
 
   .no-requests-message {
     text-align: left;

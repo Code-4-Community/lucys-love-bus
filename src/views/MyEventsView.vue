@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">My Registered Events</p>
+    <p class="page-title">My Registered Events</p>
     <events-list :events="myEvents">
       <template v-slot:noEventsMsg>
         <h3>Currently, you are signed up for no events!</h3>
@@ -51,9 +51,4 @@ export default {
 
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
-
-  .title {
-    text-align: left;
-    font-size: 2.3rem;
-  }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="title">Create Event</div>
+        <div class="page-title">Create Event</div>
         <div>
             <event-form @submit-event-form="createEvent" />
         </div>
@@ -28,9 +28,6 @@ export default {
 };
 </script>
 
-<style scoped>
-.title {
-    text-align: left;
-    font-size: 2.3rem;
-}
+<style lang="less" scoped>
+    @import '../../assets/global-classes.less';
 </style>

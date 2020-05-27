@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">My Cart</p>
+    <p class="page-title">My Cart</p>
     <div v-if="hasEvents">
       <p class="subtitle">You have the following events ready to checkout:</p>
       <div class="events component-wrapper">
@@ -88,10 +88,6 @@ export default {
 @import '../../assets/color-constants.less';
 @import '../../assets/global-classes.less';
 
-.title {
-  text-align: left;
-  font-size: 2.3rem;
-}
 .subtitle {
   text-align: left;
   font-size: 1.5rem;

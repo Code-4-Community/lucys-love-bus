@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="title">Request to Become a Participating Family</p>
+    <p class="page-title">Request to Become a Participating Family</p>
     <div v-if="loaded">
       <div>
         <div class="side-annotated-block">
@@ -172,11 +172,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
   @import '../../assets/color-constants.less';
-
-  .title {
-    text-align: left;
-    font-size: 2.3rem;
-  }
 
   .side-annotated-block {
     display: grid;

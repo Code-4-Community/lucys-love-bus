@@ -117,10 +117,6 @@ export default {
 <style lang="less" scoped>
 @import '../../assets/global-classes.less';
 
-.title {
-    text-align: left;
-    font-size: 2.3rem;
-}
 .subheader {
     font-size: 1.3rem;
 }

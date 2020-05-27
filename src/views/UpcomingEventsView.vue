@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-header">
-      <p class="title">Our Upcoming Events</p>
+      <p class="page-title">Our Upcoming Events</p>
       <div v-if="cartHasEvents">
         <div>
           You have
@@ -132,9 +132,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-  }
-  .title {
-    font-size: 2.3rem;
   }
 
   .sold-out {

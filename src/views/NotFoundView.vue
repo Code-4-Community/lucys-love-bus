@@ -1,6 +1,6 @@
 <template>
     <div class="center">
-        <p class="title">404 Route Not Found</p>
+        <p class="page-title">404 Route Not Found</p>
         <div>
             It looks like this route leads nowhere...
             Head back to safety by clicking
@@ -15,11 +15,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 @import '../../assets/global-classes.less';
-
-.title {
-    font-size: 3rem;
-}
 
 </style>

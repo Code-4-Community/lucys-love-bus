@@ -186,6 +186,20 @@ async function getRequestData(requestId) {
   return protectedResourceAxios.get(path);
 }
 
+async function changeEmail(body) {
+  try {
+    const path = 'api/v1/protected/user/change_email';
+    return protectedResourceAxios.post(path, body);
+  } catch (e) {
+    return e;
+  }
+}
+
+async function changePassword(body) {
+  const path = 'api/v1/protected/user/change_password';
+  return protectedResourceAxios.post(path, body);
+}
+
 export default {
   createEvent,
   editEvent,
@@ -204,4 +218,6 @@ export default {
   addContactInfo,
   makePfRequest,
   getRequestData,
+  changeEmail,
+  changePassword,
 };

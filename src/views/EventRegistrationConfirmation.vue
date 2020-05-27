@@ -15,12 +15,11 @@
     </div>
     <div v-else>
       <div class="header-text">
-        Uh-Oh! Looks like the verification link you followed is invalid!
+        Uh-Oh! Looks like there was an error signing you up!
       </div>
       <div class="body-text">
-        You can send another link from the settings page on your profile.
-        Log in to access it
-        <router-link to="/login">here</router-link>.
+        We're sorry for the error, see your upcoming events
+        <router-link to="/my-events">here</router-link>.
       </div>
     </div>
   </div>

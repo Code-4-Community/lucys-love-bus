@@ -8,11 +8,19 @@
       </p>
     </div>
     <div class="auth-container">
-      <main-contact-form v-model="mainContact" />
+      <div>
+        <h3>More About You (Account Owner)</h3>
+        <main-contact-form v-model="mainContact" />
+      </div>
       <div class="contacts">
         <h3>Additional Adults (18+ yrs)</h3>
         <div v-for="(contact, idx) in additionalContacts" :key="contact.id">
-          <additional-contact-form v-model="additionalContacts[idx]" :idx="idx" />
+          <div>
+            <h3>
+              Guardian or Parent {{ idx + 1}}
+            </h3>
+            <additional-contact-form v-model="additionalContacts[idx]" />
+          </div>
         </div>
         <div class="button-row">
           <button class="add-remove-btn" v-on:click="addContact">
@@ -29,7 +37,10 @@
       <div class="children">
         <h3>Children</h3>
         <div v-for="(child, idx) in children" :key="child.id">
-          <child-form v-model="children[idx]" :idx="idx" />
+          <h3>
+            Child {{ idx + 1}}
+          </h3>
+          <child-form v-model="children[idx]" />
         </div>
         <div class="button-row">
           <button class="add-remove-btn" v-on:click="addChild">

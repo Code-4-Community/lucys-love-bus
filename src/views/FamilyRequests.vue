@@ -7,7 +7,7 @@
       </div>
       <div v-else>
         <div v-bind:key="request.id" v-for="request in pfRequests" class="request-list">
-          <request :request="request" />
+          <request :request="request" @viewRequest="viewPfDetails" />
         </div>
       </div>
     </div>
@@ -38,6 +38,9 @@ export default {
     ...mapActions('requests', {
       setPfRequests: 'setPfRequests',
     }),
+    viewPfDetails({ id }) {
+      this.$router.push(`/single-family-request/${id}`);
+    },
   },
 };
 </script>
@@ -60,5 +63,9 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    border-top: 1px solid black;
+  }
+  .request-list:last-child {
+    border-bottom: 1px solid black;
   }
 </style>

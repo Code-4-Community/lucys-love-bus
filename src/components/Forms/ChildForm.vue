@@ -1,8 +1,5 @@
 <template>
   <div>
-    <h4>
-      Child {{ idx + 1 }}
-    </h4>
     <div class="h-fields">
       <div class="half-input">
         <label class="input-label">
@@ -127,10 +124,6 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true,
-    },
-    idx: {
-      type: Number,
       required: true,
     },
     disableChange: {

@@ -21,6 +21,8 @@ import SignUpPF2View from '../views/SignUpPF2View.vue';
 import SignupFormAgreements from '../views/SignupFormAgreements.vue';
 import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
+import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
+import FamilyRequestConfirmation from '../views/FamilyRequestConfirmation.vue';
 
 Vue.use(Router);
 
@@ -110,6 +112,17 @@ export default new Router({
       path: '/family-requests',
       name: 'family-requests',
       component: FamilyRequests,
+    },
+    {
+      path: '/single-family-request/:request_id',
+      name: 'single-family-request',
+      component: SingleFamilyRequest,
+    },
+    {
+      path: '/family-request-confirmation',
+      name: 'family-request-confirmation',
+      component: FamilyRequestConfirmation,
+      props: true,
     },
     {
       path: '/my-events',

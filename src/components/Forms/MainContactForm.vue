@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>More About You (Account Owner)</h3>
     <div class="h-fields">
       <div class="half-input">
         <label class="input-label">

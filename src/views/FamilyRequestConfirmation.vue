@@ -5,28 +5,32 @@
         <img class="icon" src="https://api.macaronikid.com/assets/uploads/width_810,height_350,crop_false/da903fe7-49ff-40e6-9608-ca040b64fdec.png"/>
       </div>
       <div v-if="this.success">
-        <div class="header-text">
-          The
-          {{ firstName }}
-          {{ lastName }}
-          Family has been Approved!
-        </div>
-        <div class="body-text">
-          An email to congratulate the new Participating Family is on its way.
-          Use the account owner’s details below for additional communications.
-        </div>
+        <confirmation-page>
+          <template v-slot:header-text>
+            The
+            {{ firstName }}
+            {{ lastName }}
+            Family has been Approved!
+          </template>
+          <template v-slot:body-text>
+            An email to congratulate the new Participating Family is on its way.
+            Use the account owner’s details below for additional communications.
+          </template>
+        </confirmation-page>
       </div>
       <div v-else>
-        <div class="header-text">
-          The
-          {{ firstName }}
-          {{ lastName }}
-          Family has not been Approved
-        </div>
-        <div class="body-text">
-          Is more information needed? Did you spot a mistake? Use the account owner’s details
-          below to reach out and clarify, or inquire.
-        </div>
+        <confirmation-page>
+          <template v-slot:header-text>
+            The
+            {{ firstName }}
+            {{ lastName }}
+            Family has not been Approved
+          </template>
+          <template v-slot:body-text>
+            Is more information needed? Did you spot a mistake? Use the account owner’s details
+            below to reach out and clarify, or inquire.
+          </template>
+        </confirmation-page>
       </div>
       <div class="flex-horizontal">
         <div class="contact-info-box">
@@ -59,9 +63,13 @@
 
 <script>
 import PhoneUtils from '../utils/PhoneUtils';
+import ConfirmationPage from '../components/Confirmation/ConfirmationPage.vue';
 
 export default {
   name: 'FamilyRequestConfirmation',
+  components: {
+    ConfirmationPage,
+  },
   props: {
     success: {
       type: Boolean,

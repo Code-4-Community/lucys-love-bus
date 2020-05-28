@@ -14,6 +14,9 @@ export default {
     removeRequest(state, payload) {
       state.pfRequests = state.pfRequests.filter(req => req.id !== payload.request.id);
     },
+    resetRequests(state) {
+      state.pfRequests = [];
+    },
   },
   actions: {
     async setPfRequests({ commit }) {

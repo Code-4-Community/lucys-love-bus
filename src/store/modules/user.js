@@ -17,6 +17,12 @@ export default {
       state.accountStatus = userState.getUserAccountStatus();
       state.userId = userState.getUserId();
     },
+    resetUser(state) {
+      state.isSignedIn = false;
+      state.adminLevel = -1;
+      state.accountStatus = '';
+      state.userId = -1;
+    },
   },
   actions: {
   },

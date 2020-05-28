@@ -31,8 +31,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: LoginView,
+      redirect: '/login',
     },
     {
       path: '/upcoming-events',

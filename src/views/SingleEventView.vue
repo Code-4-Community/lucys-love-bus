@@ -6,7 +6,7 @@
       </div>
       <div>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <div v-if="isRegistered" class="signed-up-message">
+          <div v-if="singleEvent.signedUp" class="signed-up-message">
             You're signed up!
           </div>
           <button v-else-if="singleEvent.spotsAvailable > 0"
@@ -90,7 +90,7 @@
             View RSVPs
           </button>
         </access-control>
-        <access-control v-if="isRegistered" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <access-control v-if="singleEvent.signedUp" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button class="btn-primary single-event-btn">
             Unregister
           </button>
@@ -107,7 +107,7 @@
 
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
@@ -142,14 +142,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('events', {
-      registered: 'isRegistered',
-    }),
-    isRegistered() {
-      /* TODO: The vuex getter depends on myEvents which are reset when refreshing a page
-      *   If a user refreshes this page it'll always say they're not signed up.  */
-      return this.registered(this.eventId);
-    },
     date() {
       return moment(this.singleEvent.details.start).format('dddd, MMMM Do YYYY');
     },

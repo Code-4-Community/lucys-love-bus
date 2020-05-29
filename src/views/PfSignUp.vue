@@ -9,7 +9,7 @@
           <div class="form-title">
             Primary Account Holder Information
           </div>
-          <primary-info-form v-model="primaryInfo" ref="geninfo" />
+          <primary-info-form v-model="primaryInfo" :server-errors="serverErrors" ref="geninfo" />
         </div>
         <div v-else-if="pageNum === 1">
           <div class="form-title">
@@ -81,7 +81,7 @@
         </div>
         <div class="page-track-box">
           <div class="page-indicator"
-               :class="{ 'current-page': pageNum === 0 }"
+               :class="{ 'current-page': pageNum === 0, 'error-page': hasServerErrors }"
           />
           <div class="page-indicator"
                :class="{ 'current-page': pageNum === 1 }"
@@ -102,6 +102,9 @@
             </button>
           </div>
         </div>
+      </div>
+      <div v-if="hasServerErrors" class="server-error-message">
+        There was an error signing you up! Please go back to correct your information.
       </div>
     </div>
   </div>
@@ -127,10 +130,10 @@ export default {
     PrimaryInfoForm,
   },
   data() {
-    // TODO: Unify primaryInfo and mainContact objects (set in nextPage & backPage?)
     return {
       pageNum: 0,
       maxPage: 2,
+      serverErrors: {},
       primaryInfo: {
         firstName: '',
         lastName: '',
@@ -165,6 +168,12 @@ export default {
         photoVideoReleaseConsent: false,
       },
     };
+  },
+  computed: {
+    hasServerErrors() {
+      return !(Object.keys(this.serverErrors).length === 0
+        && this.serverErrors.constructor === Object);
+    },
   },
   methods: {
     ...mapMutations('user', {
@@ -203,12 +212,17 @@ export default {
         upToDateVaccination: false,
         photoVideoReleaseConsent: false,
       };
+      this.serverErrors = {};
       // TODO: Maybe clear components?
     },
     nextPage() {
       if (this.pageNum === 0) {
         if (this.$refs.geninfo.validateInput()) {
-          // TODO: Maybe set main contact?
+          this.mainContact.firstName = this.primaryInfo.firstName;
+          this.mainContact.lastName = this.primaryInfo.lastName;
+          this.mainContact.email = this.primaryInfo.email;
+          this.mainContact.phoneNumber = this.primaryInfo.phone;
+          this.mainContact.allergies = this.primaryInfo.allergies;
           this.pageNum = 1;
         } else {
           // There were errors the user must fix
@@ -217,21 +231,27 @@ export default {
         // We want to avoid any short circuiting so every form is validated
         const formRefs = [
           this.$refs.maincontact,
-          ...this.$refs.additionalcontacts,
-          ...this.$refs.children,
+          ...(this.$refs.additionalcontacts || []),
+          ...(this.$refs.children || []),
         ];
         const formValidations = formRefs.map(ref => ref.validateInput());
 
         if (formValidations.reduce((acc, cur) => acc && cur, true)) {
           this.pageNum = 2;
         } else {
-          // eslint-disable-next-line no-alert
-          alert('This page bad');
+          // There are errors the user must correct
         }
       }
     },
     backPage() {
       if (this.pageNum > 0) {
+        if (this.pageNum === 1) {
+          this.primaryInfo.firstName = this.mainContact.firstName;
+          this.primaryInfo.lastName = this.mainContact.lastName;
+          this.primaryInfo.email = this.mainContact.email;
+          this.primaryInfo.phone = this.mainContact.phoneNumber;
+          this.primaryInfo.allergies = this.mainContact.allergies;
+        }
         this.pageNum = this.pageNum - 1;
       }
     },
@@ -299,9 +319,9 @@ export default {
             this.setUser();
           } catch (error) {
             if (error.response.status === 409) {
-              // TODO: Show error on primary info page
-              // eslint-disable-next-line no-alert
-              alert('Email Already in use');
+              this.serverErrors = {
+                email: `The email ${this.primaryInfo.email} is already in use`,
+              };
             } else {
               // eslint-disable-next-line no-alert
               alert(`Error: ${error}`);
@@ -378,6 +398,16 @@ export default {
   }
   .current-page {
     background-color: @tangerine;
+  }
+  .error-page {
+    border-color: red;
+  }
+
+  .server-error-message {
+    margin-top: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: red;
   }
 
 </style>

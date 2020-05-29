@@ -122,6 +122,7 @@ export default {
           photoVideoReleaseConsent: false,
         },
       };
+      this.serverErrors = {};
       // TODO: Maybe clear components?
     },
     nextPage() {

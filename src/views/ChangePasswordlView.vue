@@ -70,7 +70,7 @@ export default {
     return {
       currentPassword: '',
       newPassword: ['', ''],
-      submitErrors: ['', ''],
+      submitErrors: ['', '', ''],
     };
   },
   methods: {

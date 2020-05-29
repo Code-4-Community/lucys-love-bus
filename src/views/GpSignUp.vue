@@ -119,8 +119,7 @@ export default {
         if (this.$refs.geninfo.validateInput()) {
           this.pageNum = 1;
         } else {
-          // eslint-disable-next-line no-alert
-          alert('This page bad');
+          // There were errors the user must fix
         }
       }
     },

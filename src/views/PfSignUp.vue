@@ -127,7 +127,7 @@ export default {
     PrimaryInfoForm,
   },
   data() {
-    // TODO: Unify primaryInfo and mainContact objects (set in nextPage?)
+    // TODO: Unify primaryInfo and mainContact objects (set in nextPage & backPage?)
     return {
       pageNum: 0,
       maxPage: 2,
@@ -211,8 +211,7 @@ export default {
           // TODO: Maybe set main contact?
           this.pageNum = 1;
         } else {
-          // eslint-disable-next-line no-alert
-          alert('This page bad');
+          // There were errors the user must fix
         }
       } else if (this.pageNum === 1) {
         // We want to avoid any short circuiting so every form is validated

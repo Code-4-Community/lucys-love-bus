@@ -31,7 +31,7 @@
             <div class="requests-list" v-for="request in requests" :key="request.id">
               <div class="requests-row">
                 <div class="date-column">
-                  {{ request.created }}
+                  {{ formatCreatedString(request.created) }}
                 </div>
                 <div class="status-column">
                   {{ request.status }}
@@ -58,7 +58,7 @@
                 <div class="new-request-text">
                   If you would like to apply to become a participating family, please be sure to
                   update your family information
-                  <router-link class="text-link" to="/edit-family-info">here</router-link>
+                  <router-link class="text-link" to="/edit-family-information">here</router-link>
                 </div>
                 <div class="new-request-text">
                   Once you are sure your family information is up to date you can apply to
@@ -89,6 +89,7 @@
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import { ROLE, USER } from '../utils/constants/user';
+import DateUtils from '../utils/DateUtils';
 
 export default {
   name: 'MakeRequestView',
@@ -113,7 +114,10 @@ export default {
     },
     async submitRequest() {
       await api.makePfRequest();
-      // TODO: Give confirmation
+      this.$router.go();
+    },
+    formatCreatedString(dateTime) {
+      return DateUtils.toStringDateTime(dateTime);
     },
   },
   async created() {

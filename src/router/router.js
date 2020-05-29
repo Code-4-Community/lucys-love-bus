@@ -29,6 +29,7 @@ import PersonalRequests from '../views/PersonalRequests.vue';
 import ChangePasswordlView from '../views/ChangePasswordlView.vue';
 import DeactivateAccountView from '../views/DeactivateAccountView.vue';
 import EditFamilyInfoView from '../views/EditFamilyInfoView.vue';
+import ChangeLoginInfoConfirmation from '../views/ChangeLoginInfoConfirmation.vue';
 
 Vue.use(Router);
 
@@ -170,6 +171,12 @@ export default new Router({
       path: '/change-password',
       name: 'change-password',
       component: ChangePasswordlView,
+    },
+    {
+      path: '/change-login-info-confirmation',
+      name: 'change-login-info-confirmation',
+      component: ChangeLoginInfoConfirmation,
+      props: true,
     },
     {
       path: '/edit-family-information',

@@ -1,9 +1,6 @@
 <template>
   <div>
     <div class="confirmation-container">
-      <div>
-        <img class="icon" src="https://api.macaronikid.com/assets/uploads/width_810,height_350,crop_false/da903fe7-49ff-40e6-9608-ca040b64fdec.png"/>
-      </div>
       <div v-if="this.success">
         <confirmation-page>
           <template v-slot:header-text>
@@ -32,7 +29,7 @@
           </template>
         </confirmation-page>
       </div>
-      <div class="flex-horizontal">
+      <div class="flex-horizontal contact-row">
         <div class="contact-info-box">
           <div class="contact-info-label">
             Email
@@ -131,6 +128,9 @@ export default {
     justify-content: flex-end;
   }
 
+  .contact-row {
+    margin-top: 24px;
+  }
   .contact-info-box {
     width: 40%;
   }

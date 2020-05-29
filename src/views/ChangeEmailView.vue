@@ -89,13 +89,12 @@ export default {
           password: this.password,
         };
         try {
-          const response = await api.changeEmail(body);
-          // await this.$router.push('/profile');
-          // this.resetInput();
-
-
-          // eslint-disable-next-line no-alert
-          alert(`Look at this ${response}`);
+          await api.changeEmail(body);
+          await this.$router.push({
+            name: 'change-login-info-confirmation',
+            params: { newEmail: this.email },
+          });
+          this.resetInput();
         } catch (e) {
           const newSubmitErrors = [...this.submitErrors];
           if (e.response.status === 401) {

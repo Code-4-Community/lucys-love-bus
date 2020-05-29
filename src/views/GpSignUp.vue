@@ -9,7 +9,7 @@
           <div class="form-title">
             Primary Account Holder Information
           </div>
-          <primary-info-form v-model="primaryInfo" ref="geninfo" />
+          <primary-info-form v-model="primaryInfo" :server-errors="serverErrors" ref="geninfo" />
         </div>
         <div v-else-if="pageNum === 1">
           <div class="form-title">
@@ -29,7 +29,7 @@
         </div>
         <div class="page-track-box">
           <div class="page-indicator"
-               :class="{ 'current-page': pageNum === 0 }"
+               :class="{ 'current-page': pageNum === 0, 'error-page': hasServerErrors }"
           />
           <div class="page-indicator"
                :class="{ 'current-page': pageNum === 1 }"
@@ -48,6 +48,9 @@
           </div>
         </div>
       </div>
+      <div v-if="hasServerErrors" class="server-error-message">
+        There was an error signing you up! Please go back to correct your information.
+      </div>
     </div>
   </div>
 </template>
@@ -65,6 +68,7 @@ export default {
     return {
       pageNum: 0,
       maxPage: 1,
+      serverErrors: {},
       primaryInfo: {
         firstName: '',
         lastName: '',
@@ -85,6 +89,12 @@ export default {
         photoVideoReleaseConsent: false,
       },
     };
+  },
+  computed: {
+    hasServerErrors() {
+      return !(Object.keys(this.serverErrors).length === 0
+        && this.serverErrors.constructor === Object);
+    },
   },
   methods: {
     ...mapMutations('user', {
@@ -132,16 +142,16 @@ export default {
       if (this.pageNum === this.maxPage) {
         if (this.$refs.agreements.validateInput()) {
           const user = {
-            email: this.email,
-            password: this.password,
-            firstName: this.firstName,
-            lastName: this.lastName,
-            phoneNumber: this.phone,
+            email: this.primaryInfo.email,
+            password: this.primaryInfo.password,
+            firstName: this.primaryInfo.firstName,
+            lastName: this.primaryInfo.lastName,
+            phoneNumber: this.primaryInfo.phone,
             location: {
-              address: this.address,
-              city: this.city,
-              state: this.state,
-              zipCode: this.zip,
+              address: this.primaryInfo.address,
+              city: this.primaryInfo.city,
+              state: this.primaryInfo.state,
+              zipCode: this.primaryInfo.zip,
             },
           };
           try {
@@ -151,9 +161,9 @@ export default {
             this.setUser();
           } catch (error) {
             if (error.response.status === 409) {
-              // TODO: Show error on primary info page
-              // eslint-disable-next-line no-alert
-              alert('Email Already in use');
+              this.serverErrors = {
+                email: `The email ${this.primaryInfo.email} is already in use`,
+              };
             } else {
               // eslint-disable-next-line no-alert
               alert(`Error: ${error}`);
@@ -215,6 +225,16 @@ export default {
   }
   .current-page {
     background-color: @tangerine;
+  }
+  .error-page {
+    border-color: red;
+  }
+
+  .server-error-message {
+    margin-top: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: red;
   }
 
 </style>

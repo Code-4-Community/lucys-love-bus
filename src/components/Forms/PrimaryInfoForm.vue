@@ -40,12 +40,12 @@
           Email Address
           <input v-model="value.email"
                  class="input-primary"
-                 :class="{ 'error-input': !!submitErrors.email }"
+                 :class="{ 'error-input': !!submitErrors.email || !!serverErrors.email }"
                  type="text"
                  placeholder="Email Address*">
         </label>
         <div class="error-text">
-          {{ submitErrors.email }}
+          {{ submitErrors.email || serverErrors.email }}
         </div>
       </div>
     </div>
@@ -127,6 +127,7 @@ export default {
       type: Object,
       required: true,
     },
+    serverErrors: {},
   },
   data() {
     return {

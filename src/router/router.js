@@ -25,6 +25,10 @@ import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
 import FamilyRequestConfirmation from '../views/FamilyRequestConfirmation.vue';
 import Settings from '../views/Settings.vue';
 import ChangeEmailView from '../views/ChangeEmailView.vue';
+import PersonalRequests from '../views/PersonalRequests.vue';
+import ChangePasswordlView from '../views/ChangePasswordlView.vue';
+import DeactivateAccountView from '../views/DeactivateAccountView.vue';
+import EditFamilyInfoView from '../views/EditFamilyInfoView.vue';
 
 Vue.use(Router);
 
@@ -161,6 +165,26 @@ export default new Router({
       path: '/change-email',
       name: 'change-email',
       component: ChangeEmailView,
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: ChangePasswordlView,
+    },
+    {
+      path: '/edit-family-information',
+      name: 'edit-family-information',
+      component: EditFamilyInfoView,
+    },
+    {
+      path: '/personal-requests',
+      name: 'personal-requests',
+      component: PersonalRequests,
+    },
+    {
+      path: '/deactivate-account',
+      name: 'deactivate-account',
+      component: DeactivateAccountView,
     },
     {
       path: '*',

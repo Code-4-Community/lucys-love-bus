@@ -152,6 +152,16 @@ async function getPfRequests() {
   }
 }
 
+async function getRequestStatuses() {
+  try {
+    const path = '/api/v1/protected/requests/status';
+    const { data } = await protectedResourceAxios.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 async function approveRequest(requestId) {
   try {
     const path = `/api/v1/protected/requests/${requestId}/approve`;
@@ -172,8 +182,12 @@ async function rejectRequest(requestId) {
 
 async function addContactInfo(body) {
   const path = '/api/v1/protected/user/contact_info';
-  // eslint-disable-next-line no-return-await
   return protectedResourceAxios.post(path, body);
+}
+
+async function updateAccountInfo(body) {
+  const path = '/api/v1/protected/user/contact_info';
+  return protectedResourceAxios.put(path, body);
 }
 
 async function makePfRequest() {
@@ -200,6 +214,16 @@ async function changePassword(body) {
   return protectedResourceAxios.post(path, body);
 }
 
+async function getAccountInformation() {
+  const path = 'api/v1/protected/user/contact_info';
+  return protectedResourceAxios.get(path);
+}
+
+async function deactivateAccount() {
+  const path = 'api/v1/protected/user/';
+  return protectedResourceAxios.delete(path);
+}
+
 export default {
   createEvent,
   editEvent,
@@ -213,11 +237,15 @@ export default {
   getEventAnnouncements,
   createAnnouncement,
   getPfRequests,
+  getRequestStatuses,
   approveRequest,
   rejectRequest,
   addContactInfo,
+  updateAccountInfo,
+  getAccountInformation,
   makePfRequest,
   getRequestData,
   changeEmail,
   changePassword,
+  deactivateAccount,
 };

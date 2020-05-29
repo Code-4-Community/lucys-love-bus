@@ -3,45 +3,30 @@
     <div class="page-title">
       Settings
     </div>
-    <div>
-      <div>
-        <div>
+    <div class="auth-container">
+      <div class="settings-box">
+        <router-link class="btn--tertiary setting-btn" tag="button" to="/change-email">
           Change Primary Account Email
-        </div>
-        <router-link tag="button" to="/change-email">
-          GO
         </router-link>
       </div>
-      <div>
-        <div>
+      <div class="settings-box">
+        <router-link class="btn--tertiary setting-btn" tag="button" to="/change-password">
           Change Password
-        </div>
-        <router-link tag="button" to="/password-change">
-          GO
         </router-link>
       </div>
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <div>
+      <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <router-link class="btn--tertiary setting-btn" tag="button" to="/edit-family-information">
           Add or Edit Family Information
-        </div>
-        <router-link tag="button" to="/edit-family-info">
-          GO
         </router-link>
       </access-control>
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <div>
+      <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <router-link class="btn--tertiary setting-btn" tag="button" to="/personal-requests">
           Request to Become a Participating Family
-        </div>
-        <router-link tag="button" to="/personal-requests">
-          GO
         </router-link>
       </access-control>
-      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <div>
+      <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <router-link class="btn--tertiary setting-btn" tag="button" to="/deactivate-account">
           Deactivate Account
-        </div>
-        <router-link tag="button" to="/deactivate-account">
-          GO
         </router-link>
       </access-control>
     </div>
@@ -68,4 +53,22 @@ export default {
 
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
+
+  .auth-container {
+    background-color: transparent;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .settings-box {
+    margin-top: 24px;
+  }
+
+  .setting-btn {
+    cursor: pointer;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1.3rem;
+    padding: 0.75em 0;
+  }
 </style>

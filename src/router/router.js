@@ -23,6 +23,8 @@ import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
 import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
 import FamilyRequestConfirmation from '../views/FamilyRequestConfirmation.vue';
+import GpSignUp from '../views/GpSignUp.vue';
+import PfSignUp from '../views/PfSignUp.vue';
 
 Vue.use(Router);
 
@@ -86,6 +88,16 @@ export default new Router({
       path: '/sign-up',
       name: 'sign-up',
       component: SignUpView,
+    },
+    {
+      path: '/sign-up-gp',
+      name: 'sign-up-gp',
+      component: GpSignUp,
+    },
+    {
+      path: '/sign-up-pf',
+      name: 'sign-up-pf',
+      component: PfSignUp,
     },
     {
       path: '/sign-up-pf/',

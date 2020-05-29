@@ -141,6 +141,13 @@ export default {
       default: false,
     },
   },
+  methods: {
+    validateInput() {
+      // eslint-disable-next-line no-alert
+      alert('Validating an additional contact now');
+      return true;
+    },
+  },
 };
 </script>
 

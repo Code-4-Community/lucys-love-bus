@@ -39,9 +39,6 @@ export default {
     ...mapMutations('user', {
       setUser: 'setUser',
     }),
-    handleCompleteForm() {
-      // console.log('handled');
-    },
     async signup(user) {
       try {
         await authService.actions.signup(user);

@@ -131,6 +131,13 @@ export default {
       default: false,
     },
   },
+  methods: {
+    validateInput() {
+      // eslint-disable-next-line no-alert
+      alert('Validating Child now');
+      return true;
+    },
+  },
 };
 </script>
 

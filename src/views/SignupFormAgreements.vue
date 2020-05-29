@@ -11,7 +11,7 @@
       <div>
         <div class="checkbox-container">
           <label class="checkbox-label">
-            <input type="checkbox" checked="checked" v-model="noVisitAfterSick">
+            <input type="checkbox" v-model="noVisitAfterSick">
             <span class="checkmark" />
             <span class="checkbox-message">
             No family member or attendee will visit The
@@ -23,7 +23,7 @@
         </div>
         <div class="checkbox-container">
           <label class="checkbox-label">
-            <input type="checkbox" checked="checked" v-model="parentsRemain">
+            <input type="checkbox" v-model="parentsRemain">
             <span class="checkmark" />
             <span class="checkbox-message">
             All parents are to remain at
@@ -33,7 +33,7 @@
         </div>
         <div class="checkbox-container">
           <label class="checkbox-label">
-            <input type="checkbox" checked="checked" v-model="upToDateVaccination">
+            <input type="checkbox" v-model="upToDateVaccination">
             <span class="checkmark" />
             <span class="checkbox-message">
             My children are up to date on all vaccinations

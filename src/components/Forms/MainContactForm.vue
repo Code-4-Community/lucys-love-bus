@@ -130,6 +130,13 @@ export default {
       default: false,
     },
   },
+  methods: {
+    validateInput() {
+      // eslint-disable-next-line no-alert
+      alert('Validating Main Contact now');
+      return true;
+    },
+  },
 };
 </script>
 

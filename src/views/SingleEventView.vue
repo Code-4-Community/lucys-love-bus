@@ -6,7 +6,7 @@
       </div>
       <div>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <div v-if="singleEvent.signedUp" class="signed-up-message">
+          <div v-if="singleEvent.ticketCount > 0" class="signed-up-message">
             You're signed up!
           </div>
           <button v-else-if="singleEvent.spotsAvailable > 0"
@@ -90,7 +90,7 @@
             View RSVPs
           </button>
         </access-control>
-        <access-control v-if="singleEvent.signedUp" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+        <access-control v-if="singleEvent.ticketCount > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button class="btn--primary single-event-btn">
             Unregister
           </button>

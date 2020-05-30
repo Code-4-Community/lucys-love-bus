@@ -20,7 +20,7 @@
       </template>
       <template v-slot:eventBtns="slotProps">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <div v-if="slotProps.event.signedUp">
+          <div v-if="slotProps.event.ticketCount > 0">
             You're Signed Up!
           </div>
           <button

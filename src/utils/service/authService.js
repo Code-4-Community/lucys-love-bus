@@ -33,6 +33,7 @@ const actions = {
     if (response.status === 201) {
       userState.login(response.data.accessToken, response.data.refreshToken);
     } else if (response.status === 409) {
+      // TODO: pretty sure this will never be hit because the signup would throw an exception
       throw new Error('Email is already in use');
     } else {
       throw new Error(`Signup failed with response status ${response.status}`);

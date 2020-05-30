@@ -167,6 +167,8 @@
 </template>
 
 <script>
+import DateUtils from '../../utils/DateUtils';
+
 export default {
   name: 'AdditionalContactForm',
   props: {
@@ -196,7 +198,7 @@ export default {
       if (this.value.pronouns.length === 0) {
         newSubmitErrors.pronouns = 'required';
       }
-      if (this.value.phone.length > 0 && !/^\d{10}$/.test(this.value.phone)) {
+      if (this.value.phoneNumber.length > 0 && !/^\d{10}$/.test(this.value.phoneNumber)) {
         newSubmitErrors.phone = 'phone must be exactly 10 digits, do not include dashes or other punctuation';
       }
       const emailRegex = /\S+@\S+\.\S+/;
@@ -206,28 +208,25 @@ export default {
       if (this.value.email.length === 0) {
         newSubmitErrors.email = 'required';
       }
-      const today = new Date();
-      const birthDate = new Date(this.value.dateOfBirth);
+
+      if (!this.atLeast18(this.value.dateOfBirth)) {
+        newSubmitErrors.dateOfBirth = 'contacts must be at least 18 years old';
+      }
+      if (!this.inPast(this.value.dateOfBirth)) {
+        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
+      }
       if (this.value.dateOfBirth.length === 0) {
         newSubmitErrors.dateOfBirth = 'required';
-      } else if (birthDate.getTime() > today.getTime()) {
-        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
-      } else if (!this.atLeast18(birthDate)) {
-        newSubmitErrors.dateOfBirth = 'must be at least 18 years of age';
       }
+
       this.submitErrors = newSubmitErrors;
       return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
     },
-    // Date -> Boolean
-    // Returns true if the date is at least 18 years earlier than the present day
+    inPast(birthDate) {
+      return DateUtils.isInPast(birthDate);
+    },
     atLeast18(birthDate) {
-      const today = new Date();
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age -= 1;
-      }
-      return age;
+      return DateUtils.is18YearsInPast(birthDate);
     },
   },
 };

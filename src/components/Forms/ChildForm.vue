@@ -157,6 +157,8 @@
 </template>
 
 <script>
+import DateUtils from '../../utils/DateUtils';
+
 export default {
   name: 'ChildForm',
   props: {
@@ -186,25 +188,25 @@ export default {
       if (this.value.pronouns.length === 0) {
         newSubmitErrors.pronouns = 'required';
       }
-      if (this.value.dateOfBirth.length === 0) {
-        newSubmitErrors.dateOfBirth = 'required';
-      }
       if (this.value.school.length === 0) {
         newSubmitErrors.school = 'required';
       }
       if (this.value.schoolYear.length === 0) {
         newSubmitErrors.schoolYear = 'required';
       }
-      const today = new Date();
-      const birthDate = new Date(this.value.dateOfBirth);
+
+      if (!this.inPast(this.value.dateOfBirth)) {
+        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
+      }
       if (this.value.dateOfBirth.length === 0) {
         newSubmitErrors.dateOfBirth = 'required';
-      } else if (birthDate.getTime() > today.getTime()) {
-        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
       }
 
       this.submitErrors = newSubmitErrors;
       return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
+    },
+    inPast(birthDate) {
+      return DateUtils.isInPast(birthDate);
     },
   },
 };

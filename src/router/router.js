@@ -23,6 +23,13 @@ import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
 import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
 import FamilyRequestConfirmation from '../views/FamilyRequestConfirmation.vue';
+import Settings from '../views/Settings.vue';
+import ChangeEmailView from '../views/ChangeEmailView.vue';
+import PersonalRequests from '../views/PersonalRequests.vue';
+import ChangePasswordlView from '../views/ChangePasswordlView.vue';
+import DeactivateAccountView from '../views/DeactivateAccountView.vue';
+import EditFamilyInfoView from '../views/EditFamilyInfoView.vue';
+import ChangeLoginInfoConfirmation from '../views/ChangeLoginInfoConfirmation.vue';
 
 Vue.use(Router);
 
@@ -149,6 +156,42 @@ export default new Router({
       name: 'forgot-password-confirmation',
       component: ForgotPasswordConfirmation,
       props: true,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+    },
+    {
+      path: '/change-email',
+      name: 'change-email',
+      component: ChangeEmailView,
+    },
+    {
+      path: '/change-password',
+      name: 'change-password',
+      component: ChangePasswordlView,
+    },
+    {
+      path: '/change-login-info-confirmation',
+      name: 'change-login-info-confirmation',
+      component: ChangeLoginInfoConfirmation,
+      props: true,
+    },
+    {
+      path: '/edit-family-information',
+      name: 'edit-family-information',
+      component: EditFamilyInfoView,
+    },
+    {
+      path: '/personal-requests',
+      name: 'personal-requests',
+      component: PersonalRequests,
+    },
+    {
+      path: '/deactivate-account',
+      name: 'deactivate-account',
+      component: DeactivateAccountView,
     },
     {
       path: '*',

@@ -32,7 +32,7 @@
             View Account Requests
           </router-link>
         </access-control>
-        <router-link class="explore-btn" tag="button" to='/account'>
+        <router-link class="explore-btn" tag="button" to='/settings'>
             Settings
         </router-link>
       </div>

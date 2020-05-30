@@ -4,7 +4,6 @@ import Vuex from 'vuex';
 import events from './modules/events';
 import cart from './modules/cart';
 import user from './modules/user';
-import announcements from './modules/announcements';
 import requests from './modules/requests';
 
 Vue.use(Vuex);
@@ -15,7 +14,14 @@ export default new Vuex.Store({
     events,
     cart,
     user,
-    announcements,
     requests,
+  },
+  actions: {
+    clearAll({ commit }) {
+      commit('events/resetEvents');
+      commit('cart/clearCart');
+      commit('user/resetUser');
+      commit('requests/resetRequests');
+    },
   },
 });

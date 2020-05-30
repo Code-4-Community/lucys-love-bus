@@ -30,6 +30,10 @@ export default {
       state.myEvents = state.myEvents.filter(event => event.id === eventId);
       state.upcomingEvents = state.upcomingEvents.filter(event => event.id === eventId);
     },
+    resetEvents(state) {
+      state.myEvents = [];
+      state.upcomingEvents = [];
+    },
   },
   actions: {
     async setUpcomingEvents({ commit }) {

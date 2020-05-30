@@ -195,6 +195,13 @@ export default {
       if (this.value.schoolYear.length === 0) {
         newSubmitErrors.schoolYear = 'required';
       }
+      const today = new Date();
+      const birthDate = new Date(this.value.dateOfBirth);
+      if (this.value.dateOfBirth.length === 0) {
+        newSubmitErrors.dateOfBirth = 'required';
+      } else if (birthDate.getTime() > today.getTime()) {
+        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
+      }
 
       this.submitErrors = newSubmitErrors;
       return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;

@@ -206,12 +206,28 @@ export default {
       if (this.value.email.length === 0) {
         newSubmitErrors.email = 'required';
       }
+      const today = new Date();
+      const birthDate = new Date(this.value.dateOfBirth);
       if (this.value.dateOfBirth.length === 0) {
         newSubmitErrors.dateOfBirth = 'required';
+      } else if (birthDate.getTime() > today.getTime()) {
+        newSubmitErrors.dateOfBirth = 'birth date must be in the past';
+      } else if (!this.atLeast18(birthDate)) {
+        newSubmitErrors.dateOfBirth = 'must be at least 18 years of age';
       }
-
       this.submitErrors = newSubmitErrors;
       return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
+    },
+    // Date -> Boolean
+    // Returns true if the date is at least 18 years earlier than the present day
+    atLeast18(birthDate) {
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age -= 1;
+      }
+      return age;
     },
   },
 };

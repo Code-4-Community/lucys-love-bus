@@ -196,7 +196,7 @@ export default {
       const isErr = resp && resp.response && resp.response.status !== 200;
       if (!isErr) {
         const fileName = event.title ? `Event ${event.title} RSVPs` : `Event ${this.eventId} RSVPs`;
-        this.forceFileDownload(resp.text, fileName);
+        this.forceFileDownload(resp, fileName);
       }
     },
     forceFileDownload(data, fileName) {

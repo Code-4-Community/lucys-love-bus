@@ -3,7 +3,7 @@
     <div>
       <p class="header">Choose an account type & register your family!</p>
       <div class="sign-up-container">
-        <router-link to="/sign-up">
+        <router-link to="/sign-up-gp">
           <div class="btn-container">
             <div class="btn-image"></div>
             <h4>General Member</h4>

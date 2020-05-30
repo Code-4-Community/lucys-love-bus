@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import LoginView from '../views/LoginView.vue';
-import SignUpView from '../views/SignUpView.vue';
-import SignUpPFView from '../views/SignUpPFView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyEventsView from '../views/MyEventsView.vue';
@@ -17,8 +15,6 @@ import VerifyEmailView from '../views/VerifyEmailView.vue';
 import ForgotPasswordRequest from '../views/ForgotPasswordRequest.vue';
 import ForgotPasswordReset from '../views/ForgotPasswordReset.vue';
 import ForgotPasswordConfirmation from '../views/ForgotPasswordConfirmation.vue';
-import SignUpPF2View from '../views/SignUpPF2View.vue';
-import SignupFormAgreements from '../views/SignupFormAgreements.vue';
 import FamilyRequests from '../views/FamilyRequests.vue';
 import EditEventView from '../views/EditEventView.vue';
 import SingleFamilyRequest from '../views/SingleFamilyRequest.vue';
@@ -85,11 +81,6 @@ export default new Router({
       component: SignUpLandingView,
     },
     {
-      path: '/sign-up',
-      name: 'sign-up',
-      component: SignUpView,
-    },
-    {
       path: '/sign-up-gp',
       name: 'sign-up-gp',
       component: GpSignUp,
@@ -98,22 +89,6 @@ export default new Router({
       path: '/sign-up-pf',
       name: 'sign-up-pf',
       component: PfSignUp,
-    },
-    {
-      path: '/sign-up-pf/',
-      name: 'sign-up-pf',
-      component: SignUpPFView,
-    },
-    {
-      path: '/sign-up-pf-2',
-      name: 'sign-up-pf-2',
-      component: SignUpPF2View,
-      props: true,
-    },
-    {
-      path: '/form-agreements',
-      name: 'form-agreements',
-      component: SignupFormAgreements,
     },
     {
       path: '/profile',

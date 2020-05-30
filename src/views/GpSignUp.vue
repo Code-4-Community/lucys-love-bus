@@ -23,9 +23,16 @@
       </div>
       <div class="nav-row">
         <div class="back-btn-box">
-          <button v-if="pageNum > 0" @click="backPage" class="btn--tertiary submit-btn">
-            Previous Page
-          </button>
+          <div v-if="pageNum > 0">
+            <button @click="backPage" class="btn--tertiary submit-btn">
+              Previous Page
+            </button>
+          </div>
+          <div v-else>
+            <router-link to="/login" tag="button" class="btn--tertiary submit-btn">
+              Back to Login
+            </router-link>
+          </div>
         </div>
         <div class="page-track-box">
           <div class="page-indicator"

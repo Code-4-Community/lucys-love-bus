@@ -4,6 +4,7 @@ import jwtUtils from '../auth/jwtUtils';
 import authApi from '../../api/authApi';
 import userState from '../auth/state/userState';
 import tokenService from '../auth/tokenService';
+import store from '../../store/store';
 
 
 const actions = {
@@ -49,6 +50,7 @@ const actions = {
       authApi.deleteAccessTokenHeader();
       authApi.deleteRefreshTokenHeader();
       userState.logout();
+      await store.dispatch('clearAll');
       if (response.status !== 204) {
         throw new Error(`Logout failed with response status ${response.status}`);
       }

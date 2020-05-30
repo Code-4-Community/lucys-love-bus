@@ -50,7 +50,7 @@
           </div>
           <div class="right-content-block">
             <div class="form-block">
-              <main-contact-form v-model="mainContact" />
+              <main-contact-form v-model="mainContact" ref="maincontact" />
             </div>
           </div>
         </div>
@@ -63,7 +63,8 @@
               </div>
               <div class="right-content-block">
                 <div class="form-block">
-                  <additional-contact-form v-model="additionalContacts[idx]" />
+                  <additional-contact-form v-model="additionalContacts[idx]"
+                                           ref="additionalcontacts" />
                 </div>
               </div>
             </div>
@@ -92,7 +93,7 @@
               </div>
               <div class="right-content-block">
                 <div class="form-block">
-                  <child-form v-model="children[idx]" />
+                  <child-form v-model="children[idx]" ref="children" />
                 </div>
               </div>
             </div>
@@ -168,8 +169,14 @@ export default {
       }
     },
     validate() {
-      // TODO
-      return true;
+      const formRefs = [
+        this.$refs.maincontact,
+        ...(this.$refs.additionalcontacts || []),
+        ...(this.$refs.children || []),
+      ];
+      const formValidations = formRefs.map(ref => ref.validateInput());
+
+      return formValidations.reduce((acc, cur) => acc && cur, true);
     },
     addContact() {
       this.additionalContacts.push({

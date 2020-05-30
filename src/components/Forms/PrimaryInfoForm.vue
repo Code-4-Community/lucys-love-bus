@@ -50,13 +50,19 @@
       </div>
     </div>
     <div class="half-input">
-      <label class="input-label">
-        Phone
-        <input v-model="value.phone"
-               class="input-primary"
-               type="text"
-               placeholder="Phone Number">
-      </label>
+      <div class="input-box">
+        <label class="input-label">
+          Phone
+          <input v-model="value.phone"
+                 class="input-primary"
+                 :class="{ 'error-input': !!submitErrors.firstName }"
+                 type="text"
+                 placeholder="Phone Number">
+        </label>
+        <div class="error-text">
+          {{ submitErrors.phone || serverErrors.phone }}
+        </div>
+      </div>
     </div>
     <div class="full-input">
       <label class="input-label">
@@ -149,6 +155,9 @@ export default {
       }
       if (this.value.email.length === 0) {
         newSubmitErrors.email = 'required';
+      }
+      if (this.value.phone.length !== 10) {
+        newSubmitErrors.phone = 'phone must be exactly 10 digits please do not include dashes';
       }
       if (this.value.password.length < 8) {
         newSubmitErrors.password = 'must be at least 8 characters';

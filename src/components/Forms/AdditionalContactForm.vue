@@ -196,8 +196,8 @@ export default {
       if (this.value.pronouns.length === 0) {
         newSubmitErrors.pronouns = 'required';
       }
-      if (this.value.phoneNumber.length !== 10) {
-        newSubmitErrors.phoneNumber = 'phone must be exactly 10 digits please do not include dashes';
+      if (this.value.phone.length > 0 && !/^\d{10}$/.test(this.value.phone)) {
+        newSubmitErrors.phone = 'phone must be exactly 10 digits, do not include dashes or other punctuation';
       }
       const emailRegex = /\S+@\S+\.\S+/;
       if (!emailRegex.test(this.value.email)) {

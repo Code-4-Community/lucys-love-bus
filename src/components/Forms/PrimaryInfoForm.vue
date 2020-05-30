@@ -55,7 +55,7 @@
           Phone
           <input v-model="value.phone"
                  class="input-primary"
-                 :class="{ 'error-input': !!submitErrors.firstName }"
+                 :class="{ 'error-input': !!submitErrors.phone }"
                  type="text"
                  placeholder="Phone Number">
         </label>
@@ -156,8 +156,8 @@ export default {
       if (this.value.email.length === 0) {
         newSubmitErrors.email = 'required';
       }
-      if (this.value.phone.length !== 10) {
-        newSubmitErrors.phone = 'phone must be exactly 10 digits please do not include dashes';
+      if (this.value.phone.length > 0 && !/^\d{10}$/.test(this.value.phone)) {
+        newSubmitErrors.phone = 'phone must be exactly 10 digits, do not include dashes or other punctuation';
       }
       if (this.value.password.length < 8) {
         newSubmitErrors.password = 'must be at least 8 characters';

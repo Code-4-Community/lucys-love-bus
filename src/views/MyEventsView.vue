@@ -2,7 +2,7 @@
   <div>
     <p class="page-title">My Registered Events</p>
     <events-list :events="myEvents">
-      <template v-slot:noEventsMsg>
+      <template v-slot:NoEventsMsg>
         <h3>Currently, you are signed up for no events!</h3>
       </template>
       <template v-slot:eventBtns="slotProps">

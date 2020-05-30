@@ -49,13 +49,9 @@ const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
 async function createEventRegistration(registeredEvents) {
   const body = {
-    lineItems: registeredEvents.map(event => ({
-      id: event.id,
-      name: event.title,
-      description: event.details.description,
-      amount: 5,
-      currency: 'usd',
-      quantity: 1,
+    lineItemRequests: registeredEvents.map(event => ({
+      eventId: event.id,
+      quantity: event.tickets,
     })),
   };
   return protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
@@ -63,13 +59,9 @@ async function createEventRegistration(registeredEvents) {
 
 async function createEventRegistrationAndCheckoutSession(registeredEvents) {
   const body = {
-    lineItems: registeredEvents.map(event => ({
-      id: event.id,
-      name: event.title,
-      description: event.details.description,
-      amount: 5,
-      currency: 'usd',
-      quantity: 1,
+    lineItemRequests: registeredEvents.map(event => ({
+      eventId: event.id,
+      quantity: event.tickets,
     })),
     successUrl: 'http://localhost:8080/event-registration-confirmation/success',
     cancelUrl: 'http://localhost:8080/checkout',

@@ -91,7 +91,7 @@
           </button>
         </access-control>
         <access-control v-if="singleEvent.signedUp" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <button class="btn-primary single-event-btn">
+          <button class="btn--primary single-event-btn">
             Unregister
           </button>
         </access-control>

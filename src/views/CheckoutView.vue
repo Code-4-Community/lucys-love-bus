@@ -44,7 +44,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import EventsListCheckout from '../components/Events/EventsListCheckout.vue';
-import API from '../api/api';
+import api from '../api/api';
 import { USER, ROLE } from '../utils/constants/user';
 
 export default {
@@ -67,17 +67,23 @@ export default {
     ...mapMutations('cart', {
       cancelRegistration: 'cancelRegistration',
     }),
-    checkout() {
+    async checkout() {
       if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
         try {
-          API.createEventRegistration(this.cartEvents);
+          await api.createEventRegistration(this.cartEvents);
           this.$router.push('/event-registration-confirmation/success');
         } catch (e) {
           // eslint-disable-next-line
           alert("Error: " + e);
         }
       } else {
-        API.createEventRegistrationAndCheckoutSession(this.cartEvents);
+        try {
+          await api.createEventRegistrationAndCheckoutSession(this.cartEvents);
+          // TODO: Push to stripe page
+        } catch (e) {
+          // eslint-disable-next-line
+          alert("Error: " + e);
+        }
       }
     },
   },

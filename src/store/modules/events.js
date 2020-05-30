@@ -15,8 +15,6 @@ export default {
       // slice truncates any out-of-bounds indices, so that's not a concern here
       return state.events.slice(firstEvent, lastEvent);
     },
-    getEventById: state => id => state.events.find(event => event.id === id),
-    isRegistered: state => id => !!state.myEvents.find(event => event.id === id),
   },
   mutations: {
     setUpcomingEvents(state, { events }) {

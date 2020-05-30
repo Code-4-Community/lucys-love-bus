@@ -20,8 +20,11 @@
       </template>
       <template v-slot:eventBtns="slotProps">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <div v-if="slotProps.event.signedUp">
+            You're Signed Up!
+          </div>
           <button
-            v-if="slotProps.event.spotsAvailable > 0"
+            v-else-if="slotProps.event.spotsAvailable > 0"
             v-on:click="openEventModal(slotProps.event)"
             class="event-side-btn btn--primary" >
             Register

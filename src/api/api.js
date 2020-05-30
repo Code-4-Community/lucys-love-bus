@@ -63,8 +63,6 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
       eventId: event.id,
       quantity: event.tickets,
     })),
-    successUrl: 'http://localhost:8080/event-registration-confirmation/success',
-    cancelUrl: 'http://localhost:8080/checkout',
   };
   try {
     const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);

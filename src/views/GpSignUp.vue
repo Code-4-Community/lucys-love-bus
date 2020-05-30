@@ -164,7 +164,11 @@ export default {
           };
           try {
             await authService.actions.signup(user);
-            this.$router.push('/profile'); // TODO: Push to confirmation page
+            await this.$router.push({
+              name: 'sign-up-confirmation',
+              params: { accountType: 'general-public' },
+            });
+
             this.resetInput();
             this.setUser();
           } catch (error) {
@@ -178,8 +182,7 @@ export default {
             }
           }
         } else {
-          // eslint-disable-next-line no-alert
-          alert('This page has errors on it');
+          // The user has errors they need to fix
         }
       }
     },

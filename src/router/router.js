@@ -28,6 +28,7 @@ import ChangePasswordlView from '../views/ChangePasswordlView.vue';
 import DeactivateAccountView from '../views/DeactivateAccountView.vue';
 import EditFamilyInfoView from '../views/EditFamilyInfoView.vue';
 import ChangeLoginInfoConfirmation from '../views/ChangeLoginInfoConfirmation.vue';
+import SignupConfirmation from '../views/SignupConfirmation.vue';
 
 Vue.use(Router);
 
@@ -95,6 +96,12 @@ export default new Router({
       path: '/sign-up-pf',
       name: 'sign-up-pf',
       component: PfSignUp,
+    },
+    {
+      path: '/sign-up-confirmation',
+      name: 'sign-up-confirmation',
+      component: SignupConfirmation,
+      props: true,
     },
     {
       path: '/profile',

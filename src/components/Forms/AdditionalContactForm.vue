@@ -2,87 +2,125 @@
   <div>
     <div class="h-fields">
       <div class="half-input">
-        <label class="input-label">
-          First Name
-          <input
-              v-model="value.firstName"
-              :disabled="disableChange"
-              class="input-primary"
-              type="text"
-              placeholder="First Name">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            First Name
+            <input
+                v-model="value.firstName"
+                :disabled="disableChange"
+                class="input-primary"
+                :class="{ 'error-input': !!submitErrors.firstName }"
+                type="text"
+                placeholder="First Name *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.firstName }}
+          </div>
+        </div>
       </div>
       <div class="half-input">
-        <label class="input-label">
-          Last Name
-          <input
-              v-model="value.lastName"
-              :disabled="disableChange"
-              class="input-primary"
-              type="text"
-              placeholder="Last Name">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            Last Name
+            <input
+                v-model="value.lastName"
+                :disabled="disableChange"
+                class="input-primary"
+                :class="{ 'error-input': !!submitErrors.lastName }"
+                type="text"
+                placeholder="Last Name *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.lastName }}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="pronoun-wrapper">
-      <h4>Preferred Pronouns</h4>
-      <button v-on:click="value.pronouns = 'HE/HIM'"
-              :class="{'pronoun-btn' : value.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : value.pronouns === 'HE/HIM'}"
-              :disabled="disableChange">
-        He/Him</button>
-      <button v-on:click="value.pronouns = 'SHE/HER'"
-              :class="{'pronoun-btn' : value.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : value.pronouns === 'SHE/HER'}"
-              :disabled="disableChange">
-        She/Her</button>
-      <button v-on:click="value.pronouns = 'THEY/THEM'"
-              :class="{'pronoun-btn' : value.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : value.pronouns === 'THEY/THEM'}"
-              :disabled="disableChange">
-        They/Them</button>
-    </div>
-    <div class="h-fields email-input-row">
-      <div class="two-third-input">
-        <label class="input-label">
-          Email Address
-          <input v-model="value.email"
-                 :disabled="disableChange"
-                 type="text"
-                 class="input-primary"
-                 placeholder="Email Address">
-        </label>
+    <div class="input-box">
+      <div class="pronoun-wrapper">
+        <h4>Preferred Pronouns</h4>
+        <button v-on:click="value.pronouns = 'HE/HIM'"
+                :class="{'pronoun-btn' : value.pronouns !== 'HE/HIM',
+                           'pronoun-btn-selected' : value.pronouns === 'HE/HIM',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          He/Him</button>
+        <button v-on:click="value.pronouns = 'SHE/HER'"
+                :class="{'pronoun-btn' : value.pronouns !== 'SHE/HER',
+                           'pronoun-btn-selected' : value.pronouns === 'SHE/HER',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          She/Her</button>
+        <button v-on:click="value.pronouns = 'THEY/THEM'"
+                :class="{'pronoun-btn' : value.pronouns !== 'THEY/THEM',
+                           'pronoun-btn-selected' : value.pronouns === 'THEY/THEM',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          They/Them</button>
       </div>
-      <div class="checkbox-container" v-if="!disableChange">
-        <label class="checkbox-label input-primary">
-          <input type="checkbox" checked="checked" v-model="value.shouldSendEmails">
-          <span class="checkmark"/>
-          <span class="checkbox-message">
-                  Receive News & Updates?
-                </span>
-        </label>
+      <div v-if="!!submitErrors.pronouns && !value.pronouns" class="error-text">
+        {{ submitErrors.pronouns }}
+      </div>
+    </div>
+    <div class="input-box">
+      <div class="h-fields email-input-row">
+        <div class="two-third-input">
+            <label class="input-label">
+              Email Address
+              <input v-model="value.email"
+                     :disabled="disableChange"
+                     type="text"
+                     class="input-primary"
+                     :class="{ 'error-input': !!submitErrors.email }"
+                     placeholder="Email Address *">
+            </label>
+        </div>
+        <div class="checkbox-container" v-if="!disableChange">
+          <label class="checkbox-label input-primary">
+            <input type="checkbox" checked="checked" v-model="value.shouldSendEmails">
+            <span class="checkmark"/>
+            <span class="checkbox-message">
+                    Receive News & Updates?
+                  </span>
+          </label>
+        </div>
+      </div>
+      <div class="error-text">
+        {{ submitErrors.email }}
       </div>
     </div>
     <div class="h-fields">
       <div class="half-input">
-        <label class="input-label">
-          Phone Number
-          <input v-model="value.phoneNumber"
-                 :disabled="disableChange"
-                 type="text"
-                 class="input-primary"
-                 placeholder="PhoneNumber">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            Phone Number
+            <input v-model="value.phoneNumber"
+                   :disabled="disableChange"
+                   type="text"
+                   class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.phoneNumber }"
+                   placeholder="PhoneNumber">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.phoneNumber }}
+          </div>
+        </div>
       </div>
       <div class="half-input">
-        <label class="input-label">
-          Date of Birth
-          <input v-model="value.dateOfBirth"
-                 :disabled="disableChange"
-                 type="date"
-                 class="input-primary"
-                 placeholder="Date of Birth    DD/MM/YYYY">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            Date of Birth
+            <input v-model="value.dateOfBirth"
+                   :disabled="disableChange"
+                   type="date"
+                   class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.dateOfBirth }"
+                   placeholder="Date of Birth    DD/MM/YYYY">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.dateOfBirth }}
+          </div>
+        </div>
       </div>
     </div>
     <div>
@@ -141,11 +179,36 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      submitErrors: {},
+    };
+  },
   methods: {
     validateInput() {
-      // eslint-disable-next-line no-alert
-      alert('Validating an additional contact now');
-      return true;
+      const newSubmitErrors = {};
+      if (this.value.firstName.length === 0) {
+        newSubmitErrors.firstName = 'required';
+      }
+      if (this.value.lastName.length === 0) {
+        newSubmitErrors.lastName = 'required';
+      }
+      if (this.value.pronouns.length === 0) {
+        newSubmitErrors.pronouns = 'required';
+      }
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(this.value.email)) {
+        newSubmitErrors.email = 'please enter a valid email address';
+      }
+      if (this.value.email.length === 0) {
+        newSubmitErrors.email = 'required';
+      }
+      if (this.value.dateOfBirth.length === 0) {
+        newSubmitErrors.dateOfBirth = 'required';
+      }
+
+      this.submitErrors = newSubmitErrors;
+      return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
     },
   },
 };
@@ -156,9 +219,6 @@ export default {
 
   .email-input-row {
     align-items: flex-end;
-  }
-  .email-input-row > .checkbox-container {
-    margin-bottom: 8px;
   }
 
   .checkbox-container {
@@ -173,4 +233,19 @@ export default {
     margin-left: 6px;
   }
 
+  .input-box {
+    margin-bottom: 0.5em;
+  }
+  .input-primary {
+    margin-bottom: 0;
+  }
+
+  .error-input {
+    border-color: red;
+  }
+  .error-text {
+    font-size: 0.8rem;
+    color: red;
+    text-align: left;
+  }
 </style>

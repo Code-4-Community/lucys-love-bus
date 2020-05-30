@@ -2,77 +2,115 @@
   <div>
     <div class="h-fields">
       <div class="half-input">
-        <label class="input-label">
-          First Name
-          <input
-              v-model="value.firstName"
-              :disabled="disableChange"
-              class="input-primary"
-              type="text"
-              placeholder="First Name">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            First Name
+            <input
+                v-model="value.firstName"
+                :disabled="disableChange"
+                class="input-primary"
+                :class="{ 'error-input': !!submitErrors.firstName }"
+                type="text"
+                placeholder="First Name *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.firstName }}
+          </div>
+        </div>
       </div>
       <div class="half-input">
-        <label class="input-label">
-          Last Name
-          <input
-              v-model="value.lastName"
-              :disabled="disableChange"
-              class="input-primary"
-              type="text"
-              placeholder="Last Name">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            Last Name
+            <input
+                v-model="value.lastName"
+                :disabled="disableChange"
+                class="input-primary"
+                :class="{ 'error-input': !!submitErrors.lastName }"
+                type="text"
+                placeholder="Last Name *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.lastName }}
+          </div>
+        </div>
       </div>
     </div>
-    <div class="pronoun-wrapper">
-      <h4>Preferred Pronouns</h4>
-      <button v-on:click="value.pronouns = 'HE/HIM'"
-              :class="{'pronoun-btn' : value.pronouns !== 'HE/HIM',
-                         'pronoun-btn-selected' : value.pronouns === 'HE/HIM'}"
-              :disabled="disableChange">
-        He/Him</button>
-      <button v-on:click="value.pronouns = 'SHE/HER'"
-              :class="{'pronoun-btn' : value.pronouns !== 'SHE/HER',
-                         'pronoun-btn-selected' : value.pronouns === 'SHE/HER'}"
-              :disabled="disableChange">
-        She/Her</button>
-      <button v-on:click="value.pronouns = 'THEY/THEM'"
-              :class="{'pronoun-btn' : value.pronouns !== 'THEY/THEM',
-                         'pronoun-btn-selected' : value.pronouns === 'THEY/THEM'}"
-              :disabled="disableChange">
-        They/Them</button>
+    <div class="input-box">
+      <div class="pronoun-wrapper">
+        <h4>Preferred Pronouns</h4>
+        <button v-on:click="value.pronouns = 'HE/HIM'"
+                :class="{'pronoun-btn' : value.pronouns !== 'HE/HIM',
+                           'pronoun-btn-selected' : value.pronouns === 'HE/HIM',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          He/Him</button>
+        <button v-on:click="value.pronouns = 'SHE/HER'"
+                :class="{'pronoun-btn' : value.pronouns !== 'SHE/HER',
+                           'pronoun-btn-selected' : value.pronouns === 'SHE/HER',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          She/Her</button>
+        <button v-on:click="value.pronouns = 'THEY/THEM'"
+                :class="{'pronoun-btn' : value.pronouns !== 'THEY/THEM',
+                           'pronoun-btn-selected' : value.pronouns === 'THEY/THEM',
+                           'error-input': !!submitErrors.pronouns && !value.pronouns}"
+                :disabled="disableChange">
+          They/Them</button>
+      </div>
+      <div v-if="!!submitErrors.pronouns && !value.pronouns" class="error-text">
+        {{ submitErrors.pronouns }}
+      </div>
     </div>
     <div class="half-input">
-      <label class="input-label">
-        Date of Birth
-        <input
-            v-model="value.dateOfBirth"
-            :disabled="disableChange"
-            class="input-primary"
-            type="date"
-            placeholder="Date of Birth  DD/MM/YYYY">
-      </label>
+      <div class="input-box">
+        <label class="input-label">
+          Date of Birth
+          <input
+              v-model="value.dateOfBirth"
+              :disabled="disableChange"
+              class="input-primary"
+              :class="{ 'error-input': !!submitErrors.dateOfBirth }"
+              type="date"
+              placeholder="Date of Birth  DD/MM/YYYY">
+        </label>
+        <div class="error-text">
+          {{ submitErrors.dateOfBirth }}
+        </div>
+      </div>
     </div>
     <div class="h-fields">
       <div class="half-input">
-        <label class="input-label">
-          School
-          <input v-model="value.school"
-                 :disabled="disableChange"
-                 type="text"
-                 class="input-primary"
-                 placeholder="School">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            School
+            <input v-model="value.school"
+                   :disabled="disableChange"
+                   type="text"
+                   class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.school }"
+                   placeholder="School *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.school }}
+          </div>
+        </div>
       </div>
       <div class="half-input">
-        <label class="input-label">
-          School Year
-          <input v-model="value.schoolYear"
-                 :disabled="disableChange"
-                 type="text"
-                 class="input-primary"
-                 placeholder="School Year">
-        </label>
+        <div class="input-box">
+          <label class="input-label">
+            School Year
+            <input v-model="value.schoolYear"
+                   :disabled="disableChange"
+                   type="text"
+                   class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.schoolYear }"
+                   placeholder="School Year *">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.schoolYear }}
+          </div>
+        </div>
       </div>
     </div>
     <div>
@@ -131,11 +169,35 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      submitErrors: {},
+    };
+  },
   methods: {
     validateInput() {
-      // eslint-disable-next-line no-alert
-      alert('Validating Child now');
-      return true;
+      const newSubmitErrors = {};
+      if (this.value.firstName.length === 0) {
+        newSubmitErrors.firstName = 'required';
+      }
+      if (this.value.lastName.length === 0) {
+        newSubmitErrors.lastName = 'required';
+      }
+      if (this.value.pronouns.length === 0) {
+        newSubmitErrors.pronouns = 'required';
+      }
+      if (this.value.dateOfBirth.length === 0) {
+        newSubmitErrors.dateOfBirth = 'required';
+      }
+      if (this.value.school.length === 0) {
+        newSubmitErrors.school = 'required';
+      }
+      if (this.value.schoolYear.length === 0) {
+        newSubmitErrors.schoolYear = 'required';
+      }
+
+      this.submitErrors = newSubmitErrors;
+      return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
     },
   },
 };
@@ -144,4 +206,19 @@ export default {
 <style lang="less" scoped>
   @import '../../../assets/global-classes.less';
 
+  .input-box {
+    margin-bottom: 0.5em;
+  }
+  .input-primary {
+    margin-bottom: 0;
+  }
+
+  .error-input {
+    border-color: red;
+  }
+  .error-text {
+    font-size: 0.8rem;
+    color: red;
+    text-align: left;
+  }
 </style>

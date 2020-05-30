@@ -121,7 +121,7 @@ import ChildForm from '../components/Forms/ChildForm.vue';
 import api from '../api/api';
 
 export default {
-  name: 'GpSignUp',
+  name: 'PfSignUp',
   components: {
     ChildForm,
     AdditionalContactForm,
@@ -196,6 +196,7 @@ export default {
       this.mainContact = {
         firstName: '',
         lastName: '',
+        dateOfBirth: '',
         pronouns: '',
         phoneNumber: '',
         email: '',
@@ -259,6 +260,7 @@ export default {
       this.additionalContacts.push({
         firstName: '',
         lastName: '',
+        dateOfBirth: '',
         pronouns: '',
         phoneNumber: '',
         email: '',

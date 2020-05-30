@@ -95,6 +95,15 @@ async function getEvent(id) {
   }
 }
 
+async function getEventRSVP(id) {
+  try {
+    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}/rsvps`);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
 async function getUpcomingEvents() {
   try {
     const { data } = await protectedResourceAxios.get('/api/v1/protected/events/qualified');
@@ -193,6 +202,7 @@ export default {
   createEventRegistration,
   createEventRegistrationAndCheckoutSession,
   getEvent,
+  getEventRSVP,
   getUpcomingEvents,
   getMyEvents,
   getSitewideAnnouncements,

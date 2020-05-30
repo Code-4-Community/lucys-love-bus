@@ -193,7 +193,7 @@ export default {
     },
     async viewRSVP(event) {
       const resp = await api.getEventRSVP(this.eventId);
-      const isErr = resp && resp.response && resp.response.status !== 200;
+      const isErr = (resp == null) || (resp.response && resp.response.status !== 200);
       if (!isErr) {
         const fileName = event.title ? `Event ${event.title} RSVPs` : `Event ${this.eventId} RSVPs`;
         this.forceFileDownload(resp, fileName);

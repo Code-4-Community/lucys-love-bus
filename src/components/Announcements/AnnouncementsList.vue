@@ -1,5 +1,5 @@
 <template>
-  <div class="scroll-container announcements-container" v-bind:style="{ 'maxHeight': '20rem' }">
+  <div class="announcements-container">
     <div v-if="announcements.length === 0">
       <div class="blank-card">
         <p>There is nothing to be announced!</p>
@@ -114,8 +114,11 @@ export default {
   }
 
   .announcements-container {
+    box-sizing: border-box;
+    position: absolute;
     overflow-y: scroll;
-    width: 400px;
+    width: 100%;
+    max-height: 100%;
     border: 1px solid grey;
     padding: 1rem;
     background: linear-gradient(180deg, rgba(248, 134, 52, 0.5) 0%, rgba(255, 201, 102, 0.5) 100%);

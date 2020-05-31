@@ -126,7 +126,7 @@ export default {
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
-      type: Number,
+      type: String,
       required: true,
     },
   },

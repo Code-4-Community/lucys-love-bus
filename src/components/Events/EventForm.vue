@@ -126,7 +126,7 @@
         <button type="submit"
                 class="create-form-btn btn--primary"
                 :disabled="(errors.items.length > 0 || invalidStartDate || invalidEndDate)">
-          Create
+          {{ submitName }}
         </button>
       </div>
     </div>
@@ -139,6 +139,10 @@ import moment from 'moment';
 export default {
   name: 'EventForm',
   props: {
+    submitName: {
+      type: String,
+      required: true,
+    },
     eventProp: {
       type: Object,
       required: false,

@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">Edit Event</div>
     <div v-if="finishedFetching">
-      <event-form :event-prop="event" @submit-event-form="editEvent" />
+      <event-form :submit-name="'Edit'" :event-prop="event" @submit-event-form="editEvent" />
     </div>
   </div>
 </template>

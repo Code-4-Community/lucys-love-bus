@@ -8,12 +8,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import VeeValidate from 'vee-validate';
 import EventForm from '../components/Events/EventForm.vue';
 import api from '../api/api';
 
-Vue.use(VeeValidate);
 export default {
   name: 'CreateEvent',
   components: { EventForm },

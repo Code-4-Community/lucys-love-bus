@@ -46,12 +46,10 @@ export default {
       try {
         const res = await api.deleteEvent(eventId);
         commit('deleteEvent', eventId);
-        // eslint-disable-next-line no-alert
-        alert('Successfully deleted!');
         return res;
       } catch (error) {
         // eslint-disable-next-line no-alert
-        alert('ERROR', error);
+        alert('Error', error);
         return error;
       }
     },

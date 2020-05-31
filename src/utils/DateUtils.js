@@ -10,6 +10,11 @@ function toStringDateTime(date) {
   return d.format('M/DD/YYYY h:mm a');
 }
 
+function stringDateFiveDaysBefore(date) {
+  const d = moment(date).subtract(5, 'days');
+  return toStringDate(d);
+}
+
 function isInPast(date) {
   const d = moment(date);
   return d.isBefore();
@@ -23,6 +28,7 @@ function is18YearsInPast(date) {
 export default {
   toStringDate,
   toStringDateTime,
+  stringDateFiveDaysBefore,
   isInPast,
   is18YearsInPast,
 };

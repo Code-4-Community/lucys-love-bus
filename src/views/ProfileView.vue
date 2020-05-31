@@ -48,7 +48,7 @@
 <script>
 import Welcome from '../components/Profile/Welcome.vue';
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
-import AnnouncementModal from '../components/Announcements/AnnouncementModal.vue';
+import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
 import { USER, ROLE } from '../utils/constants/user';
 import AccessControl from '../components/AccessControl/AccessControl.vue';

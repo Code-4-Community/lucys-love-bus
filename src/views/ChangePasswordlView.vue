@@ -107,7 +107,7 @@ export default {
         try {
           await api.changePassword(body);
           await this.$router.push({
-            name: 'sign-up-confirmation',
+            name: 'change-login-info-confirmation',
             params: { newEmail: null },
           });
           this.resetInput();

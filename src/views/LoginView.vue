@@ -8,25 +8,27 @@
       </p>
     </div>
     <div class="auth-container">
-      <span class="form-title">Sign in to your account</span>
-      <input
-        v-model="email"
-        @focus="resetSubmit"
-        class="input-primary"
-        type="text"
-        placeholder="Email Address"
-      />
-      <input
-        v-model="password"
-        @focus="resetSubmit"
-        class="input-primary"
-        type="password"
-        placeholder="Password"
-      />
-      <div class="error">
-        <p v-if="submitted && error" class="error-message">{{error}}</p>
-      </div>
-      <button @click="submit" class="login-btn submit-btn btn--tertiary">Login</button>
+      <form @submit.prevent="onSubmit">
+        <span class="form-title">Sign in to your account</span>
+        <input
+          v-model="email"
+          @focus="resetSubmit"
+          class="input-primary"
+          type="text"
+          placeholder="Email Address"
+        />
+        <input
+          v-model="password"
+          @focus="resetSubmit"
+          class="input-primary"
+          type="password"
+          placeholder="Password"
+        />
+        <div class="error">
+          <p v-if="submitted && error" class="error-message">{{error}}</p>
+        </div>
+        <button type="submit" class="login-btn submit-btn btn--tertiary">Login</button>
+      </form>
       <router-link class="forgot-password" to="forgot-password-request" tag="a">
         Forgot your password?
       </router-link>
@@ -72,7 +74,7 @@ export default {
       }
       return this.inputValid;
     },
-    async submit() {
+    async onSubmit() {
       this.submitted = true;
       if (this.validateInput()) {
         const user = {

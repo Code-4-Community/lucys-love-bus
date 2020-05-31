@@ -1,6 +1,6 @@
 <template>
   <transition name="modal-fade">
-    <div v-show="open" class="modal-backdrop">
+    <div v-if="open" class="modal-backdrop">
       <div class="modal">
         <div class="announce-header">
           <div class="announce-title">{{announcement.title}}</div>

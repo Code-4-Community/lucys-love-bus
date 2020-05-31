@@ -2,7 +2,7 @@
     <div>
         <div class="page-title">Create Event</div>
         <div>
-            <event-form @submit-event-form="createEvent" />
+            <event-form :submit-name="'Create'" @submit-event-form="createEvent" />
         </div>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="title">
+        <div class="page-title">
             <div class="header">
                 Make an Announcement
             </div>
@@ -48,8 +48,8 @@
                         Cancel
                     </router-link>
                     <button class="create-form-btn btn--primary"
-                         @click="onSubmit"
-                        :disabled="!formComplete">
+                            type="submit"
+                            :disabled="!formComplete">
                         Save
                     </button>
                 </div>

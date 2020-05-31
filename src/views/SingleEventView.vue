@@ -90,8 +90,8 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
               class="btn--primary single-event-btn"
-              v-on:click="viewRSVP(singleEvent), $router.push('/events')">
-            View RSVPs
+              v-on:click="viewRSVP(singleEvent)">
+            Download RSVPs
           </button>
         </access-control>
         <access-control v-if="singleEvent.ticketCount > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
@@ -134,7 +134,7 @@ export default {
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
-      type: Number,
+      type: String,
       required: true,
     },
   },
@@ -201,9 +201,22 @@ export default {
       // eslint-disable-next-line no-alert
       alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
     },
-    viewRSVP(event) {
-      // eslint-disable-next-line no-alert
-      alert(`${event.title} RSVP To be Implemented!`);
+    async viewRSVP(event) {
+      const resp = await api.getEventRSVP(this.eventId);
+      const isErr = (resp == null) || (resp.response && resp.response.status !== 200);
+      if (!isErr) {
+        const fileName = event.title ? `Event ${event.title} RSVPs` : `Event ${this.eventId} RSVPs`;
+        this.forceFileDownload(resp, fileName);
+      }
+    },
+    forceFileDownload(data, fileName) {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${fileName}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
   async created() {

@@ -1,9 +1,16 @@
 <template>
   <div class="header">
     <div class="title">
-      <router-link to="/" tag="div">
-        <img class="header-logo" src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
-      </router-link>
+      <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+        <router-link to="/profile" tag="div">
+          <img class="header-logo" src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
+        </router-link>
+      </access-control>
+      <access-control :roles="[USER[ROLE.GUEST]]">
+        <router-link to="/" tag="div">
+          <img class="header-logo" src="https://cdn.firespring.com/images/d8b7f14f-5a80-445d-96e7-49cfd18526f7.png" height="75px"/>
+        </router-link>
+      </access-control>
     </div>
     <access-control class="navlinks" :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
       <access-control class="header-btn" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">

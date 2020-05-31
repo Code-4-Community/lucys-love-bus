@@ -10,6 +10,12 @@ function toStringDateTime(date) {
   return d.format('M/DD/YYYY h:mm a');
 }
 
+function timeBefore(start, end) {
+  const s = moment(start, 'HH:mm');
+  const e = moment(end, 'HH:mm');
+  return s.isBefore(e);
+}
+
 function isInPast(date) {
   const d = moment(date);
   return d.isBefore();
@@ -23,6 +29,7 @@ function is18YearsInPast(date) {
 export default {
   toStringDate,
   toStringDateTime,
+  timeBefore,
   isInPast,
   is18YearsInPast,
 };

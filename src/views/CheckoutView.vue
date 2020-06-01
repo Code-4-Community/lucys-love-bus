@@ -20,7 +20,7 @@
             </router-link>
             <button
                 v-on:click="cancelRegistration({event: slotProps.event})"
-                class="event-side-btn btn--secondary">
+                class="event-side-btn btn--tertiary">
               Remove
             </button>
           </template>

@@ -9,12 +9,10 @@
       </router-link>
     </div>
     <div class="page-subtitle">
-      Note that this will change the email associated with the primary account owner that receives
-      all notifications and updates.
     </div>
     <div class="auth-container">
       <div class="form-subtitle">
-        This will also change the email you use to sign into your account with.
+        This will change the email you use to sign into your account with.
       </div>
       <form @submit="changeEmail" class="inputs-container">
         <div class="input-box">
@@ -46,6 +44,11 @@
           </div>
         </div>
         <button type="submit" class="submit-btn btn--tertiary">Update</button>
+        <div>
+          Note that this will change the email associated with the
+          primary account owner that receives
+          all notifications and updates.
+        </div>
       </form>
     </div>
   </div>

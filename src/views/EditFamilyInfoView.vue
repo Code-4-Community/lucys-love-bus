@@ -242,13 +242,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .page-subtitle {
     text-align: left;
     font-size: 1.5rem;

@@ -157,12 +157,6 @@ export default {
   @import '../../assets/global-classes.less';
   @import '../../assets/color-constants.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
   .page-content {
     margin-top: 32px;
   }

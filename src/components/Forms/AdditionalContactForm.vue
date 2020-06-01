@@ -257,13 +257,4 @@ export default {
   .input-primary {
     margin-bottom: 0;
   }
-
-  .error-input {
-    border-color: red;
-  }
-  .error-text {
-    font-size: 0.8rem;
-    color: red;
-    text-align: left;
-  }
 </style>

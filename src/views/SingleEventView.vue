@@ -7,17 +7,28 @@
       <div>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <div v-if="singleEvent.ticketCount > 0" class="signed-up-message">
-            You're signed up!
+            You've signed up and have {{ singleEvent.ticketCount }} tickets!
           </div>
           <div v-else-if="singleEvent.spotsAvailable === 0" class="sold-out-message">
             Sold Out!
           </div>
-          <button v-else-if="singleEvent.canRegister"
-                  class="register-button"
-                  @click="openEventModal">
-            Sign Up!
-          </button>
-          <div>
+          <div v-else-if="singleEvent.canRegister">
+            <div v-if="ticketsInCart > 0">
+              <span class="cart-text">
+                You have {{ ticketsInCart }} tickets in your cart
+              </span>
+              <button class="register-button"
+                      @click="openEventModal">
+                Edit Tickets
+              </button>
+            </div>
+            <button v-else
+                    class="register-button"
+                    @click="openEventModal">
+              Sign Up!
+            </button>
+          </div>
+          <div v-else>
             You can buy tickets on {{ gpRegisterDateString(singleEvent) }}
             <span><button class="info-btn" @click="openRoleModal">?</button></span>
           </div>
@@ -94,25 +105,37 @@
             Download RSVPs
           </button>
         </access-control>
+        <access-control v-if="ticketsInCart > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <router-link tag="button" to="/checkout" class="btn--primary single-event-btn">
+            Proceed to Cart
+          </router-link>
+        </access-control>
         <access-control v-if="singleEvent.ticketCount > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <button class="btn--primary single-event-btn">
-            Unregister
+          <button @click="openRegistrationModal"
+                  class="btn--primary single-event-btn">
+            Edit Registration
           </button>
         </access-control>
       </div>
     </div>
     <EventModal :open="openModal"
                 :event="singleEvent"
+                :cartTickets="ticketsInCart"
                 @close-event-modal="closeEventModal"
                 @add-to-cart="addEventToCart"
     />
+    <event-registration-modal
+        :open="registrationModalOpen"
+        :event="singleEvent"
+        @close-registration-modal="closeRegistrationModal"
+        @update-event="getSingleEvent" />
     <account-role-modal :open="roleModalOpen" @close-role-modal="closeRoleModal" />
   </div>
 </template>
 
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
@@ -123,10 +146,12 @@ import {
 } from '../utils/constants/user';
 import DateUtils from '../utils/DateUtils';
 import AccountRoleModal from '../components/Modals/AccountRoleModal.vue';
+import EventRegistrationModal from '../components/Modals/EventRegistrationModal.vue';
 
 export default {
   name: 'SingleEvent',
   components: {
+    EventRegistrationModal,
     AccountRoleModal,
     EventAnnouncementsList,
     AccessControl,
@@ -148,9 +173,16 @@ export default {
       ROLE,
       openModal: false,
       roleModalOpen: false,
+      registrationModalOpen: false,
     };
   },
   computed: {
+    ...mapGetters('cart', {
+      cartTickets: 'cartTickets',
+    }),
+    ticketsInCart() {
+      return this.cartTickets(this.eventId);
+    },
     date() {
       return moment(this.singleEvent.details.start).format('dddd, MMMM Do YYYY');
     },
@@ -177,29 +209,27 @@ export default {
     closeEventModal() {
       this.openModal = false;
     },
+    addEventToCart(payload) {
+      this.openModal = false;
+      this.registerForEvent(payload);
+    },
     openRoleModal() {
       this.roleModalOpen = true;
     },
     closeRoleModal() {
       this.roleModalOpen = false;
     },
-    addEventToCart(payload) {
-      this.openModal = false;
-      this.registerForEvent(payload);
-      // eslint-disable-next-line no-alert
-      alert(`You have added ${payload.tickets} tickets for ${payload.event.title} to your cart.`);
+    openRegistrationModal() {
+      this.registrationModalOpen = true;
+    },
+    closeRegistrationModal() {
+      this.registrationModalOpen = false;
     },
     async getSingleEvent() {
-      const res = await api.getEvent(this.eventId);
-      return res;
+      this.singleEvent = await api.getEvent(this.eventId);
     },
     async getEventAnnouncements() {
-      const res = await api.getEventAnnouncements(this.eventId);
-      return res.announcements;
-    },
-    announce(payload) {
-      // eslint-disable-next-line no-alert
-      alert(`Once created, link create-announcement component here for ${payload.event.title}.`);
+      this.announcements = await api.getEventAnnouncements(this.eventId);
     },
     async viewRSVP(event) {
       const resp = await api.getEventRSVP(this.eventId);
@@ -220,8 +250,8 @@ export default {
     },
   },
   async created() {
-    this.singleEvent = await this.getSingleEvent();
-    this.announcements = await this.getEventAnnouncements();
+    await this.getSingleEvent();
+    await this.getEventAnnouncements();
   },
 };
 </script>
@@ -248,6 +278,9 @@ export default {
   font-size: 1.5rem;
   color: green;
   font-weight: bold;
+}
+.cart-text {
+  margin-right: 12px;
 }
 .sold-out-message {
   font-size: 1.5rem;

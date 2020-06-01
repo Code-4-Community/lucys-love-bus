@@ -8,6 +8,15 @@ export default {
     getSubTotal(state) {
       return state.cartEvents.reduce((acc, cartEvent) => acc + cartEvent.price, 0);
     },
+    cartTickets(state) {
+      return (eventId) => {
+        const event = state.cartEvents.find(e => e.id === eventId);
+        if (event) {
+          return event.tickets;
+        }
+        return 0;
+      };
+    },
   },
   mutations: {
     registerForEvent(state, { tickets, event }) {
@@ -18,6 +27,11 @@ export default {
         } else {
           const newEvent = { ...event, tickets };
           state.cartEvents.push(newEvent);
+        }
+      } else {
+        const idx = state.cartEvents.findIndex(e => e.id === event.id);
+        if (idx > -1) {
+          state.cartEvents.splice(idx, 1);
         }
       }
     },

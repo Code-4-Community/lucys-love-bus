@@ -1,15 +1,9 @@
 @import './color-constants.less';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap.css');
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap.css');
 @import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap.css');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap.css');
 
 h1 {
   margin-left: 8em;
-}
-
-textarea {
-  font-family: Arial, serif;
 }
 
 .header-logo {
@@ -79,6 +73,13 @@ textarea {
   }
 }
 
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .page-title {
   text-align: left;
   font-size: 2.3rem;
@@ -127,6 +128,7 @@ textarea {
   border: 1px solid black;
   border-radius: 50%;
   margin-left: 0.5em;
+  font-weight: bold;
 }
 
 .btn {
@@ -200,7 +202,7 @@ textarea {
   margin-top: 0;
 }
 .input-label {
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   text-align: left;
 }
 
@@ -344,6 +346,15 @@ textarea.input-primary {
   background: @tangerine;
   border: 2px solid @tangerine;
   color: white;
+}
+
+.error-input {
+  border-color: red;
+}
+.error-text {
+  font-size: 0.8rem;
+  color: red;
+  text-align: left;
 }
 
 // -------------- LABELS & TEXT ------------------

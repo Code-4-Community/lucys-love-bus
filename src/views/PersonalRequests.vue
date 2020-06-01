@@ -29,32 +29,30 @@
     </div>
     <div v-if="loaded" class="page-content">
       <div class="previous-requests-container">
+        <div class="requests-table-title">
+          Previous Requests
+        </div>
         <div v-if="requests.length === 0">
-          <div class="requests-table-title">
+          <div class="no-requests-title">
             You have not made any previous requests to be a Participating Family.
           </div>
         </div>
-        <div v-else>
-          <div class="requests-table-title">
-            Previous Requests
+        <div v-else class="requests-table">
+          <div class="requests-row requests-header">
+            <div class="date-column">
+              Date Created
+            </div>
+            <div class="status-column">
+              Request Status
+            </div>
           </div>
-          <div class="requests-table">
-            <div class="requests-row requests-header">
+          <div class="requests-list" v-for="request in requests" :key="request.id">
+            <div class="requests-row">
               <div class="date-column">
-                Date Created
+                {{ formatCreatedString(request.created) }}
               </div>
               <div class="status-column">
-                Request Status
-              </div>
-            </div>
-            <div class="requests-list" v-for="request in requests" :key="request.id">
-              <div class="requests-row">
-                <div class="date-column">
-                  {{ formatCreatedString(request.created) }}
-                </div>
-                <div class="status-column">
-                  {{ request.status }}
-                </div>
+                {{ request.status }}
               </div>
             </div>
           </div>
@@ -159,12 +157,6 @@ export default {
   @import '../../assets/global-classes.less';
   @import '../../assets/color-constants.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-  }
   .page-content {
     margin-top: 32px;
   }
@@ -179,6 +171,15 @@ export default {
   .account-role {
     margin-left: 1em;
     font-weight: bold;
+  }
+
+  .no-requests-title {
+    font-size: 12pt;
+    background-color: #F3F3F3;
+    border: 2px solid black;
+    border-radius: 6px;
+    width: auto;
+    padding: 1em 1em;
   }
 
   .previous-requests-container {

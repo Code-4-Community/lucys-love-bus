@@ -13,11 +13,11 @@
             Sold Out!
           </div>
           <button v-else-if="singleEvent.canRegister"
-                  class="register-button"
+                  class="register-button btn--primary"
                   @click="openEventModal">
             Sign Up!
           </button>
-          <div>
+          <div v-else>
             You can buy tickets on {{ gpRegisterDateString(singleEvent) }}
             <span><button class="info-btn" @click="openRoleModal">?</button></span>
           </div>
@@ -61,12 +61,12 @@
           <router-link
               to="/upcoming-events"
               tag="button"
-              class="btn--tertiary single-event-btn">
+              class="btn--secondary single-event-btn">
             Back To Events
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
-          <router-link tag="button"  class="btn--secondary single-event-btn"
+          <router-link tag="button"  class="btn--primary single-event-btn"
                        :to="{name: 'create-announcement',
                        params: {eventName: singleEvent.title, eventId: singleEvent.id}}"
           >
@@ -75,16 +75,9 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn--secondary single-event-btn"
+              class="btn--primary single-event-btn"
               v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
             Edit Event
-          </button>
-        </access-control>
-        <access-control :roles="[USER[ROLE.ADMIN]]">
-          <button
-              class="btn--secondary single-event-btn"
-              v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
-            Delete Event
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
@@ -95,8 +88,15 @@
           </button>
         </access-control>
         <access-control v-if="singleEvent.ticketCount > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <button class="btn--primary single-event-btn">
+          <button class="btn--tertiary single-event-btn">
             Unregister
+          </button>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <button
+              class="btn--tertiary single-event-btn"
+              v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
+            Delete Event
           </button>
         </access-control>
       </div>
@@ -255,8 +255,6 @@ export default {
   font-weight: bold;
 }
 .register-button {
-  background-color: @tangerine;
-  color: white;
   font-size: 1.3rem;
   border: none;
   border-radius: 6px;
@@ -286,7 +284,6 @@ export default {
   margin-bottom: 10px;
 }
 .subheader {
-  font-family: Dekko;
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;

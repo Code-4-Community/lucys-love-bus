@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
   @import '../../../assets/color-constants.less';
   @import '../../../assets/global-classes.less';
 
@@ -119,7 +119,8 @@ export default {
     overflow-y: scroll;
     width: 100%;
     max-height: 100%;
-    border: 1px solid grey;
+    border: none;
+    border-radius: 6px;
     padding: 1rem;
     background: linear-gradient(180deg, rgba(248, 134, 52, 0.5) 0%, rgba(255, 201, 102, 0.5) 100%);
   }

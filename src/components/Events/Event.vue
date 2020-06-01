@@ -72,8 +72,8 @@ export default {
     object-fit: cover;
   }
   .start-date {
-    font-family: Raleway;
-    font-weight: lighter;
+    /*font-family: Raleway;*/
+    /*font-weight: lighter;*/
     font-size: 1.3rem;
     color: white;
     mix-blend-mode: difference;
@@ -88,7 +88,7 @@ export default {
     grid-area: content;
     position: relative;
     overflow: hidden;
-    font-family: Raleway;
+    /*font-family: Raleway;*/
     padding-left: 1rem;
     padding-right: 8px;
     text-align: left;

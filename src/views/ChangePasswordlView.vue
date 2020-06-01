@@ -130,13 +130,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .inputs-container {
     text-align: left;
   }
@@ -157,10 +150,5 @@ export default {
   }
   .input-primary {
     margin-bottom: 0;
-  }
-  .error-text {
-    font-size: 0.8rem;
-    color: red;
-    text-align: left;
   }
 </style>

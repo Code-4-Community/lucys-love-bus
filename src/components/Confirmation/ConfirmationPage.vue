@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="confirmation-component-container">
     <div>
       <img class="icon" src="https://api.macaronikid.com/assets/uploads/width_810,height_350,crop_false/da903fe7-49ff-40e6-9608-ca040b64fdec.png"/>
     </div>
@@ -18,7 +18,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  .confirmation-component-container {
+    margin: 0 auto;
+    text-align: center;
+  }
+
   .icon {
     height: 100px;
     width: 100px;

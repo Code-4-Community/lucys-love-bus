@@ -166,6 +166,8 @@ export default {
         } catch (error) {
           this.saveMessage = `Error: ${error.message}`;
         }
+      } else {
+        this.saveMessage = 'There are some errors on this page!';
       }
     },
     validate() {
@@ -182,6 +184,7 @@ export default {
       this.additionalContacts.push({
         firstName: '',
         lastName: '',
+        dateOfBirth: '',
         pronouns: '',
         phoneNumber: '',
         email: '',
@@ -212,11 +215,23 @@ export default {
     removeChild() {
       this.children = this.children.slice(0, -1);
     },
+    replaceNullFields(obj) {
+      return Object.fromEntries(
+        Object.entries(obj).map(
+          ([k, v]) => {
+            if (v == null) {
+              return [k, ''];
+            }
+            return [k, v];
+          },
+        ),
+      );
+    },
   },
   async created() {
     const payload = await this.getAccountInformation();
-    this.locationData = payload.location;
-    this.mainContact = payload.mainContact;
+    this.locationData = this.replaceNullFields(payload.location);
+    this.mainContact = this.replaceNullFields(payload.mainContact);
     this.additionalContacts = payload.additionalContacts;
     this.children = payload.children;
     this.loaded = true;

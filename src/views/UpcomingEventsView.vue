@@ -174,11 +174,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
 
   .sold-out {
     background-color: #AAA;

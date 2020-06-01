@@ -72,12 +72,12 @@
           <router-link
               to="/upcoming-events"
               tag="button"
-              class="btn--tertiary single-event-btn">
+              class="btn--secondary single-event-btn">
             Back To Events
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
-          <router-link tag="button"  class="btn--secondary single-event-btn"
+          <router-link tag="button"  class="btn--primary single-event-btn"
                        :to="{name: 'create-announcement',
                        params: {eventName: singleEvent.title, eventId: singleEvent.id}}"
           >
@@ -86,16 +86,9 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn--secondary single-event-btn"
+              class="btn--primary single-event-btn"
               v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
             Edit Event
-          </button>
-        </access-control>
-        <access-control :roles="[USER[ROLE.ADMIN]]">
-          <button
-              class="btn--secondary single-event-btn"
-              v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
-            Delete Event
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
@@ -114,6 +107,13 @@
           <button @click="openRegistrationModal"
                   class="btn--primary single-event-btn">
             Edit Registration
+          </button>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          <button
+              class="btn--tertiary single-event-btn"
+              v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
+            Delete Event
           </button>
         </access-control>
       </div>
@@ -288,8 +288,6 @@ export default {
   font-weight: bold;
 }
 .register-button {
-  background-color: @tangerine;
-  color: white;
   font-size: 1.3rem;
   border: none;
   border-radius: 6px;
@@ -319,7 +317,6 @@ export default {
   margin-bottom: 10px;
 }
 .subheader {
-  font-family: Dekko;
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;

@@ -1,22 +1,26 @@
 <template>
   <div class="background">
+    <div class="page-title">
+      Reset your password
+    </div>
     <div class="auth-container">
-      <div class="form-title">Reset your password</div>
-      <div class="form-subheader">Enter and confirm your new password</div>
+      <div class="form-subheader">Enter and confirm your new password.</div>
       <div class="input-box">
         <input
             v-model="password[0]"
             class="input-primary"
+            :class="{ 'error-input': error }"
             type="password"
             placeholder="New Password"
         />
         <input
             v-model="password[1]"
             class="input-primary"
+            :class="{ 'error-input': error }"
             type="password"
             placeholder="Confirm Password"
         />
-        <div v-if="error" class="error-message">{{ errorMessage }}</div>
+        <div v-if="error" class="error-text">{{ errorMessage }}</div>
       </div>
       <button @click="submit" class="submit-btn btn--tertiary">Reset</button>
     </div>
@@ -90,15 +94,8 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .background {
-    position: absolute;
-    left: 0;
-    right: 0;
-    background-color: #C4C4C4;
-    padding: 3em 0;
-  }
   .auth-container {
-    text-align: left;
+    margin-top: 30px;
   }
 
   .form-title {

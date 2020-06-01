@@ -147,6 +147,7 @@ export default {
     top: 22.5%;
     background: white;
     border: solid 12px rgba(248, 134, 52, 0.5);
+    border-radius: 6px;
     width: 50%;
     max-height: 500px;
 

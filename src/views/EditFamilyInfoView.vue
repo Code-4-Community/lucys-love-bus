@@ -16,13 +16,13 @@
     <div v-if="loaded">
       <div>
         <hr />
-        <div class="save-row">
-          <div class="save-message">
+        <div class="side-annotated-block">
+          <div class="side-label">
             <div v-if="saveMessage">
               {{ saveMessage }}
             </div>
           </div>
-          <div class="save-action">
+          <div class="right-content-block save-row">
             <div class="save-label">
               Ready to save?
             </div>
@@ -242,13 +242,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .page-subtitle {
     text-align: left;
     font-size: 1.5rem;
@@ -259,7 +252,7 @@ export default {
   .save-row {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
   .save-message {

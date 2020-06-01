@@ -1,105 +1,111 @@
 <template>
   <form @submit.prevent="onSubmit">
     <div class="event-form-container">
-      <div class="form-box box-title">
-        <div>
-          <input v-validate="'required|max:80'"
-                 v-model="event.title"
-                 name="name"
-                 class="event-name"
-                 placeholder="Name of Event">
-          <span class="form-errors" v-show="errors.has('title')">{{ errors.first('title') }}</span>
+      <div class="box-title input-box">
+        <input v-model="event.title"
+               name="name"
+               class="input-primary"
+               :class="{ 'error-input': !!submitErrors.title }"
+               placeholder="Name of Event">
+        <div class="error-text">
+          {{ submitErrors.title }}
         </div>
       </div>
-      <div class="form-box box-location">
-        <div>
-          <div>
-            Event Location
-          </div>
-          <div class="form-element">
-            <input
-                class="secondary-input"
-                v-validate="'required|max:80'"
-                v-model="event.details.location"
-                name="location"
-                type="text"
-                size="60"
-                placeholder="Location">
-          </div>
-          <div class="form-errors">
-            <span v-show="errors.has('location')">{{ errors.first('location') }}</span>
-          </div>
+      <div class="input-box box-location">
+        <label class="input-label">
+          Event Location
+          <input class="input-primary"
+                 :class="{ 'error-input': !!submitErrors.location }"
+                 v-model="event.details.location"
+                 name="location"
+                 type="text"
+                 placeholder="Location">
+        </label>
+        <div class="error-text">
+          {{ submitErrors.location }}
         </div>
       </div>
-      <div class="form-box box-time">
+      <div class="box-time">
         <div class="date-group">
-          <div>
-            Event Date
-          </div>
-          <input class="date-input secondary-input"
-                 v-model="eventDate"
-                 type="date"
-                 name="event date">
-          <div class="form-errors error" v-show="invalidStartDate">
-            Bad Date
+          <div class="input-box">
+            <label class="input-label">
+              Event Date
+              <input class="date-input input-primary"
+                     :class="{ 'error-input': !!submitErrors.eventDate }"
+                     v-model="eventDate"
+                     type="date"
+                     name="event date">
+            </label>
+            <div class="error-text">
+              {{ submitErrors.eventDate }}
+            </div>
           </div>
         </div>
         <div class="time-inputs">
-          <div>
-            <div>
+          <div class="input-box">
+            <label class="input-label">
               Start Time
+              <input
+                  class="input-primary"
+                  :class="{ 'error-input': !!submitErrors.startTime }"
+                  v-model="startTime"
+                  name="start time"
+                  type="time"
+                  step="300">
+            </label>
+            <div class="error-text">
+              {{ submitErrors.startTime }}
             </div>
-            <input
-                class="secondary-input"
-                v-model="startTime"
-                name="start time"
-                type="time"
-                step="300"
-                size="30">
           </div>
           <div>to</div>
-          <div>
-            <div>
+          <div class="input-box">
+            <label class="input-label">
               End Time
+              <input
+                  class="input-primary"
+                  :class="{ 'error-input': !!submitErrors.endTime }"
+                  v-model="endTime"
+                  name="end time"
+                  type="time"
+                  step="300">
+            </label>
+            <div class="error-text">
+              {{ submitErrors.endTime }}
             </div>
-            <input
-                class="secondary-input"
-                v-model="endTime"
-                name="end time"
-                type="time"
-                step="300"
-                size="30">
           </div>
         </div>
       </div>
-      <div class="form-box box-spots">
-        <div>
-          <div>
+      <div class="box-spots">
+        <div class="input-box">
+          <label class="input-label">
             Spots Available
-          </div>
-          <div class="form-element">
-            <input class="secondary-input"
+            <input class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.spotsAvailable }"
                    v-validate="'required|integer'"
                    v-model="event.spotsAvailable"
                    name="name"
                    type="number"
                    placeholder="Spots Availible">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.spotsAvailable }}
           </div>
         </div>
       </div>
-      <div class="form-box box-description">
-        <div>
-          <div>
+      <div class="box-description">
+        <div class="input-box">
+          <label class="input-label">
             Event Description
-          </div>
-          <div class="form-element">
-                <textarea class="secondary-input"
-                          v-validate="'required'"
+                <textarea class="input-primary"
+                          :class="{ 'error-input': !!submitErrors.description }"
                           v-model="event.details.description"
                           rows="10"
                           cols="100"
                           name="description"
                           placeholder="Description" />
+          </label>
+          <div class="error-text">
+            {{ submitErrors.description }}
           </div>
         </div>
       </div>
@@ -125,7 +131,7 @@
       <div class="form-box box-buttons">
         <button type="submit"
                 class="create-form-btn btn--primary"
-                :disabled="(errors.items.length > 0 || invalidStartDate || invalidEndDate)">
+                :disabled="imageUploaded === 1 || imageUploaded === 4">
           {{ submitName }}
         </button>
       </div>
@@ -135,6 +141,7 @@
 
 <script>
 import moment from 'moment';
+import DateUtils from '../../utils/DateUtils';
 
 export default {
   name: 'EventForm',
@@ -179,9 +186,7 @@ export default {
       eventDate: this.unixToDateTimeArray(this.eventProp.details.start)[0],
       startTime: this.unixToDateTimeArray(this.eventProp.details.start)[1],
       endTime: this.unixToDateTimeArray(this.eventProp.details.end)[1],
-      error: '',
-      invalidStartDate: false,
-      invalidEndDate: false,
+      submitErrors: {},
     };
   },
   methods: {
@@ -230,6 +235,9 @@ export default {
       }
     },
     unixToDateTimeArray(unixTime) {
+      if (unixTime == null) {
+        return ['', ''];
+      }
       const date = moment(unixTime).format('YYYY-MM-DD');
       const time = moment(unixTime).format('HH:mm');
       return [date, time];
@@ -242,17 +250,54 @@ export default {
      * where the web server will validate and upload the image to S3 and return the URL.
      */
     onSubmit() {
-      this.$validator.validateAll().then(async (result) => {
-        if (result) {
-          this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
-          this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
+      if (this.validateInput()) {
+        this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
+        this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
 
-          this.$emit('submit-event-form', { event: this.event });
-        }
-      }).catch((error) => {
-        // eslint-disable-next-line no-alert
-        alert(error);
-      });
+        this.$emit('submit-event-form', { event: this.event });
+      }
+    },
+    validateInput() {
+      const newSubmitErrors = {};
+      if (this.event.title.length === 0) {
+        newSubmitErrors.title = 'required';
+      }
+      if (this.event.details.location.length === 0) {
+        newSubmitErrors.location = 'required';
+      }
+      if (this.event.spotsAvailable < 0) {
+        newSubmitErrors.spotsAvailable = 'spots available must be positive';
+      }
+      if (this.event.spotsAvailable == null) {
+        newSubmitErrors.spotsAvailable = 'required';
+      }
+
+      this.submitErrors = this.validateTime(newSubmitErrors);
+      return Object.keys(this.submitErrors).length === 0
+        && this.submitErrors.constructor === Object;
+    },
+    validateTime(submitErrors) {
+      const newSubmitErrors = { ...submitErrors };
+
+      if (this.eventDate.length === 0) {
+        newSubmitErrors.eventDate = 'required';
+      } else if (DateUtils.isInPast(this.eventDate)) {
+        newSubmitErrors.eventDate = 'event date must be in the future';
+      }
+
+      if (this.startTime.length !== 0
+        && this.endTime.length !== 0
+        && !DateUtils.timeBefore(this.startTime, this.endTime)) {
+        newSubmitErrors.endTime = 'must be after start time';
+      }
+      if (this.startTime.length === 0) {
+        newSubmitErrors.startTime = 'required';
+      }
+      if (this.endTime.length === 0) {
+        newSubmitErrors.endTime = 'required';
+      }
+
+      return newSubmitErrors;
     },
   },
 };
@@ -263,53 +308,29 @@ export default {
   @import '../../../assets/global-classes.less';
 
   .event-form-container {
+    display: flex;
+    flex-direction: column;
     margin-top: 16px;
     padding: 1rem;
     background-color: rgba(255, 201, 91, 0.31);
     text-align: left;
-    border-radius: 12px;
+    border-radius: 5px;
   }
 
-  .form-box {
-    margin: 16px 0;
-  }
-  .form-box:first-child {
-    margin-top: 0;
-  }
-  .form-box:last-child {
-    margin-bottom: 0;
+  .event-form-container input {
+    box-sizing: border-box;
   }
 
   .box-title {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    width: 60%;
   }
-  .event-name {
-    width: 100%;
-    padding: 1rem;
-    font-size: 2.3rem;
-    font-family: 'Quicksand';
-    border: .1rem solid #ccc;
-    border-radius: 3px;
-  }
-
-
-  .secondary-input {
-    padding: .8rem;
-    border: .1rem solid #ccc;
-    box-sizing: border-box;
-    font-family: Montserrat;
-    font-size: 12pt;
-    border-radius: 3px;
+  .box-title input {
+    font-size: 2rem;
   }
 
   .box-location {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    width: 30%;
   }
-
 
   .box-time {
     display: flex;
@@ -337,16 +358,26 @@ export default {
 
 
   .box-spots {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    width: 20%;
   }
 
   .box-description {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     width: 100%;
+  }
+
+  .input-box {
+    margin-bottom: 0.5em;
+  }
+  .input-primary {
+    margin-bottom: 0;
+  }
+  .error-input {
+    border-color: red;
+  }
+  .error-text {
+    font-size: 0.8rem;
+    color: red;
+    text-align: left;
   }
 
 

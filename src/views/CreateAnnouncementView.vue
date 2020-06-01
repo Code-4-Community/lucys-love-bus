@@ -16,29 +16,30 @@
         </div>
         <form @submit.prevent="onSubmit">
             <div class="announcement-form-container">
-                <div class="form-element">
-                    <input v-validate="'required|max:80'"
-                           v-model="a.title"
+                <div class="input-box">
+                    <input v-model="a.title"
                            name="title"
-                           class="announcement-title"
+                           class="input-primary announcement-title"
+                           :class="{ 'error-input': !!submitErrors.title }"
                            type="text"
                            placeholder="Title">
-                    <div class="form-errors">
-                        <span v-show="errors.has('title')">{{ errors.first('title') }}</span>
+                    <div class="error-text">
+                        {{ submitErrors.title }}
                     </div>
                 </div>
-                <div class="form-element description">
-                    <textarea v-validate="'required'"
-                              v-model="a.description"
-                              rows="10"
-                              cols="100"
-                              name="description"
-                              class="announcement-description"
-                              placeholder="Description" />
-                    <div class="form-errors">
-                        <span v-show="errors.has('description')">
-                            {{ errors.first('description') }}
-                        </span>
+                <div class="input-box">
+                    <label class="input-label">
+                        Description
+                        <textarea v-model="a.description"
+                                  rows="10"
+                                  cols="100"
+                                  name="description"
+                                  class="input-primary announcement-description"
+                                  :class="{ 'error-input': !!submitErrors.description }"
+                                  placeholder="Description" />
+                    </label>
+                    <div class="error-text">
+                        {{ submitErrors.description }}
                     </div>
                 </div>
                 <div class="btn-row">
@@ -48,8 +49,7 @@
                         Cancel
                     </router-link>
                     <button class="create-form-btn btn--primary"
-                            type="submit"
-                            :disabled="!formComplete">
+                            type="submit">
                         Save
                     </button>
                 </div>
@@ -59,11 +59,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import VeeValidate from 'vee-validate';
 import api from '../api/api';
 
-Vue.use(VeeValidate);
 export default {
   name: 'CreateAnnouncement',
   props: {
@@ -79,36 +76,52 @@ export default {
   data() {
     return {
       event: {},
-      a: {},
-      error: '',
+      a: {
+        title: '',
+        description: '',
+      },
+      submitErrors: {},
     };
   },
-  computed: {
-    formComplete() {
-      return this.a.title && this.a.description;
-    },
-  },
   methods: {
+    resetInput() {
+      this.event = {};
+      this.a = {
+        title: '',
+        description: '',
+      };
+      this.submitErrors = {};
+    },
     async onSubmit() {
-      this.$validator.validateAll().then(async (result) => {
-        if (result) {
-          try {
-            const body = {
-              title: this.a.title,
-              description: this.a.description,
-            };
-            await api.createAnnouncement(body, this.eventId);
-            if (this.eventId !== null) {
-              this.$router.push(`/event/${this.eventId}`);
-            } else {
-              this.$router.push('/profile');
-            }
-            this.a = {};
-          } catch (err) {
-            this.error = err;
+      if (this.validateInput()) {
+        try {
+          const body = {
+            title: this.a.title,
+            description: this.a.description,
+          };
+          await api.createAnnouncement(body, this.eventId);
+          if (this.eventId !== null) {
+            await this.$router.push(`/event/${this.eventId}`);
+          } else {
+            await this.$router.push('/profile');
           }
+          this.resetInput();
+        } catch (err) {
+          this.error = err;
         }
-      });
+      }
+    },
+    validateInput() {
+      const newSubmitErrors = {};
+      if (this.a.title.length === 0) {
+        newSubmitErrors.title = 'required';
+      }
+      if (this.a.description.length === 0) {
+        newSubmitErrors.description = 'required';
+      }
+
+      this.submitErrors = newSubmitErrors;
+      return Object.keys(newSubmitErrors).length === 0 && newSubmitErrors.constructor === Object;
     },
   },
 };
@@ -133,38 +146,27 @@ export default {
     text-align: left;
     border-radius: 12px;
 }
-
-.form-element {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-errors {
-    text-align: left;
-    color: red;
-    font-family: Montserrat;
+.announcement-form-container input {
+    box-sizing: border-box;
 }
 
 .announcement-title {
-    width: 50%;
-    padding: 1rem;
-    box-sizing: border-box;
-
-    font-family: 'Quicksand';
-    font-size: 2.3rem;
-    border: .1rem solid #ccc;
-    border-radius: 3px;
+    font-size: 2rem;
 }
 
-.announcement-description {
-    margin-top: 16px;
-    padding: 1rem;
-    box-sizing: border-box;
-
-    font-family: Montserrat;
-    font-size: 12pt;
-    border: .1rem solid #ccc;
-    border-radius: 3px;
+.input-box {
+    margin-bottom: 0.5em;
+}
+.input-primary {
+    margin-bottom: 0;
+}
+.error-input {
+    border-color: red;
+}
+.error-text {
+    font-size: 0.8rem;
+    color: red;
+    text-align: left;
 }
 
 .btn-row {

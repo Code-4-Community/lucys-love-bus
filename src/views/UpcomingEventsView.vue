@@ -24,17 +24,21 @@
             You're Signed Up!
           </div>
           <button
-            v-else-if="slotProps.event.spotsAvailable > 0"
+              v-else-if="slotProps.event.spotsAvailable === 0"
+              class="event-side-btn sold-out"
+              disabled>
+            Sold Out
+          </button>
+          <button
+            v-else-if="slotProps.event.canRegister"
             v-on:click="openEventModal(slotProps.event)"
             class="event-side-btn btn--primary" >
             Register
           </button>
-          <button
-            v-else
-            class="event-side-btn sold-out"
-            disabled>
-            Sold Out
-          </button>
+          <div v-else>
+            You can buy tickets on {{ gpRegisterDateString(slotProps.event) }}
+            <span><button class="info-btn" @click="openRoleModal">?</button></span>
+          </div>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
@@ -67,6 +71,7 @@
                 @close-event-modal="closeEventModal"
                 @add-to-cart="addEventToCart"
     />
+    <account-role-modal :open="roleModalOpen" @close-role-modal="closeRoleModal" />
   </div>
 </template>
 
@@ -75,11 +80,14 @@ import { mapState, mapMutations, mapActions } from 'vuex';
 import EventsList from '../components/Events/EventsList.vue';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import { ROLE, USER } from '../utils/constants/user';
-import EventModal from '../components/Events/EventModal.vue';
+import EventModal from '../components/Modals/EventModal.vue';
+import DateUtils from '../utils/DateUtils';
+import AccountRoleModal from '../components/Modals/AccountRoleModal.vue';
 
 export default {
   name: 'UpcomingEventsView',
   components: {
+    AccountRoleModal,
     EventModal,
     EventsList,
     AccessControl,
@@ -90,6 +98,7 @@ export default {
       ROLE,
       openModal: false,
       modalEvent: {},
+      roleModalOpen: false,
     };
   },
   async created() {
@@ -113,12 +122,21 @@ export default {
     ...mapMutations('cart', {
       registerForEvent: 'registerForEvent',
     }),
+    gpRegisterDateString(event) {
+      return DateUtils.stringDateFiveDaysBefore(event.details.start);
+    },
     openEventModal(event) {
       this.openModal = true;
       this.modalEvent = event;
     },
     closeEventModal() {
       this.openModal = false;
+    },
+    openRoleModal() {
+      this.roleModalOpen = true;
+    },
+    closeRoleModal() {
+      this.roleModalOpen = false;
     },
     addEventToCart(payload) {
       this.openModal = false;

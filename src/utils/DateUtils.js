@@ -16,6 +16,11 @@ function timeBefore(start, end) {
   return s.isBefore(e);
 }
 
+function stringDateFiveDaysBefore(date) {
+  const d = moment(date).subtract(5, 'days');
+  return toStringDate(d);
+}
+
 function isInPast(date) {
   const d = moment(date);
   return d.isBefore();
@@ -30,6 +35,7 @@ export default {
   toStringDate,
   toStringDateTime,
   timeBefore,
+  stringDateFiveDaysBefore,
   isInPast,
   is18YearsInPast,
 };

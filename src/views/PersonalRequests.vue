@@ -8,6 +8,25 @@
         Back
       </router-link>
     </div>
+    <div class="account-role-row">
+      <div>
+        Your current account status is:
+      </div>
+      <div class="account-role">
+        <access-control :roles="[USER[ROLE.ADMIN]]">
+          Admin
+        </access-control>
+        <access-control :roles="[USER[ROLE.PF]]">
+          Participating Family
+        </access-control>
+        <access-control :roles="[USER[ROLE.GP]]">
+          General Public
+        </access-control>
+      </div>
+      <button class="info-btn" @click="openRoleModal">
+        ?
+      </button>
+    </div>
     <div v-if="loaded" class="page-content">
       <div class="previous-requests-container">
         <div v-if="requests.length === 0">
@@ -82,6 +101,7 @@
     <div v-else>
       Loading...
     </div>
+    <account-role-modal :open="openModal" @close-role-modal="closeRoleModal" />
   </div>
 </template>
 
@@ -90,16 +110,18 @@ import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import { ROLE, USER } from '../utils/constants/user';
 import DateUtils from '../utils/DateUtils';
+import AccountRoleModal from '../components/Modals/AccountRoleModal.vue';
 
 export default {
   name: 'MakeRequestView',
-  components: { AccessControl },
+  components: { AccountRoleModal, AccessControl },
   data() {
     return {
       USER,
       ROLE,
       loaded: false,
       requests: [],
+      openModal: false,
     };
   },
   computed: {
@@ -119,6 +141,12 @@ export default {
     formatCreatedString(dateTime) {
       return DateUtils.toStringDateTime(dateTime);
     },
+    openRoleModal() {
+      this.openModal = true;
+    },
+    closeRoleModal() {
+      this.openModal = false;
+    },
   },
   async created() {
     this.requests = await this.getRequests();
@@ -135,10 +163,22 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
   }
   .page-content {
     margin-top: 32px;
+  }
+
+  .account-role-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.3rem;
+  }
+  .account-role {
+    margin-left: 1em;
+    font-weight: bold;
   }
 
   .previous-requests-container {

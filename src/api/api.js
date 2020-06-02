@@ -65,11 +65,30 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
     })),
   };
   try {
-    const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/payment', body);
+    const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
     const stripe = await stripeApp;
     await stripe.redirectToCheckout({
       sessionId: data,
     });
+  } catch (e) {
+    // eslint-disable-next-line
+    alert("Error creating Stripe checkout session: " + e);
+  }
+}
+
+async function updateRegistration(eventId, quantity) {
+  const path = `/api/v1/protected/checkout/register/${eventId}`;
+  const body = {
+    quantity,
+  };
+  try {
+    const { status, data } = await protectedResourceAxios.put(path, body);
+    if (status === 202) {
+      const stripe = await stripeApp;
+      await stripe.redirectToCheckout({
+        sessionId: data,
+      });
+    }
   } catch (e) {
     // eslint-disable-next-line
     alert("Error creating Stripe checkout session: " + e);
@@ -229,6 +248,7 @@ export default {
   deleteEvent,
   createEventRegistration,
   createEventRegistrationAndCheckoutSession,
+  updateRegistration,
   getEvent,
   getEventRSVP,
   getUpcomingEvents,

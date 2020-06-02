@@ -13,6 +13,10 @@
             <div>
               {{ slotProps.event.tickets }} Tickets Reserved
             </div>
+            <button v-on:click="openEventModal(slotProps.event)"
+                    class="event-side-btn btn--primary">
+              Edit Reservation
+            </button>
             <router-link
                 :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
                 class="event-side-btn btn--secondary" tag="button">
@@ -38,6 +42,12 @@
         <router-link to="/upcoming-events">here</router-link>.
       </div>
     </div>
+    <EventModal :open="openModal"
+                :event="modalEvent"
+                :cart-tickets="modalEvent.tickets"
+                @close-event-modal="closeEventModal"
+                @add-to-cart="addEventToCart"
+    />
   </div>
 </template>
 
@@ -46,11 +56,19 @@ import { mapState, mapMutations } from 'vuex';
 import EventsListCheckout from '../components/Events/EventsListCheckout.vue';
 import api from '../api/api';
 import { USER, ROLE } from '../utils/constants/user';
+import EventModal from '../components/Modals/EventModal.vue';
 
 export default {
   name: 'Checkout',
   components: {
+    EventModal,
     EventsListCheckout,
+  },
+  data() {
+    return {
+      openModal: false,
+      modalEvent: {},
+    };
   },
   computed: {
     ...mapState('cart', {
@@ -66,6 +84,7 @@ export default {
   methods: {
     ...mapMutations('cart', {
       cancelRegistration: 'cancelRegistration',
+      registerForEvent: 'registerForEvent',
     }),
     async checkout() {
       if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
@@ -85,6 +104,17 @@ export default {
           alert("Error: " + e);
         }
       }
+    },
+    openEventModal(event) {
+      this.openModal = true;
+      this.modalEvent = event;
+    },
+    closeEventModal() {
+      this.openModal = false;
+    },
+    addEventToCart(payload) {
+      this.openModal = false;
+      this.registerForEvent(payload);
     },
   },
 };

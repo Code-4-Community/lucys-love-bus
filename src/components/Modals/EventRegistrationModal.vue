@@ -3,21 +3,31 @@
     <div v-show="open" class="modal-backdrop">
       <div class="modal">
         <div class="modal-title">
-          Sign Up for {{ event.title }}!
+          Edit your Registration for {{ event.title }}!
         </div>
         <div class="modal-subheader">
-          There are {{ event.spotsAvailable }} tickets available.
+          You have {{ event.ticketCount }} tickets and there are {{ event.spotsAvailable }}
+          tickets available.
         </div>
         <div class="modal-body">
-          <div>
-            How many tickets would you like to reserve?
-          </div>
+          <access-control :roles="[USER[ROLE.ADMIN], USER[ROLE.PF]]">
+            Select how many tickets you need and press checkout when you're ready.
+          </access-control>
+          <access-control :roles="[USER[ROLE.GP]]">
+            Select how many tickets you need and press checkout when you're ready. Tickets are not
+            refundable, additional tickets can be purchased at the standard price.
+          </access-control>
+        </div>
+        <div class="select-row">
           <select v-model="tickets" class="ticket-select">
             <option disabled value="-1">-- Select --</option>
             <option v-for="ticket in ticketOptions"
                     :value="ticket.value"
                     v-bind:key="ticket.value">{{ticket.text}}</option>
           </select>
+          <span>
+            Tickets
+          </span>
         </div>
         <div class="btn-bar">
           <button
@@ -26,20 +36,10 @@
           >
             Cancel
           </button>
-          <button
-              v-if="cartTickets > 0 && tickets === 0"
-              class="btn--primary event-modal-btn"
-              @click="add"
-          >
-            Remove From Cart
-          </button>
-          <button
-              v-else
-              class="btn--primary event-modal-btn"
-              @click="add"
-              :disabled="tickets < 1"
-          >
-            Add To Cart
+          <button class="btn--primary event-modal-btn"
+                  @click="checkout"
+                  :disabled="ticketDelta === 0">
+            {{ checkoutMessage }}
           </button>
         </div>
       </div>
@@ -48,10 +48,16 @@
 </template>
 
 <script>
-import DateUtils from '../../utils/DateUtils';
+import { mapState } from 'vuex';
+import AccessControl from '../AccessControl/AccessControl.vue';
+import {
+  USER, ROLE,
+} from '../../utils/constants/user';
+import api from '../../api/api';
 
 export default {
-  name: 'EventModal',
+  name: 'EventRegistrationModal',
+  components: { AccessControl },
   props: {
     open: {
       type: Boolean,
@@ -59,23 +65,36 @@ export default {
     },
     event: {
       type: Object,
-    },
-    cartTickets: {
-      type: Number,
-      default: 0,
+      required: true,
     },
   },
   data() {
     return {
-      tickets: this.cartTickets > 0 ? this.cartTickets : -1,
+      USER,
+      ROLE,
+      tickets: this.event.ticketCount,
     };
   },
   computed: {
-    createdString() {
-      return DateUtils.toStringDate(this.announcement.created);
+    ...mapState('user', {
+      adminLevel: 'adminLevel',
+    }),
+    ticketDelta() {
+      return this.tickets - this.event.ticketCount;
+    },
+    checkoutMessage() {
+      if (this.ticketDelta === 0) {
+        return 'Checkout';
+      } if (this.tickets === 0) {
+        return 'Unregister';
+      } if (this.ticketDelta < 0) {
+        return `Release ${this.ticketDelta * -1} Tickets`;
+      }
+      return `Checkout ${this.ticketDelta} Tickets`;
     },
     ticketOptions() {
-      const naturalList = [
+      return [
+        { value: 0, text: '0' },
         { value: 1, text: '1' },
         { value: 2, text: '2' },
         { value: 3, text: '3' },
@@ -86,32 +105,40 @@ export default {
         { value: 8, text: '8' },
         { value: 9, text: '9' },
         { value: 10, text: '10' },
-      ].slice(0, this.event.spotsAvailable);
-
-      if (this.cartTickets > 0) {
-        return [{ value: 0, text: '0' }, ...naturalList];
-      }
-      return naturalList;
+      ].slice(0, this.event.spotsAvailable + this.event.ticketCount + 1);
     },
   },
   watch: {
     open(newOpen) {
       if (newOpen) {
-        this.tickets = this.cartTickets > 0 ? this.cartTickets : -1;
+        this.tickets = this.event.ticketCount;
       }
     },
   },
   methods: {
     cancel() {
-      this.$emit('close-event-modal');
+      this.$emit('close-registration-modal');
       this.tickets = 0;
     },
-    add() {
-      this.$emit('add-to-cart', { tickets: this.tickets, event: this.event });
-      this.tickets = 0;
-    },
-    toStringDate(date) {
-      return DateUtils.toStringDate(date);
+    async checkout() {
+      if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
+        try {
+          await api.updateRegistration(this.event.id, this.tickets);
+        } catch (e) {
+          // eslint-disable-next-line
+          alert("Error: " + e);
+        }
+      } else {
+        try {
+          await api.updateRegistration(this.event.id, this.tickets);
+          // TODO: Push to stripe page
+        } catch (e) {
+          // eslint-disable-next-line
+          alert("Error: " + e);
+        }
+      }
+      this.$emit('update-event');
+      this.$emit('close-registration-modal', this.tickets);
     },
   },
 };
@@ -147,7 +174,6 @@ export default {
     top: 22.5%;
     background: white;
     border: solid 12px rgba(248, 134, 52, 0.5);
-    border-radius: 6px;
     width: 50%;
     max-height: 500px;
 
@@ -174,14 +200,12 @@ export default {
   .modal-body {
     margin-top: 8px;
     margin-bottom: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    text-align: left;
     font-size: 1.3rem;
   }
   .ticket-select {
     text-align: center;
-    width: 30%;
+    width: 5em;
     padding: 5px 35px 5px 5px;
     border: 1px solid #CCC;
     font-size: 16px;

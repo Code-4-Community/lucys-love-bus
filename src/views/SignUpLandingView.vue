@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="btn-row">
-            <router-link tag="button" to="sign-up-gp" class="submit-btn btn--tertiary">
+            <router-link tag="button" to="sign-up-pf" class="submit-btn btn--tertiary">
               Sign Up
             </router-link>
           </div>

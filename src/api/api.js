@@ -121,26 +121,15 @@ async function createAnnouncement(body, eventId) {
   return data;
 }
 
-// eslint-disable-next-line consistent-return
-// async function getSitewideAnnouncements(paramObj) {
-//   try {
-//     const params = objToParams(paramObj);
-//     const data = await AxiosInstance.get(`/api/v1/protected/announcements${params}`);
-//     console.log('api', data);
-//     return data;
-//   } catch (e) {
-//     // console.error(e);
-//     console.log(e);
-//     // return e;
-//   }
-// }
-
-// export const getSitewideAnnouncements = (paramObj) => {
-//   const params = objToParams(paramObj);
-//   return AxiosInstance.get(`/api/v1/protected/announcements${params}`);
-// }
-
-export const getSitewideAnnouncements = async () => AxiosInstance.get('/api/v1/protected/announcements?count=10');
+async function getSitewideAnnouncements() {
+  try {
+    const path = '/api/v1/protected/announcements?count=10';
+    const { data } = await AxiosInstance.get(path);
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
 
 async function getEventAnnouncements(id) {
   try {

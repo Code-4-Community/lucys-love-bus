@@ -41,7 +41,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+import { login } from '../auth/authAPI';
 
 export default {
   name: 'Login',
@@ -82,7 +82,7 @@ export default {
           password: this.password,
         };
         try {
-          await authService.actions.login(user);
+          await login(user);
           this.$router.push('/profile');
           this.resetInput();
           this.setUser();

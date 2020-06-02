@@ -11,7 +11,7 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
-import authService from './utils/service/authService';
+import { refresh } from './auth/authAPI';
 
 export default {
   name: 'App',
@@ -19,7 +19,7 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    authService.actions.persistUser();
+    refresh();
   },
 };
 </script>

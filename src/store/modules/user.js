@@ -1,4 +1,4 @@
-import userState from '../../utils/auth/state/userState';
+import tokenService from '../../auth/token';
 
 export default {
   namespaced: true,
@@ -12,10 +12,9 @@ export default {
   },
   mutations: {
     setUser(state) {
-      state.isSignedIn = userState.getIsSignedIn();
-      state.adminLevel = userState.getUserAdminLevel();
-      state.accountStatus = userState.getUserAccountStatus();
-      state.userId = userState.getUserId();
+      state.isSignedIn = !!(tokenService.getPrivilegeLevel() > -1);
+      state.adminLevel = tokenService.getPrivilegeLevel();
+      state.userId = tokenService.getUserID();
     },
     resetUser(state) {
       state.isSignedIn = false;

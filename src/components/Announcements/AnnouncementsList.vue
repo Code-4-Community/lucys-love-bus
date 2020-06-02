@@ -19,7 +19,7 @@
 
 <script>
 import DateUtils from '../../utils/DateUtils';
-import api from '../../api/api';
+import { getSitewideAnnouncements } from '../../api/api';
 
 export default {
   /* TODO: This component should probably just be for site-wide announcements */
@@ -35,17 +35,6 @@ export default {
     };
   },
   methods: {
-    async getAnnouncements() {
-      let res;
-      if (this.sitewide) {
-        res = await api.getSitewideAnnouncements({
-          count: this.count,
-        });
-      } else {
-        res = await api.getEventAnnouncements(this.eventID);
-      }
-      return res.announcements;
-    },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
@@ -53,8 +42,11 @@ export default {
       this.$emit('open-announcement', a);
     },
   },
-  async created() {
-    this.announcements = await this.getAnnouncements();
+  mounted() {
+    getSitewideAnnouncements()
+      .then((res) => { console.log('res', res); this.announcements = res.data.announcements; })
+      .catch(e => console.log('error', e));
+    // .finally(data => console.log(data));
   },
 };
 </script>

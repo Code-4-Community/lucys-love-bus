@@ -187,10 +187,10 @@ export default {
       return moment(this.singleEvent.details.start).format('dddd, MMMM Do YYYY');
     },
     startTime() {
-      return moment(this.singleEvent.details.start).format('h:ma');
+      return moment(this.singleEvent.details.start).format('h:mma');
     },
     endTime() {
-      return moment(this.singleEvent.details.end).format('h:ma');
+      return moment(this.singleEvent.details.end).format('h:mma');
     },
   },
   methods: {

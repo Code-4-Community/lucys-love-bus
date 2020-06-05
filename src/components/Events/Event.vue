@@ -8,8 +8,12 @@
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <p class="event-title">{{ event.title }}</p>
-              <p class="event-body">{{ event.details.description }}</p>
+            <router-link
+                    to="/event/event.id"
+                    class="event-title"
+            >{{event.title}}</router-link>
+              <br>
+              <a class="event-body">{{ event.details.description }}</a>
           </div>
       </div>
        <div class="event-btns">
@@ -83,6 +87,9 @@ export default {
     left: 10px;
   }
 
+  .event-title {
+    cursor: pointer;
+  }
 
   .event-content {
     grid-area: content;
@@ -95,12 +102,17 @@ export default {
   }
   .event-content:after {
     content:"";
-    top:0;
+    top: 50%;
     left:0;
     position: absolute;
     width:100%;
-    height:100%;
-    background: linear-gradient(transparent 90px, white);
+    height:50%;
+    background: linear-gradient(transparent 10px, white);
+  }
+
+  .content-wrapper > a {
+    color: black;
+    text-decoration: none;
   }
 
   .event-title {
@@ -108,6 +120,9 @@ export default {
     font-weight: bold;
   }
 
+  .event-body {
+    cursor: pointer;
+  }
 
   .event-btns {
     grid-area: actions;

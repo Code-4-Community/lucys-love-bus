@@ -13,7 +13,10 @@
                     class="event-title"
             >{{event.title}}</router-link>
               <br>
-              <a class="event-body">{{ event.details.description }}</a>
+            <router-link
+                    to="/event/event.id"
+                    class="event-body"
+            >{{event.details.description}}</router-link>
           </div>
       </div>
        <div class="event-btns">

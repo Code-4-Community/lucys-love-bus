@@ -129,6 +129,9 @@
         </div>
       </div>
       <div class="form-box box-buttons">
+        <button v-on:click="cancel">
+          Cancel
+        </button>
         <button type="submit"
                 class="create-form-btn btn--primary"
                 :disabled="imageUploaded === 1 || imageUploaded === 4">
@@ -298,6 +301,9 @@ export default {
       }
 
       return newSubmitErrors;
+    },
+    cancel() {
+      this.$router.push({ path: 'upcoming-events' });
     },
   },
 };

@@ -38,15 +38,18 @@ html {
   body {
     margin: 0;
     padding: 0;
-    font-family: Quicksand;
+    font-family: Quicksand,serif;
   }
 }
 
 button {
-  font-family: Quicksand;
+  font-family: Quicksand,serif;
 }
 textarea {
-  font-family: Arial;
+  font-family: Quicksand,serif;
+}
+input {
+  font-family: Quicksand,serif;
 }
 
 #app {

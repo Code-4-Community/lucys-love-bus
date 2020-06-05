@@ -211,7 +211,12 @@ h1 {
   border-radius: 2px;
   box-sizing: border-box;
   font-size: 16px;
-  padding: .5em;
+  /* padding being a fixed metric like 'px' rather than
+  a dynamic measure like "em" avoids the issue of inputs
+  with larger font size having larger paddings and mis-aligning the inner
+  text
+   */
+  padding: 8px;
   margin: .5em 0 .5em 0;
   width: 100%;
 }

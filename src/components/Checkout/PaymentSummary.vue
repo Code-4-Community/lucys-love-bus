@@ -5,7 +5,7 @@
         <h3>Taxes: ${{taxes.toFixed(2)}}</h3>
         <h3>Total: ${{totalPrice.toFixed(2)}}</h3>
         <button
-          class="event-btn btn--primary"
+          class="btn--primary-blue"
           v-on:click="clicked">Proceed to checkout</button>
     </div>
 </template>
@@ -39,8 +39,4 @@ export default {
 
 <style lang="less" scoped>
 @import '../../../assets/color-constants.less';
-    .btn--primary {
-        color: white;
-        background-color: @green-apple;
-    }
 </style>

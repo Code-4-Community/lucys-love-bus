@@ -86,7 +86,6 @@ h1 {
   font-size: 2.3rem;
 }
 
-
 // -------------- Buttons ---------------
 
 button:focus {
@@ -105,7 +104,7 @@ button:focus {
   padding: .5rem 1rem .5rem 1rem;
   color: white;
   transition: .3s;
-  width: 10rem;
+  min-width: 10rem;
   box-sizing: border-box;
 }
 
@@ -157,100 +156,6 @@ button:focus {
   color: white;
 }
 
-.event-side-btn {
-  width: 10rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.submit-btn {
-  width: 30%;
-  padding: 5px 0;
-  margin: 10px 0 1em;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.create-form-btn {
-  border-radius: 6px;
-  font-size: 1.3rem;
-  padding: 0 12px;
-  cursor: pointer;
-}
-
-.back-btn {
-  cursor: pointer;
-  outline: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  padding: 0 1em;
-  margin-right: 6%;
-}
-
-.info-btn {
-  cursor: pointer;
-  background: none;
-  outline: none;
-  border: 1px solid black;
-  border-radius: 50%;
-  margin-left: 0.5em;
-  font-weight: bold;
-}
-
-.btn {
-  border: 0;
-  background: 0;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: .5rem;
-}
-
-.btn--primary {
-  background-color: @button-bg;
-  color: white;
-  border: 1px solid @button-bg;
-}
-
-.btn--primary:disabled {
-  cursor: auto;
-  background-color: @button-bg-disabled;
-  border: 1px solid @button-bg-disabled;
-}
-
-.btn--primary-selected {
-  color: @button-color;
-  background-color: @green-apple;
-  border: 1px solid @green-apple;
-}
-
-.btn--disabled {
-  color: @button-color;
-  background-color: darkgrey;
-  border: 1px solid darkgrey;
-}
-
-.btn--secondary {
-   color: @tangerine;
-   background-color: @button-color;
-   border: 1px solid @tangerine;
- }
-
-.btn--secondary-selected {
-  color: @button-color;
-  background-color: @tangerine;
-  border: 1px solid @tangerine;
-}
-
-.btn--tertiary {
-  color: white;
-  background-color: @tangerine;
-  border: 1px solid @tangerine;
-}
-
-
 // -------------- FORMS & INPUT ------------------
 
 .form-title {
@@ -294,6 +199,7 @@ textarea.input-primary {
   align-items: center;
   justify-content: space-between;
 }
+
 .pronoun-btn {
   border: 2px solid #888;
   border-radius: 4px;
@@ -396,25 +302,6 @@ textarea.input-primary {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-
-.form-btn-basic {
-  border: 2px solid black;
-  border-radius: 2px;
-  padding: .5rem;
-  cursor: pointer;
-}
-
-.unselected-form-btn {
-  border: 2px solid black;
-  border-radius: 2px;
-  background-color: @button-bg;
-}
-
-.selected-form-btn {
-  background: @tangerine;
-  border: 2px solid @tangerine;
-  color: white;
 }
 
 .error-input {

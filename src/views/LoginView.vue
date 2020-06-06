@@ -134,9 +134,6 @@ export default {
   margin-bottom: 10px;
 }
 
-.login-btn {
-}
-
 .forgot-password {
   margin-bottom: 3px;
 }

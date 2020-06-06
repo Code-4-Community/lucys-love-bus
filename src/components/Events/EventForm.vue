@@ -129,11 +129,12 @@
         </div>
       </div>
       <div class="form-box box-buttons">
-        <button v-on:click="cancel">
+        <button v-on:click="cancel" class="btn--secondary-blue">
           Cancel
         </button>
         <button type="submit"
                 class="btn--primary-blue"
+                style="margin-left: 1rem"
                 :disabled="imageUploaded === 1 || imageUploaded === 4">
           {{ submitName }}
         </button>

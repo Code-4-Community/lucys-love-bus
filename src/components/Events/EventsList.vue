@@ -13,7 +13,7 @@
           <div>
             <div
                 v-if="!firstPage"
-                class='btn--tertiary pagination__btn'
+                class='btn--primary-orange'
                 v-on:click='decrementCurrentPage'>
               Previous Page
             </div>
@@ -22,7 +22,7 @@
           <div>
             <div
                 v-if="!lastPage"
-                class='btn--tertiary pagination__btn'
+                class='btn--primary-orange'
                 v-on:click='incrementCurrentPage'>
               Next Page
             </div>
@@ -103,12 +103,5 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-  }
-
-  .pagination__btn {
-    margin: 0;
-    padding: 6px 3px;
-    border-radius: 6px;
-    cursor: pointer;
   }
 </style>

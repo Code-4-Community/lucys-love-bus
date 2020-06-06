@@ -133,7 +133,7 @@
           Cancel
         </button>
         <button type="submit"
-                class="create-form-btn btn--primary"
+                class="btn--primary-blue"
                 :disabled="imageUploaded === 1 || imageUploaded === 4">
           {{ submitName }}
         </button>

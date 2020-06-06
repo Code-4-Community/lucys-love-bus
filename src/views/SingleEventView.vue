@@ -72,12 +72,12 @@
           <router-link
               to="/upcoming-events"
               tag="button"
-              class="btn--secondary single-event-btn">
+              class="btn--primary-orange">
             Back To Events
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
-          <router-link tag="button"  class="btn--primary single-event-btn"
+          <router-link tag="button"  class="btn--primary-orange"
                        :to="{name: 'create-announcement',
                        params: {eventName: singleEvent.title, eventId: singleEvent.id}}"
           >
@@ -86,14 +86,14 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn--primary single-event-btn"
+              class="btn--primary-orange"
               v-on:click="$router.push(`/edit-event/${singleEvent.id}`)">
             Edit Event
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn--primary single-event-btn"
+              class="btn--primary-orange"
               v-on:click="viewRSVP(singleEvent)">
             Download RSVPs
           </button>
@@ -105,13 +105,13 @@
         </access-control>
         <access-control v-if="singleEvent.ticketCount > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button @click="openRegistrationModal"
-                  class="btn--primary single-event-btn">
+                  class="btn--primary-orange">
             Edit Registration
           </button>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <button
-              class="btn--tertiary single-event-btn"
+              class="btn--primary-orange"
               v-on:click="deleteEvent(singleEvent.id), $router.push('/upcoming-events')">
             Delete Event
           </button>

@@ -1,7 +1,7 @@
 <template>
     <div>
       <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-      <div v-else class="events-container">
+      <div v-else class="events-container Test">
         <event v-for="event in pageOfEvents" :key="event.id" :event="event">
           <!-- Note that event buttons passed should be wrapped in an access control
             or a div when being passed to get the desired flex styling -->
@@ -96,7 +96,7 @@ export default {
   }
 
   .events-container > div {
-    margin: 5px 0;
+    margin: 2rem 0;
   }
 
   .pagination-wrapper {

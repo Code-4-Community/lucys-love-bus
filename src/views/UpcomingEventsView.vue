@@ -50,13 +50,13 @@
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
               :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
-              class="event-side-btn btn--primary" tag="button">
+              class="btn--primary-blue" tag="button">
             Edit
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-              class="event-side-btn btn--primary"
+              class="btn--primary-blue"
               tag="button"
               :to="{name: 'create-announcement',
                     params: {eventName: slotProps.event.title, eventId: slotProps.event.id}}"
@@ -67,7 +67,7 @@
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
           <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="event-side-btn btn--secondary" tag="button">
+            class="btn--secondary-blue" tag="button">
             Learn More
           </router-link>
         </access-control>

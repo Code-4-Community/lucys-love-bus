@@ -4,7 +4,7 @@
       <div class="page-title">
         Create an Account
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/login">
+      <router-link tag="button" class="btn--secondary-orange" to="/login">
         Back
       </router-link>
     </div>
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="btn-row">
-            <router-link tag="button" to="sign-up-gp" class="submit-btn btn--tertiary">
+            <router-link tag="button" to="sign-up-gp" class="btn--primary-orange">
               Sign Up
             </router-link>
           </div>
@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="btn-row">
-            <router-link tag="button" to="sign-up-pf" class="submit-btn btn--tertiary">
+            <router-link tag="button" to="sign-up-pf" class="btn--primary-orange">
               Sign Up
             </router-link>
           </div>

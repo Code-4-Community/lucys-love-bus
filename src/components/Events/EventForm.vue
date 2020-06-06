@@ -44,25 +44,25 @@
         <div class="time-inputs">
           <div class="input-box">
             <label class="input-label">
-              Start Time
+              <span class="time-label">Start Time</span>
               <input
-                  class="input-primary"
+                  class="input-primary time-input"
                   :class="{ 'error-input': !!submitErrors.startTime }"
                   v-model="startTime"
                   name="start time"
                   type="time"
-                  step="300">
+                  step="300" />
+               to
             </label>
             <div class="error-text">
               {{ submitErrors.startTime }}
             </div>
           </div>
-          <div>to</div>
           <div class="input-box">
             <label class="input-label">
-              End Time
+              <span class="time-label">End Time</span>
               <input
-                  class="input-primary"
+                  class="input-primary time-input"
                   :class="{ 'error-input': !!submitErrors.endTime }"
                   v-model="endTime"
                   name="end time"
@@ -387,7 +387,6 @@ export default {
     text-align: left;
   }
 
-
   .img-upload {
     display: flex;
     flex-direction: row;
@@ -416,5 +415,15 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+  }
+
+  .time-label {
+    display: block;
+    width: 100%;
+  }
+
+  .time-input {
+    width: 10rem;
+    margin-right: .5rem;
   }
 </style>

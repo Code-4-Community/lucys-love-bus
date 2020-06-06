@@ -45,10 +45,10 @@
                 <div class="btn-row">
                     <router-link
                         :to="{ name: 'profile'}"
-                        class="create-form-btn btn--secondary" tag="button">
+                        class="btn--secondary-orange" tag="button">
                         Cancel
                     </router-link>
-                    <button class="create-form-btn btn--primary"
+                    <button class="btn--primary-blue"
                             type="submit">
                         Save
                     </button>

@@ -1,6 +1,7 @@
 @import './color-constants.less';
 @import url('https://fonts.googleapis.com/css2?family=Dekko&display=swap.css');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap.css');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap.css');
 
 h1 {
   margin-left: 8em;
@@ -86,7 +87,75 @@ h1 {
 }
 
 
-// --------------Events Classes---------------
+// -------------- Buttons ---------------
+
+button:focus {
+  // remove that pesky outline from around boxes when they're clicked
+  outline: none;
+}
+
+/* never used on an actual button. Include code that repeats for buttons here and call as a mixin */
+.btn--base {
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  padding: .5rem 1rem .5rem 1rem;
+  color: white;
+  transition: .3s;
+  width: 10rem;
+  box-sizing: border-box;
+}
+
+.btn--primary-blue {
+  .btn--base;
+  background-color: @blue-btn-color;
+}
+
+.btn--primary-blue:hover {
+  transition: .3s;
+  background-color: @blue-btn-color-dark;
+}
+
+.btn--primary-orange {
+  .btn--base;
+  background-color: @orange-btn-color;
+}
+
+.btn--primary-orange:hover {
+  transition: .3s;
+  background-color: @orange-btn-color-dark;
+}
+
+.btn--secondary-blue {
+  .btn--base;
+  background-color: white;
+  border: 1px solid @blue-btn-color;
+  color: @blue-btn-color;
+}
+
+.btn--secondary-blue:hover {
+  .btn--base;
+  background-color: @blue-btn-color-dark;
+  border: 1px solid @blue-btn-color-dark;
+  color: white;
+}
+
+.btn--secondary-orange {
+  .btn--base;
+  background-color: white;
+  border: 1px solid @orange-btn-color;
+  color: @orange-btn-color;
+}
+
+.btn--secondary-orange:hover {
+  .btn--base;
+  background-color: @orange-btn-color-dark;
+  border: 1px solid @orange-btn-color-dark;
+  color: white;
+}
 
 .event-side-btn {
   width: 10rem;
@@ -362,3 +431,5 @@ textarea.input-primary {
   font-family: 'Dekko';
   font-size: 22px;
 }
+
+

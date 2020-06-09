@@ -21,8 +21,15 @@
       <template v-slot:eventBtns="slotProps">
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <div v-if="slotProps.event.ticketCount > 0">
-            You're Signed Up!
+            You have {{ slotProps.event.ticketCount }} tickets
           </div>
+        </access-control>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
+          <button v-if="slotProps.event.ticketCount > 0"
+                  @click="openRegistrationModal(slotProps.event)"
+                  class="event-side-btn btn--primary">
+            Edit Registration
+          </button>
           <button
               v-else-if="slotProps.event.spotsAvailable === 0"
               class="event-side-btn sold-out"
@@ -66,11 +73,16 @@
         </access-control>
       </template>
     </events-list>
-    <EventModal :open="openModal"
+    <EventModal :open="eventModalOpen"
                 :event="modalEvent"
                 @close-event-modal="closeEventModal"
                 @add-to-cart="addEventToCart"
     />
+    <event-registration-modal
+        :open="registrationModalOpen"
+        :event="modalEvent"
+        @close-registration-modal="closeRegistrationModal"
+        @update-event="setUpcomingEvents" />
     <account-role-modal :open="roleModalOpen" @close-role-modal="closeRoleModal" />
   </div>
 </template>
@@ -83,10 +95,12 @@ import { ROLE, USER } from '../utils/constants/user';
 import EventModal from '../components/Modals/EventModal.vue';
 import DateUtils from '../utils/DateUtils';
 import AccountRoleModal from '../components/Modals/AccountRoleModal.vue';
+import EventRegistrationModal from '../components/Modals/EventRegistrationModal.vue';
 
 export default {
   name: 'UpcomingEventsView',
   components: {
+    EventRegistrationModal,
     AccountRoleModal,
     EventModal,
     EventsList,
@@ -96,8 +110,9 @@ export default {
     return {
       USER,
       ROLE,
-      openModal: false,
       modalEvent: {},
+      eventModalOpen: false,
+      registrationModalOpen: false,
       roleModalOpen: false,
     };
   },
@@ -126,21 +141,31 @@ export default {
       return DateUtils.stringDateFiveDaysBefore(event.details.start);
     },
     openEventModal(event) {
-      this.openModal = true;
+      this.eventModalOpen = true;
       this.modalEvent = event;
     },
+    addEventToCart(payload) {
+      this.eventModalOpen = false;
+      this.registerForEvent(payload);
+      this.modalEvent = {};
+    },
     closeEventModal() {
-      this.openModal = false;
+      this.eventModalOpen = false;
+      this.modalEvent = {};
+    },
+    openRegistrationModal(event) {
+      this.registrationModalOpen = true;
+      this.modalEvent = event;
+    },
+    closeRegistrationModal() {
+      this.registrationModalOpen = false;
+      this.modalEvent = {};
     },
     openRoleModal() {
       this.roleModalOpen = true;
     },
     closeRoleModal() {
       this.roleModalOpen = false;
-    },
-    addEventToCart(payload) {
-      this.openModal = false;
-      this.registerForEvent(payload);
     },
   },
 };
@@ -149,11 +174,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
 
   .sold-out {
     background-color: #AAA;

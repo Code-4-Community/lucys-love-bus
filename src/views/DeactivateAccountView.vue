@@ -60,13 +60,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .auth-container {
     margin-top: 24px;
     padding-bottom: 0.5em;

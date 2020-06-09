@@ -74,6 +74,7 @@ export default {
     position: fixed;
     background: white;
     border: solid 12px rgba(248, 134, 52, 0.5);
+    border-radius: 6px;
     width: 500px;
     max-height: 500px;
 

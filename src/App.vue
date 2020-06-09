@@ -28,7 +28,7 @@ export default {
 @import '../assets/color-constants.less';
 
 :root {
-  --main-font: "Montserrat", sans-serif;
+  --main-font: "Quicksand", sans-serif;
   --header-color: @header-color;
   --body-color: @body-color;
   --notes-form-color: @notes-form-color;
@@ -38,7 +38,18 @@ html {
   body {
     margin: 0;
     padding: 0;
+    font-family: Quicksand,serif;
   }
+}
+
+button {
+  font-family: Quicksand,serif;
+}
+textarea {
+  font-family: Quicksand,serif;
+}
+input {
+  font-family: Quicksand,serif;
 }
 
 #app {

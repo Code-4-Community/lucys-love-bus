@@ -8,8 +8,15 @@
       </div>
       <div class="event-content">
           <div class="content-wrapper">
-              <p class="event-title">{{ event.title }}</p>
-              <p class="event-body">{{ event.details.description }}</p>
+            <router-link
+                    to="/event/event.id"
+                    class="event-title"
+            >{{event.title}}</router-link>
+              <br>
+            <router-link
+                    to="/event/event.id"
+                    class="event-body"
+            >{{event.details.description}}</router-link>
           </div>
       </div>
        <div class="event-btns">
@@ -72,8 +79,8 @@ export default {
     object-fit: cover;
   }
   .start-date {
-    font-family: Raleway;
-    font-weight: lighter;
+    /*font-family: Raleway;*/
+    /*font-weight: lighter;*/
     font-size: 1.3rem;
     color: white;
     mix-blend-mode: difference;
@@ -83,24 +90,32 @@ export default {
     left: 10px;
   }
 
+  .event-title {
+    cursor: pointer;
+  }
 
   .event-content {
     grid-area: content;
     position: relative;
     overflow: hidden;
-    font-family: Raleway;
+    /*font-family: Raleway;*/
     padding-left: 1rem;
     padding-right: 8px;
     text-align: left;
   }
   .event-content:after {
     content:"";
-    top:0;
+    top: 50%;
     left:0;
     position: absolute;
     width:100%;
-    height:100%;
-    background: linear-gradient(transparent 90px, white);
+    height:50%;
+    background: linear-gradient(transparent 10px, white);
+  }
+
+  .content-wrapper > a {
+    color: black;
+    text-decoration: none;
   }
 
   .event-title {
@@ -108,6 +123,9 @@ export default {
     font-weight: bold;
   }
 
+  .event-body {
+    cursor: pointer;
+  }
 
   .event-btns {
     grid-area: actions;

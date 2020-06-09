@@ -1,16 +1,27 @@
 <template>
   <div class="background">
+    <div class="page-header">
+      <div class="page-title">
+        Reset Password
+      </div>
+      <router-link tag="button" class="btn--secondary back-btn" to="/login">
+        Back
+      </router-link>
+    </div>
     <div class="auth-container">
-      <div class="form-title">Reset your password</div>
-      <div class="form-subheader">Enter the email address associated with your account</div>
+      <div class="form-subheader">
+        Enter the email address associated with your account and you will receive an email
+        with a link to reset your password.
+      </div>
       <div class="input-box">
         <input
             v-model="email"
             class="input-primary"
+            :class="{ 'error-input': error }"
             type="email"
             placeholder="Email Address"
         />
-        <div v-if="error" class="error-message">{{ errorMessage }}</div>
+        <div v-if="error" class="error-text">{{ errorMessage }}</div>
       </div>
       <button @click="submit" class="submit-btn btn--tertiary">Send Link</button>
     </div>
@@ -69,15 +80,9 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-  .background {
-    position: absolute;
-    left: 0;
-    right: 0;
-    background-color: #C4C4C4;
-    padding: 3em 0;
-  }
+
   .auth-container {
-    text-align: left;
+    margin-top: 30px;
   }
 
   .form-title {
@@ -97,9 +102,5 @@ export default {
   .input-box > input {
     margin-bottom: 0;
     width: 100%;
-  }
-  .input-box > .error-message {
-    color: red;
-    font-size: 0.8rem;
   }
 </style>

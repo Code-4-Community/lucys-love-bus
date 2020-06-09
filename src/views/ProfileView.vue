@@ -4,7 +4,7 @@
       <div class="profile-nav-btns">
         <div class="profile-btn-box">
           <router-link class="profile-btn top" tag="button" to='/upcoming-events'>
-            Our Events
+            Upcoming Events
           </router-link>
         </div>
         <access-control class="profile-btn-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
@@ -130,7 +130,7 @@ export default {
 
   .profile {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 35% 65%;
     grid-template-areas: "right left";
 
     position: absolute;
@@ -177,7 +177,7 @@ export default {
     box-sizing: border-box;
     grid-area: left;
     width: 100%;
-    padding: 30px;
+    padding: 30px 45px;
     position: relative;
     text-align: left;
 
@@ -198,6 +198,7 @@ export default {
     width: 100%;
     height: 100%;
     min-height: 20vh;
+    border-radius: 6px;
   }
 
 </style>

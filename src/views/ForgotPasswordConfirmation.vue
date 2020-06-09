@@ -7,13 +7,10 @@
         </template>
         <template v-slot:body-text>
           Keep an eye on your inbox (and check your spam folder as well).
-          If you still haven’t received an email, click
-          <span class="resend-link" @click="resend">here</span> to resend it.
+          If you still haven’t received an email, resend it
+          <router-link to="/forgot-password-request" class="resend-link">here</router-link>.
         </template>
       </confirmation-page>
-      <div v-if="emailResent" class="resend-text">
-        Email Resent!
-      </div>
     </div>
     <div v-else>
       <confirmation-page>

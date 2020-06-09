@@ -5,7 +5,6 @@ export default {
   state: {
     isSignedIn: false,
     adminLevel: -1,
-    accountStatus: '',
     userId: -1,
   },
   getters: {
@@ -19,7 +18,6 @@ export default {
     resetUser(state) {
       state.isSignedIn = false;
       state.adminLevel = -1;
-      state.accountStatus = '';
       state.userId = -1;
     },
   },

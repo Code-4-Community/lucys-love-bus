@@ -51,13 +51,13 @@ export default {
   },
   methods: {
     ...mapMutations('user', {
-      setUser: 'setUser',
+      resetUser: 'resetUser',
     }),
     async logout() {
       let res = '';
       try {
         res = await logout();
-        this.setUser();
+        this.resetUser();
         this.$router.push('/');
       } catch (err) {
         res = err;

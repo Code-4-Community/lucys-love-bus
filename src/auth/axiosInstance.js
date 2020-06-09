@@ -28,7 +28,7 @@ AxiosInstance.interceptors.response.use(
       && !originalRequest.retry
       && tokenService.getRefreshToken()) {
       originalRequest.retry = true;
-      return refresh().finally(() => {
+      return refresh().then(() => {
         AxiosInstance.defaults.headers['X-Access-Token'] = tokenService.getAccessToken();
         return AxiosInstance(originalRequest);
       });

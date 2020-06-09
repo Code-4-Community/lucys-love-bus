@@ -7,13 +7,15 @@ const REFRESH_TOKEN_KEY = 'refresh_token';
  * @param {String} key one of ACCESS_TOKEN_KEY or REFRESH_TOKEN_KEY
  */
 const getTokenPayload = (key) => {
-  const payload = JSON.parse(atob(localStorage.getItem(key).split('.')[1]));
-  return payload !== null && Math.round(Date.now() / 1000) < payload.exp && payload;
+  const token = localStorage.getItem(key);
+  if (!token) return false;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload !== null && payload;
 };
 
 const tokenService = {
   getAccessToken() {
-    return getTokenPayload(ACCESS_TOKEN_KEY) && localStorage.getItem(ACCESS_TOKEN_KEY);
+    return localStorage.getItem(ACCESS_TOKEN_KEY);
   },
   setAccessToken(access) {
     localStorage.setItem(ACCESS_TOKEN_KEY, access);
@@ -22,7 +24,7 @@ const tokenService = {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
   },
   getRefreshToken() {
-    return getTokenPayload(REFRESH_TOKEN_KEY) && localStorage.getItem(REFRESH_TOKEN_KEY);
+    return localStorage.getItem(REFRESH_TOKEN_KEY);
   },
   setRefreshToken(refresh) {
     localStorage.setItem(REFRESH_TOKEN_KEY, refresh);
@@ -33,7 +35,9 @@ const tokenService = {
   getPrivilegeLevel() {
     try {
       const payload = getTokenPayload(ACCESS_TOKEN_KEY);
-      return payload.privilegeLevel;
+      if (!payload) return -1;
+      if (payload.privilegeLevel === 0) return 0;
+      return payload.privilegeLevel || -1;
     } catch (e) {
       return -1;
     }
@@ -41,18 +45,14 @@ const tokenService = {
   getUserID() {
     try {
       const payload = getTokenPayload(ACCESS_TOKEN_KEY);
-      return payload.userId;
+      return payload.userId || -1;
     } catch (e) {
       return -1;
     }
   },
-  getTeamID() {
-    try {
-      const payload = getTokenPayload(ACCESS_TOKEN_KEY);
-      return payload.teamId;
-    } catch (e) {
-      return -1;
-    }
+  isRefreshTokenVaid() {
+    const payload = getTokenPayload(REFRESH_TOKEN_KEY);
+    return payload && Math.round(Date.now() / 1000) < payload.exp;
   },
 };
 

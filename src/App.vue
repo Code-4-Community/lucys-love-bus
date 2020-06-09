@@ -20,8 +20,8 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    if (tokenService.getRefreshToken()) {
-      refresh();
+    if (tokenService.isRefreshTokenVaid()) {
+      refresh().catch(() => this.$router.push('/login'));
     }
   },
 };

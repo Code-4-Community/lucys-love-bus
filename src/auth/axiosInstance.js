@@ -23,9 +23,10 @@ AxiosInstance.interceptors.response.use(
   response => response,
   (error) => {
     const originalRequest = error.config;
-    if (error?.response?.status === 401
-      && error?.response?.data === INVALID_ACCESS_TOKEN
-      && !originalRequest.retry) {
+    if (error.response.status === 401
+      && error.response.data === INVALID_ACCESS_TOKEN
+      && !originalRequest.retry
+      && tokenService.getRefreshToken()) {
       originalRequest.retry = true;
       return refresh().finally(() => {
         AxiosInstance.defaults.headers['X-Access-Token'] = tokenService.getAccessToken();

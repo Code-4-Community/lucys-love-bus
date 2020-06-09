@@ -12,6 +12,7 @@
 <script>
 import TheNavigation from './components/TheNavigation.vue';
 import { refresh } from './auth/authAPI';
+import tokenService from './auth/token';
 
 export default {
   name: 'App',
@@ -19,9 +20,9 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    refresh().catch(() => {
-      this.$router.push('/login');
-    });
+    if (tokenService.getRefreshToken()) {
+      refresh();
+    }
   },
 };
 </script>

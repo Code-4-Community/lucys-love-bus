@@ -30,166 +30,187 @@ import EditFamilyInfoView from '../views/EditFamilyInfoView.vue';
 import ChangeLoginInfoConfirmation from '../views/ChangeLoginInfoConfirmation.vue';
 import SignupConfirmation from '../views/SignupConfirmation.vue';
 
+import tokenService from '../auth/token';
+
 Vue.use(Router);
 
-export default new Router({
+const allRoutes = [
+  {
+    path: '/',
+    name: 'login',
+    redirect: '/login',
+  },
+  {
+    path: '/upcoming-events',
+    name: 'upcoming-events-view',
+    component: UpcomingEventsView,
+  },
+  {
+    path: '/create-event',
+    name: 'create-event',
+    component: CreateEventView,
+  },
+  {
+    path: '/create-announcement',
+    name: 'create-announcement',
+    component: CreateAnnouncementView,
+    props: true,
+  },
+  {
+    path: '/edit-event/:eventId',
+    name: 'edit-event',
+    component: EditEventView,
+    props: true,
+  },
+  {
+    path: '/event/:eventId',
+    name: 'single-event',
+    component: SingleEventView,
+    props: true,
+  },
+  {
+    path: '/checkout',
+    name: 'checkout',
+    component: CheckoutView,
+  },
+  {
+    path: '/event-registration-confirmation/:success',
+    name: 'event-registration-confirmation',
+    component: EventRegistrationConfirmation,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView,
+  },
+  {
+    path: '/sign-up-landing',
+    name: 'signup-landing',
+    component: SignUpLandingView,
+  },
+  {
+    path: '/sign-up-gp',
+    name: 'sign-up-gp',
+    component: GpSignUp,
+  },
+  {
+    path: '/sign-up-pf',
+    name: 'sign-up-pf',
+    component: PfSignUp,
+  },
+  {
+    path: '/sign-up-confirmation',
+    name: 'sign-up-confirmation',
+    component: SignupConfirmation,
+    props: true,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView,
+  },
+  {
+    path: '/family-requests',
+    name: 'family-requests',
+    component: FamilyRequests,
+  },
+  {
+    path: '/single-family-request/:request_id',
+    name: 'single-family-request',
+    component: SingleFamilyRequest,
+  },
+  {
+    path: '/family-request-confirmation',
+    name: 'family-request-confirmation',
+    component: FamilyRequestConfirmation,
+    props: true,
+  },
+  {
+    path: '/my-events',
+    name: 'my-events',
+    component: MyEventsView,
+  },
+  {
+    path: '/verify-email/:secret_key',
+    name: 'verify-email',
+    component: VerifyEmailView,
+  },
+  {
+    path: '/forgot-password-request',
+    name: 'forgot-password-request',
+    component: ForgotPasswordRequest,
+  },
+  {
+    path: '/forgot-password-reset/:secret_key',
+    name: 'forgot-password-reset',
+    component: ForgotPasswordReset,
+  },
+  {
+    path: '/forgot-password-confirmation',
+    name: 'forgot-password-confirmation',
+    component: ForgotPasswordConfirmation,
+    props: true,
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: Settings,
+  },
+  {
+    path: '/change-email',
+    name: 'change-email',
+    component: ChangeEmailView,
+  },
+  {
+    path: '/change-password',
+    name: 'change-password',
+    component: ChangePasswordlView,
+  },
+  {
+    path: '/change-login-info-confirmation',
+    name: 'change-login-info-confirmation',
+    component: ChangeLoginInfoConfirmation,
+    props: true,
+  },
+  {
+    path: '/edit-family-information',
+    name: 'edit-family-information',
+    component: EditFamilyInfoView,
+  },
+  {
+    path: '/personal-requests',
+    name: 'personal-requests',
+    component: PersonalRequests,
+  },
+  {
+    path: '/deactivate-account',
+    name: 'deactivate-account',
+    component: DeactivateAccountView,
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFoundView,
+  },
+];
+
+const router = new Router({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      redirect: '/login',
-    },
-    {
-      path: '/upcoming-events',
-      name: 'upcoming-events-view',
-      component: UpcomingEventsView,
-    },
-    {
-      path: '/create-event',
-      name: 'create-event',
-      component: CreateEventView,
-    },
-    {
-      path: '/create-announcement',
-      name: 'create-announcement',
-      component: CreateAnnouncementView,
-      props: true,
-    },
-    {
-      path: '/edit-event/:eventId',
-      name: 'edit-event',
-      component: EditEventView,
-      props: true,
-    },
-    {
-      path: '/event/:eventId',
-      name: 'single-event',
-      component: SingleEventView,
-      props: true,
-    },
-    {
-      path: '/checkout',
-      name: 'checkout',
-      component: CheckoutView,
-    },
-    {
-      path: '/event-registration-confirmation/:success',
-      name: 'event-registration-confirmation',
-      component: EventRegistrationConfirmation,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-    },
-    {
-      path: '/sign-up-landing',
-      name: 'signup-landing',
-      component: SignUpLandingView,
-    },
-    {
-      path: '/sign-up-gp',
-      name: 'sign-up-gp',
-      component: GpSignUp,
-    },
-    {
-      path: '/sign-up-pf',
-      name: 'sign-up-pf',
-      component: PfSignUp,
-    },
-    {
-      path: '/sign-up-confirmation',
-      name: 'sign-up-confirmation',
-      component: SignupConfirmation,
-      props: true,
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileView,
-    },
-    {
-      path: '/family-requests',
-      name: 'family-requests',
-      component: FamilyRequests,
-    },
-    {
-      path: '/single-family-request/:request_id',
-      name: 'single-family-request',
-      component: SingleFamilyRequest,
-    },
-    {
-      path: '/family-request-confirmation',
-      name: 'family-request-confirmation',
-      component: FamilyRequestConfirmation,
-      props: true,
-    },
-    {
-      path: '/my-events',
-      name: 'my-events',
-      component: MyEventsView,
-    },
-    {
-      path: '/verify-email/:secret_key',
-      name: 'verify-email',
-      component: VerifyEmailView,
-    },
-    {
-      path: '/forgot-password-request',
-      name: 'forgot-password-request',
-      component: ForgotPasswordRequest,
-    },
-    {
-      path: '/forgot-password-reset/:secret_key',
-      name: 'forgot-password-reset',
-      component: ForgotPasswordReset,
-    },
-    {
-      path: '/forgot-password-confirmation',
-      name: 'forgot-password-confirmation',
-      component: ForgotPasswordConfirmation,
-      props: true,
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: Settings,
-    },
-    {
-      path: '/change-email',
-      name: 'change-email',
-      component: ChangeEmailView,
-    },
-    {
-      path: '/change-password',
-      name: 'change-password',
-      component: ChangePasswordlView,
-    },
-    {
-      path: '/change-login-info-confirmation',
-      name: 'change-login-info-confirmation',
-      component: ChangeLoginInfoConfirmation,
-      props: true,
-    },
-    {
-      path: '/edit-family-information',
-      name: 'edit-family-information',
-      component: EditFamilyInfoView,
-    },
-    {
-      path: '/personal-requests',
-      name: 'personal-requests',
-      component: PersonalRequests,
-    },
-    {
-      path: '/deactivate-account',
-      name: 'deactivate-account',
-      component: DeactivateAccountView,
-    },
-    {
-      path: '*',
-      name: 'not-found',
-      component: NotFoundView,
-    },
-  ],
+  routes: allRoutes,
 });
+
+const publicRoutes = [
+  'login', 'signup-landing', 'sign-up-gp', 'sign-up-pf',
+  'sign-up-confirmation', 'forgot-password-request',
+  'forgot-password-reset', 'forgot-password-confirmation',
+  'verify-email',
+];
+
+router.beforeEach((to, from, next) => {
+  if (tokenService.getPrivilegeLevel() < 0) {
+    if (publicRoutes.includes(to.name)) next();
+    else next({ name: 'login' });
+  } else next();
+});
+
+export default router;

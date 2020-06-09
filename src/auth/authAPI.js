@@ -38,10 +38,10 @@ export const refresh = async () => Axios.post(to(API_REFRESH_TOKEN), null, {
   },
 }).then((response) => {
   Token.setAccessToken(response.data.freshAccessToken);
-}).catch(() => {
-  console.log('removing access token');
+}).catch((err) => {
   Token.removeAccessToken();
-  Token.removeAccessToken();
+  Token.removeRefreshToken();
+  throw err;
 });
 
 export const verifyEmail = async secretKey => Axios.post(to(`${API_VERIFY_EMAIL}${secretKey}`));

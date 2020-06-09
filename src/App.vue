@@ -19,7 +19,9 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    refresh();
+    refresh().catch(() => {
+      this.$router.push('/login');
+    });
   },
 };
 </script>

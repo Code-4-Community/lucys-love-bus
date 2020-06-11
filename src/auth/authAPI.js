@@ -1,6 +1,5 @@
 import Axios from 'axios';
 import Token from './token';
-import Router from '../router/router';
 
 const API_LOGIN = '/api/v1/user/login/';
 const API_SIGNUP = '/api/v1/user/signup/';
@@ -42,7 +41,6 @@ export const refresh = async () => Axios.post(to(API_REFRESH_TOKEN), null, {
 }).catch(() => {
   Token.removeAccessToken();
   Token.removeRefreshToken();
-  Router.push('/login');
 });
 
 export const verifyEmail = async secretKey => Axios.post(to(`${API_VERIFY_EMAIL}${secretKey}`));

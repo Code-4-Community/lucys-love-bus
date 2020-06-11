@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios from 'axios';
 import tokenService from './token';
 import { refresh } from './authAPI';

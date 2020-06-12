@@ -1,24 +1,6 @@
 import { loadStripe } from '@stripe/stripe-js';
 import AxiosInstance from '../auth/axiosInstance';
 
-// objToParams: takes a Javascript object and returns a string
-// that can be used as GET query parameters
-// e.g. { length: 4, name: "None" } -> ?length=4&name=none
-// function objToParams(obj) {
-//   let res = '';
-//   let first = true;
-//   Object.entries(obj).forEach(([key, value]) => {
-//     if (first) {
-//       res += '?';
-//       first = false;
-//     } else {
-//       res += '&';
-//     }
-//     res += `${key}=${value}`;
-//   });
-//   return res;
-// }
-
 async function createEvent(event) {
   try {
     return await AxiosInstance.post('/api/v1/protected/events/', event, {

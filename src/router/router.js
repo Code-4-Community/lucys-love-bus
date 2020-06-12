@@ -32,6 +32,8 @@ import SignupConfirmation from '../views/SignupConfirmation.vue';
 
 import tokenService from '../auth/token';
 
+import store from '../store/store';
+
 Vue.use(Router);
 
 const allRoutes = [
@@ -209,7 +211,10 @@ const publicRoutes = [
 router.beforeEach((to, from, next) => {
   if (tokenService.getPrivilegeLevel() < 0) {
     if (publicRoutes.includes(to.name)) next();
-    else next({ name: 'login' });
+    else {
+      store.dispatch('clearAll');
+      next({ name: 'login' });
+    }
   } else next();
 });
 

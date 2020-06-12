@@ -121,11 +121,11 @@
 import { mapMutations } from 'vuex';
 import PrimaryInfoForm from '../components/Forms/PrimaryInfoForm.vue';
 import AgreementsForm from '../components/Forms/AgreementsForm.vue';
-import authService from '../utils/service/authService';
 import MainContactForm from '../components/Forms/MainContactForm.vue';
 import AdditionalContactForm from '../components/Forms/AdditionalContactForm.vue';
 import ChildForm from '../components/Forms/ChildForm.vue';
 import api from '../api/api';
+import { signup } from '../auth/authAPI';
 
 export default {
   name: 'PfSignUp',
@@ -320,7 +320,7 @@ export default {
             children: this.children,
           };
           try {
-            await authService.actions.signup(user);
+            await signup(user);
             await api.addContactInfo(contactInfo);
             await api.makePfRequest();
             await this.$router.push({

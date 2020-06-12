@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { requestPasswordReset } from '../auth/authAPI';
 
 export default {
   name: 'forgot-password-request',
@@ -48,7 +48,7 @@ export default {
           email: this.email,
         };
         try {
-          await authApi.requestPasswordReset(body);
+          await requestPasswordReset(body);
           this.$router.push({
             name: 'forgot-password-confirmation',
             params: {

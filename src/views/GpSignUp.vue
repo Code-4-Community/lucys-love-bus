@@ -66,7 +66,7 @@
 import { mapMutations } from 'vuex';
 import PrimaryInfoForm from '../components/Forms/PrimaryInfoForm.vue';
 import AgreementsForm from '../components/Forms/AgreementsForm.vue';
-import authService from '../utils/service/authService';
+import { signup } from '../auth/authAPI';
 
 export default {
   name: 'GpSignUp',
@@ -163,7 +163,7 @@ export default {
             },
           };
           try {
-            await authService.actions.signup(user);
+            await signup(user);
             await this.$router.push({
               name: 'sign-up-confirmation',
               params: { accountType: 'general-public' },

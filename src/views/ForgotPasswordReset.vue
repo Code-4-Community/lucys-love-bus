@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { doPasswordReset } from '../auth/authAPI';
 
 export default {
   name: 'ForgotPasswordReset',
@@ -53,7 +53,7 @@ export default {
           newPassword: this.password[0],
         };
         try {
-          await authApi.doPasswordReset(body);
+          await doPasswordReset(body);
           this.$router.push({
             name: 'forgot-password-confirmation',
             params: {

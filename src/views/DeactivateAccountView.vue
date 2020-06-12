@@ -38,7 +38,7 @@
 
 <script>
 import api from '../api/api';
-import authService from '../utils/service/authService';
+import { logout } from '../auth/authAPI';
 
 export default {
   name: 'DeactivateAccountView',
@@ -50,7 +50,7 @@ export default {
   methods: {
     async deactivateAccount() {
       await api.deactivateAccount();
-      await authService.actions.logout();
+      await logout();
       this.$router.push('/');
     },
   },

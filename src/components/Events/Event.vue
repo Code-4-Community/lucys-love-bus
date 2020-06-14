@@ -9,12 +9,12 @@
       <div class="event-content">
           <div class="content-wrapper">
             <router-link
-                    to="/event/event.id"
+                    :to="{ name: 'single-event', params: { eventId: event.id }}"
                     class="event-title"
             >{{event.title}}</router-link>
               <br>
             <router-link
-                    to="/event/event.id"
+                    :to="{ name: 'single-event', params: { eventId: event.id }}"
                     class="event-body"
             >{{event.details.description}}</router-link>
           </div>

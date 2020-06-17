@@ -99,7 +99,7 @@
           </button>
         </access-control>
         <access-control v-if="ticketsInCart > 0" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-          <router-link tag="button" to="/checkout" class="btn--primary single-event-btn">
+          <router-link tag="button" to="/checkout" class="btn--primary-orange">
             Proceed to Cart
           </router-link>
         </access-control>

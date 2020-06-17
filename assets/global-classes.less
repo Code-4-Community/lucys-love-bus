@@ -156,6 +156,25 @@ button:focus {
   color: white;
 }
 
+.btn--warning {
+  .btn--base;
+  background-color: red;
+  border: 1px solid red;
+  color: white;
+}
+
+.btn--warning:hover {
+  .btn--base;
+  background-color: darkred;
+  border: 1px solid darkred;
+  color: white;
+}
+
+.btn--warning:disabled {
+  .btn--warning;
+  cursor: not-allowed;
+}
+
 // -------------- FORMS & INPUT ------------------
 
 .form-title {

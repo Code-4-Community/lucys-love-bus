@@ -5,27 +5,27 @@
     </div>
     <div class="auth-container">
       <div class="settings-box">
-        <router-link class="btn--tertiary setting-btn" tag="button" to="/change-email">
+        <router-link class="btn--primary-orange" tag="button" to="/change-email">
           Change Primary Account Email
         </router-link>
       </div>
       <div class="settings-box">
-        <router-link class="btn--tertiary setting-btn" tag="button" to="/change-password">
+        <router-link class="btn--primary-orange" tag="button" to="/change-password">
           Change Password
         </router-link>
       </div>
       <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <router-link class="btn--tertiary setting-btn" tag="button" to="/edit-family-information">
+        <router-link class="btn--primary-orange" tag="button" to="/edit-family-information">
           Add or Edit Family Information
         </router-link>
       </access-control>
       <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <router-link class="btn--tertiary setting-btn" tag="button" to="/personal-requests">
+        <router-link class="btn--primary-orange" tag="button" to="/personal-requests">
           Request to Become a Participating Family
         </router-link>
       </access-control>
       <access-control class="settings-box" :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
-        <router-link class="btn--tertiary setting-btn" tag="button" to="/deactivate-account">
+        <router-link class="btn--primary-orange" tag="button" to="/deactivate-account">
           Deactivate Account
         </router-link>
       </access-control>
@@ -62,6 +62,10 @@ export default {
 
   .settings-box {
     margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .setting-btn {

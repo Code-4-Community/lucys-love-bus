@@ -31,12 +31,12 @@
         </div>
         <div class="btn-bar">
           <button
-              class="btn--secondary event-modal-btn"
+              class="btn--secondary-orange"
               @click="cancel"
           >
             Cancel
           </button>
-          <button class="btn--primary event-modal-btn"
+          <button class="btn--primary-orange"
                   @click="checkout"
                   :disabled="ticketDelta === 0">
             {{ checkoutMessage }}

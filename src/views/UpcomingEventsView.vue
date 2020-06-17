@@ -65,9 +65,14 @@
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
+          <button style="margin-bottom: 1rem"
+                  class="btn--primary-blue"
+                  v-on:click="openEventModal(slotProps.event)">
+            Register
+          </button>
           <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="btn--secondary-blue" tag="button">
+            class="btn--secondary-orange" tag="button">
             Learn More
           </router-link>
         </access-control>

@@ -76,41 +76,41 @@
       <div v-if="hasServerErrors" class="server-error-message">
         There was an error signing you up! Please go back to correct your information.
       </div>
-    </div>
-    <div class="nav-row">
-      <div class="back-btn-box">
-        <div v-if="pageNum > 0">
-          <button @click="backPage" class="btn--primary-orange">
-            Previous Page
-          </button>
+      <div class="nav-row">
+        <div class="back-btn-box">
+          <div v-if="pageNum > 0">
+            <button @click="backPage" class="btn--primary-orange">
+              Previous Page
+            </button>
+          </div>
+          <div v-else>
+            <router-link to="/login" tag="button" class="btn--primary-orange">
+              Back to Login
+            </router-link>
+          </div>
         </div>
-        <div v-else>
-          <router-link to="/login" tag="button" class="btn--primary-orange">
-            Back to Login
-          </router-link>
+        <div class="page-track-box">
+          <div class="page-indicator"
+               :class="{ 'current-page': pageNum === 0, 'error-page': hasServerErrors }"
+          />
+          <div class="page-indicator"
+               :class="{ 'current-page': pageNum === 1 }"
+          />
+          <div class="page-indicator"
+               :class="{ 'current-page': pageNum === 2 }"
+          />
         </div>
-      </div>
-      <div class="page-track-box">
-        <div class="page-indicator"
-             :class="{ 'current-page': pageNum === 0, 'error-page': hasServerErrors }"
-        />
-        <div class="page-indicator"
-             :class="{ 'current-page': pageNum === 1 }"
-        />
-        <div class="page-indicator"
-             :class="{ 'current-page': pageNum === 2 }"
-        />
-      </div>
-      <div class="next-btn-box">
-        <div v-if="pageNum < maxPage">
-          <button @click="nextPage" class="btn--primary-orange">
-            Next Page
-          </button>
-        </div>
-        <div v-else>
-          <button @click="submitForm" class="btn--primary-blue">
-            Submit
-          </button>
+        <div class="next-btn-box">
+          <div v-if="pageNum < maxPage">
+            <button @click="nextPage" class="btn--primary-orange">
+              Next Page
+            </button>
+          </div>
+          <div v-else>
+            <button @click="submitForm" class="btn--primary-blue">
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>

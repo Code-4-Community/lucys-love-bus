@@ -3,4 +3,5 @@ describe('Verify that we can build the code and see the login page', () => {
     cy.visit('/');
     cy.contains('p', 'The Sajni Center');
   });
+  // just testing Cypress
 });

@@ -67,12 +67,8 @@ export default {
     justify-content: center;
     align-items: center;
   }
-
-  .setting-btn {
-    cursor: pointer;
-    border-radius: 6px;
+  .settings-box > button {
     width: 100%;
-    font-size: 1.3rem;
-    padding: 0.75em 0;
+    padding: 1em 0;
   }
 </style>

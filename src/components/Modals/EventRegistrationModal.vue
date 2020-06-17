@@ -36,7 +36,7 @@
           >
             Cancel
           </button>
-          <button class="btn--primary-orange"
+          <button class="btn--primary-blue"
                   @click="checkout"
                   :disabled="ticketDelta === 0">
             {{ checkoutMessage }}
@@ -229,4 +229,7 @@ export default {
     cursor: pointer;
   }
 
+  .select-row {
+    text-align: center;
+  }
 </style>

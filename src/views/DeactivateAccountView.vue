@@ -94,12 +94,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-  }
-  .deactivate-btn {
     margin-top: 16px;
-    background-color: red;
-    color: white;
-    font-weight: bold;
   }
 
 </style>

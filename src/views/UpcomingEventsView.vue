@@ -27,19 +27,19 @@
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF]]">
           <button v-if="slotProps.event.ticketCount > 0"
                   @click="openRegistrationModal(slotProps.event)"
-                  class="event-side-btn btn--primary">
+                  class="btn--primary-orange">
             Edit Registration
           </button>
           <button
               v-else-if="slotProps.event.spotsAvailable === 0"
-              class="event-side-btn sold-out"
+              class="btn--primary-blue"
               disabled>
             Sold Out
           </button>
           <button
             v-else-if="slotProps.event.canRegister"
             v-on:click="openEventModal(slotProps.event)"
-            class="event-side-btn btn--primary" >
+            class="btn--primary-blue" >
             Register
           </button>
           <div v-else>
@@ -49,13 +49,13 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-                  style="margin-bottom: 1rem"
-                  :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
-                  class="btn--primary-blue" tag="button">
+              :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
+              class="btn--primary-blue" tag="button">
             Edit
           </router-link>
+        </access-control>
+        <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-              style="margin-bottom: 1rem"
               class="btn--primary-blue"
               tag="button"
               :to="{name: 'create-announcement',
@@ -65,11 +65,6 @@
           </router-link>
         </access-control>
         <access-control :roles="[USER[ROLE.GP], USER[ROLE.PF], USER[ROLE.ADMIN]]">
-          <button style="margin-bottom: 1rem"
-                  class="btn--primary-blue"
-                  v-on:click="openEventModal(slotProps.event)">
-            Register
-          </button>
           <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
             class="btn--secondary-orange" tag="button">

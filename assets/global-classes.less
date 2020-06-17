@@ -118,6 +118,11 @@ button:focus {
   background-color: @blue-btn-color-dark;
 }
 
+.btn--primary-blue:disabled {
+  background-color: @blue-btn-light;
+  cursor: auto;
+}
+
 .btn--primary-orange {
   .btn--base;
   background-color: @orange-btn-color;
@@ -173,6 +178,17 @@ button:focus {
 .btn--warning:disabled {
   .btn--warning;
   cursor: not-allowed;
+  border-color: #FF8888;
+  background-color: #FF8888;
+}
+
+
+.info-btn {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-left: 0.5em;
+  font-weight: bold;
 }
 
 // -------------- FORMS & INPUT ------------------
@@ -337,5 +353,3 @@ textarea.input-primary {
   font-family: 'Dekko';
   font-size: 22px;
 }
-
-

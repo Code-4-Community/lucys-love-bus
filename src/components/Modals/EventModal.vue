@@ -28,14 +28,14 @@
           </button>
           <button
               v-if="cartTickets > 0 && tickets === 0"
-              class="btn--primary-blue"
+              class="btn--primary-orange"
               @click="add"
           >
             Remove From Cart
           </button>
           <button
               v-else
-              class="btn--primary-orange"
+              class="btn--primary-blue"
               @click="add"
               :disabled="tickets < 1"
           >

@@ -49,13 +49,13 @@
         </access-control>
         <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
-              :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
-              class="btn--primary-blue" tag="button">
+                  style="margin-bottom: 1rem"
+                  :to="{ name: 'edit-event', params: { eventId: slotProps.event.id}}"
+                  class="btn--primary-blue" tag="button">
             Edit
           </router-link>
-        </access-control>
-        <access-control :roles="[USER[ROLE.ADMIN]]">
           <router-link
+              style="margin-bottom: 1rem"
               class="btn--primary-blue"
               tag="button"
               :to="{name: 'create-announcement',

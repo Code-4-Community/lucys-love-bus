@@ -27,7 +27,7 @@
         <div class="error">
           <p v-if="submitted && error" class="error-message">{{error}}</p>
         </div>
-        <button type="submit" class="login-btn submit-btn btn--tertiary">Login</button>
+        <button type="submit" class="btn--primary-orange login-btn">Login</button>
       </form>
       <router-link class="forgot-password" to="forgot-password-request" tag="a">
         Forgot your password?
@@ -132,9 +132,6 @@ export default {
 .form-title {
   font-weight: bold;
   margin-bottom: 10px;
-}
-
-.login-btn {
 }
 
 .forgot-password {

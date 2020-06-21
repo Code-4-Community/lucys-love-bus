@@ -50,7 +50,7 @@
     </div>
     <div>
       <div class="btn-row">
-        <router-link to="/family-requests" class="btn--tertiary action-btn">
+        <router-link to="/family-requests" class="btn--secondary-orange">
           Back To Requests
         </router-link>
       </div>
@@ -141,14 +141,5 @@ export default {
     padding: 0.5em 1em;
     border: 2px solid #888;
     border-radius: 4px;
-  }
-
-  .action-btn {
-    font-size: 0.9rem;
-    border-radius: 4px;
-    padding: 6px 2em;
-    margin-top: 30px;
-    text-decoration: none;
-    cursor: pointer;
   }
 </style>

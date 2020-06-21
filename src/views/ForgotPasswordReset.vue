@@ -22,7 +22,7 @@
         />
         <div v-if="error" class="error-text">{{ errorMessage }}</div>
       </div>
-      <button @click="submit" class="submit-btn btn--tertiary">Reset</button>
+      <button @click="submit" class="btn--primary-orange">Reset</button>
     </div>
   </div>
 </template>

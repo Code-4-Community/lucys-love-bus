@@ -85,7 +85,7 @@
                    v-model="event.spotsAvailable"
                    name="name"
                    type="number"
-                   placeholder="Spots Availible">
+                   placeholder="Spots Available">
           </label>
           <div class="error-text">
             {{ submitErrors.spotsAvailable }}
@@ -129,8 +129,12 @@
         </div>
       </div>
       <div class="form-box box-buttons">
+        <button v-on:click="cancel" class="btn--secondary-orange">
+          Cancel
+        </button>
         <button type="submit"
                 class="btn--primary-blue"
+                style="margin-left: 1rem"
                 :disabled="imageUploaded === 1 || imageUploaded === 4">
           {{ submitName }}
         </button>
@@ -299,6 +303,9 @@ export default {
 
       return newSubmitErrors;
     },
+    cancel() {
+      this.$router.push({ path: 'upcoming-events' });
+    },
   },
 };
 </script>
@@ -405,9 +412,10 @@ export default {
   }
 
   .box-buttons {
+    padding-top: 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   .time-label {

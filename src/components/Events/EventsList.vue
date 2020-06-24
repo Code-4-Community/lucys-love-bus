@@ -1,7 +1,7 @@
 <template>
     <div>
       <slot v-if="events.length === 0" name="NoEventsMsg"></slot>
-      <div v-else class="events-container Test">
+      <div v-else class="events-container">
         <event v-for="event in pageOfEvents" :key="event.id" :event="event">
           <!-- Note that event buttons passed should be wrapped in an access control
             or a div when being passed to get the desired flex styling -->

@@ -85,7 +85,7 @@
                    v-model="event.spotsAvailable"
                    name="name"
                    type="number"
-                   placeholder="Spots Availible">
+                   placeholder="Spots Available">
           </label>
           <div class="error-text">
             {{ submitErrors.spotsAvailable }}

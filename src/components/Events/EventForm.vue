@@ -129,7 +129,7 @@
         </div>
       </div>
       <div class="form-box box-buttons">
-        <button v-on:click="cancel" class="btn--secondary-blue">
+        <button v-on:click="cancel" class="btn--secondary-orange">
           Cancel
         </button>
         <button type="submit"
@@ -412,9 +412,10 @@ export default {
   }
 
   .box-buttons {
+    padding-top: 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   .time-label {

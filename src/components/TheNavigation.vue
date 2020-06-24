@@ -34,7 +34,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
-import authService from '../utils/service/authService';
+import { logout } from '../auth/authAPI';
 import AccessControl from './AccessControl/AccessControl.vue';
 import { USER, ROLE } from '../utils/constants/user';
 
@@ -51,13 +51,13 @@ export default {
   },
   methods: {
     ...mapMutations('user', {
-      setUser: 'setUser',
+      resetUser: 'resetUser',
     }),
     async logout() {
       let res = '';
       try {
-        res = await authService.actions.logout();
-        this.setUser();
+        res = await logout();
+        this.resetUser();
         this.$router.push('/');
       } catch (err) {
         res = err;

@@ -11,7 +11,8 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
-import authService from './utils/service/authService';
+import { refresh } from './auth/authAPI';
+import tokenService from './auth/token';
 
 export default {
   name: 'App',
@@ -19,7 +20,9 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    authService.actions.persistUser();
+    if (tokenService.isRefreshTokenVaid()) {
+      refresh().catch(() => this.$router.push('/login'));
+    }
   },
 };
 </script>

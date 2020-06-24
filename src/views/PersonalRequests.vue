@@ -4,7 +4,7 @@
       <div class="page-title">
         Participating Family Requests
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/settings">
+      <router-link tag="button" class="btn--secondary-orange" to="/settings">
         Back
       </router-link>
     </div>
@@ -86,7 +86,7 @@
                   once they have made a decision.
                 </div>
                 <div class="submit-btn-row">
-                  <button @click="submitRequest" class="submit-btn btn--primary">
+                  <button @click="submitRequest" class="btn--primary-orange">
                     Apply
                   </button>
                 </div>

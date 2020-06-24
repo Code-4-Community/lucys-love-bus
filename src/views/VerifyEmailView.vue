@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { verifyEmail } from '../auth/authAPI';
 import ConfirmationPage from '../components/Confirmation/ConfirmationPage.vue';
 
 export default {
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     verify() {
-      authApi.verifyEmail(this.secret_key).then(() => {
+      verifyEmail(this.secret_key).then(() => {
         this.done = true;
         this.success = true;
       }).catch(() => {

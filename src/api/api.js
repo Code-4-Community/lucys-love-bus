@@ -1,27 +1,9 @@
 import { loadStripe } from '@stripe/stripe-js';
-import { protectedResourceAxios } from '../utils/auth/axios/axiosInstance';
-
-// objToParams: takes a Javascript object and returns a string
-// that can be used as GET query parameters
-// e.g. { length: 4, name: "None" } -> ?length=4&name=none
-async function objToParams(obj) {
-  let res = '';
-  let first = true;
-  Object.entries(obj).forEach(([key, value]) => {
-    if (first) {
-      res += '?';
-      first = false;
-    } else {
-      res += '&';
-    }
-    res += `${key}=${value}`;
-  });
-  return res;
-}
+import AxiosInstance from '../auth/axiosInstance';
 
 async function createEvent(event) {
   try {
-    return await protectedResourceAxios.post('/api/v1/protected/events/', event, {
+    return await AxiosInstance.post('/api/v1/protected/events/', event, {
       timeout: 10000, // Allow 10 seconds for sending the image
     });
   } catch (err) {
@@ -31,7 +13,7 @@ async function createEvent(event) {
 
 async function editEvent(eventId, event) {
   try {
-    return await protectedResourceAxios.put(`/api/v1/protected/events/${eventId}`, event);
+    return await AxiosInstance.put(`/api/v1/protected/events/${eventId}`, event);
   } catch (err) {
     return err;
   }
@@ -39,7 +21,7 @@ async function editEvent(eventId, event) {
 
 async function deleteEvent(eventId) {
   try {
-    return protectedResourceAxios.delete(`api/v1/protected/events/${eventId}`);
+    return AxiosInstance.delete(`api/v1/protected/events/${eventId}`);
   } catch (err) {
     return err;
   }
@@ -54,7 +36,7 @@ async function createEventRegistration(registeredEvents) {
       quantity: event.tickets,
     })),
   };
-  return protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
+  return AxiosInstance.post('/api/v1/protected/checkout/register', body);
 }
 
 async function createEventRegistrationAndCheckoutSession(registeredEvents) {
@@ -65,7 +47,7 @@ async function createEventRegistrationAndCheckoutSession(registeredEvents) {
     })),
   };
   try {
-    const { data } = await protectedResourceAxios.post('/api/v1/protected/checkout/register', body);
+    const { data } = await AxiosInstance.post('/api/v1/protected/checkout/register', body);
     const stripe = await stripeApp;
     await stripe.redirectToCheckout({
       sessionId: data,
@@ -82,7 +64,7 @@ async function updateRegistration(eventId, quantity) {
     quantity,
   };
   try {
-    const { status, data } = await protectedResourceAxios.put(path, body);
+    const { status, data } = await AxiosInstance.put(path, body);
     if (status === 202) {
       const stripe = await stripeApp;
       await stripe.redirectToCheckout({
@@ -97,7 +79,7 @@ async function updateRegistration(eventId, quantity) {
 
 async function getEvent(id) {
   try {
-    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}`);
+    const { data } = await AxiosInstance.get(`/api/v1/protected/events/${id}`);
     return data;
   } catch (err) {
     return err;
@@ -106,7 +88,7 @@ async function getEvent(id) {
 
 async function getEventRSVP(id) {
   try {
-    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/${id}/rsvps`);
+    const { data } = await AxiosInstance.get(`/api/v1/protected/events/${id}/rsvps`);
     return data;
   } catch (err) {
     return err;
@@ -115,7 +97,7 @@ async function getEventRSVP(id) {
 
 async function getUpcomingEvents() {
   try {
-    const { data } = await protectedResourceAxios.get('/api/v1/protected/events/qualified');
+    const { data } = await AxiosInstance.get('/api/v1/protected/events/qualified');
     return data.events;
   } catch (err) {
     return err;
@@ -124,7 +106,7 @@ async function getUpcomingEvents() {
 
 async function getMyEvents(start) {
   try {
-    const { data } = await protectedResourceAxios.get(`/api/v1/protected/events/signed_up?start=${start}`);
+    const { data } = await AxiosInstance.get(`/api/v1/protected/events/signed_up?start=${start}`);
     return data.events;
   } catch (err) {
     return err;
@@ -136,14 +118,14 @@ async function createAnnouncement(body, eventId) {
   if (eventId !== null) {
     path += `/${eventId}`;
   }
-  const { data } = await protectedResourceAxios.post(path, body);
+  const { data } = await AxiosInstance.post(path, body);
   return data;
 }
 
-async function getSitewideAnnouncements(paramObj) {
+async function getSitewideAnnouncements() {
   try {
-    const params = await objToParams(paramObj);
-    const { data } = await protectedResourceAxios.get(`/api/v1/protected/announcements${params}`);
+    const path = '/api/v1/protected/announcements?count=10';
+    const { data } = await AxiosInstance.get(path);
     return data;
   } catch (err) {
     return err;
@@ -153,7 +135,7 @@ async function getSitewideAnnouncements(paramObj) {
 async function getEventAnnouncements(id) {
   try {
     const path = `/api/v1/protected/announcements/${id}`;
-    const { data } = await protectedResourceAxios.get(path);
+    const { data } = await AxiosInstance.get(path);
     return data;
   } catch (err) {
     return err;
@@ -163,7 +145,7 @@ async function getEventAnnouncements(id) {
 async function getPfRequests() {
   try {
     const path = '/api/v1/protected/requests';
-    const { data } = await protectedResourceAxios.get(path);
+    const { data } = await AxiosInstance.get(path);
     return data;
   } catch (err) {
     return err;
@@ -173,7 +155,7 @@ async function getPfRequests() {
 async function getRequestStatuses() {
   try {
     const path = '/api/v1/protected/requests/status';
-    const { data } = await protectedResourceAxios.get(path);
+    const { data } = await AxiosInstance.get(path);
     return data;
   } catch (err) {
     return err;
@@ -183,7 +165,7 @@ async function getRequestStatuses() {
 async function approveRequest(requestId) {
   try {
     const path = `/api/v1/protected/requests/${requestId}/approve`;
-    return await protectedResourceAxios.post(path);
+    return await AxiosInstance.post(path);
   } catch (err) {
     return err;
   }
@@ -192,7 +174,7 @@ async function approveRequest(requestId) {
 async function rejectRequest(requestId) {
   try {
     const path = `/api/v1/protected/requests/${requestId}/reject`;
-    return await protectedResourceAxios.post(path);
+    return await AxiosInstance.post(path);
   } catch (err) {
     return err;
   }
@@ -200,28 +182,28 @@ async function rejectRequest(requestId) {
 
 async function addContactInfo(body) {
   const path = '/api/v1/protected/user/contact_info';
-  return protectedResourceAxios.post(path, body);
+  return AxiosInstance.post(path, body);
 }
 
 async function updateAccountInfo(body) {
   const path = '/api/v1/protected/user/contact_info';
-  return protectedResourceAxios.put(path, body);
+  return AxiosInstance.put(path, body);
 }
 
 async function makePfRequest() {
   const path = 'api/v1/protected/requests';
-  return protectedResourceAxios.post(path);
+  return AxiosInstance.post(path);
 }
 
 async function getRequestData(requestId) {
   const path = `api/v1/protected/requests/${requestId}`;
-  return protectedResourceAxios.get(path);
+  return AxiosInstance.get(path);
 }
 
 async function changeEmail(body) {
   try {
     const path = 'api/v1/protected/user/change_email';
-    return protectedResourceAxios.post(path, body);
+    return AxiosInstance.post(path, body);
   } catch (e) {
     return e;
   }
@@ -229,17 +211,17 @@ async function changeEmail(body) {
 
 async function changePassword(body) {
   const path = 'api/v1/protected/user/change_password';
-  return protectedResourceAxios.post(path, body);
+  return AxiosInstance.post(path, body);
 }
 
 async function getAccountInformation() {
   const path = 'api/v1/protected/user/contact_info';
-  return protectedResourceAxios.get(path);
+  return AxiosInstance.get(path);
 }
 
 async function deactivateAccount() {
   const path = 'api/v1/protected/user/';
-  return protectedResourceAxios.delete(path);
+  return AxiosInstance.delete(path);
 }
 
 export default {

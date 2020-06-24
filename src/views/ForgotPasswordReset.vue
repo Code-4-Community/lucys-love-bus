@@ -22,13 +22,13 @@
         />
         <div v-if="error" class="error-text">{{ errorMessage }}</div>
       </div>
-      <button @click="submit" class="submit-btn btn--tertiary">Reset</button>
+      <button @click="submit" class="btn--primary-orange">Reset</button>
     </div>
   </div>
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { doPasswordReset } from '../auth/authAPI';
 
 export default {
   name: 'ForgotPasswordReset',
@@ -53,7 +53,7 @@ export default {
           newPassword: this.password[0],
         };
         try {
-          await authApi.doPasswordReset(body);
+          await doPasswordReset(body);
           this.$router.push({
             name: 'forgot-password-confirmation',
             params: {

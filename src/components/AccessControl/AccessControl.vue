@@ -6,7 +6,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import userState from '../../utils/auth/state/userState';
+import tokenService from '../../auth/token';
 import {
   USER,
 } from '../../utils/constants/user';
@@ -26,7 +26,7 @@ export default {
     adminLevel: {
       immediate: true,
       handler() {
-        this.userRoleNum = userState.getUserAdminLevel();
+        this.userRoleNum = tokenService.getPrivilegeLevel();
 
         if (this.adminLevel !== this.userRoleNum) {
           this.setUser();

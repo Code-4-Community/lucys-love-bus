@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { requestPasswordReset } from '../auth/authAPI';
 import ConfirmationPage from '../components/Confirmation/ConfirmationPage.vue';
 
 export default {
@@ -54,7 +54,7 @@ export default {
         const body = {
           email: this.email,
         };
-        await authApi.requestPasswordReset(body);
+        await requestPasswordReset(body);
         this.emailResent = true;
       }
     },

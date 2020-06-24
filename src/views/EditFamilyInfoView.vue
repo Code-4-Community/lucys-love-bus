@@ -4,7 +4,7 @@
       <div class="page-title">
         Edit Family Information
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/settings">
+      <router-link tag="button" class="btn--secondary-orange" to="/settings">
         Back
       </router-link>
     </div>
@@ -26,7 +26,7 @@
             <div class="save-label">
               Ready to save?
             </div>
-            <button class="submit-btn btn--primary"
+            <button class="btn--primary-orange"
                     @click="saveInformation">
               Save
             </button>

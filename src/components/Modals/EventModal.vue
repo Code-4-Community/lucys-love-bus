@@ -21,21 +21,21 @@
         </div>
         <div class="btn-bar">
           <button
-              class="btn--secondary event-modal-btn"
+              class="btn--secondary-orange"
               @click="cancel"
           >
             Cancel
           </button>
           <button
               v-if="cartTickets > 0 && tickets === 0"
-              class="btn--primary event-modal-btn"
+              class="btn--primary-orange"
               @click="add"
           >
             Remove From Cart
           </button>
           <button
               v-else
-              class="btn--primary event-modal-btn"
+              class="btn--primary-blue"
               @click="add"
               :disabled="tickets < 1"
           >

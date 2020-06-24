@@ -11,7 +11,8 @@
 
 <script>
 import TheNavigation from './components/TheNavigation.vue';
-import authService from './utils/service/authService';
+import { refresh } from './auth/authAPI';
+import tokenService from './auth/token';
 
 export default {
   name: 'App',
@@ -19,7 +20,9 @@ export default {
     TheNavigation,
   },
   beforeCreate() {
-    authService.actions.persistUser();
+    if (tokenService.isRefreshTokenVaid()) {
+      refresh().catch(() => this.$router.push('/login'));
+    }
   },
 };
 </script>
@@ -38,15 +41,18 @@ html {
   body {
     margin: 0;
     padding: 0;
-    font-family: Quicksand;
+    font-family: Quicksand,serif;
   }
 }
 
 button {
-  font-family: Quicksand;
+  font-family: Quicksand,serif;
 }
 textarea {
-  font-family: Arial;
+  font-family: Quicksand,serif;
+}
+input {
+  font-family: Quicksand,serif;
 }
 
 #app {

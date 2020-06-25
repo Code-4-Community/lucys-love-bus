@@ -4,7 +4,7 @@
       <div class="page-title">
         Deactivate Account
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/settings">
+      <router-link tag="button" class="btn--secondary-orange" to="/settings">
         Back
       </router-link>
     </div>
@@ -25,7 +25,7 @@
           </label>
         </div>
         <div class="btn-row">
-          <button class="submit-btn deactivate-btn"
+          <button class="btn--warning"
                   :disabled="!acknowledged"
                   @click="deactivateAccount">
             Deactivate
@@ -38,7 +38,7 @@
 
 <script>
 import api from '../api/api';
-import authService from '../utils/service/authService';
+import { logout } from '../auth/authAPI';
 
 export default {
   name: 'DeactivateAccountView',
@@ -50,7 +50,7 @@ export default {
   methods: {
     async deactivateAccount() {
       await api.deactivateAccount();
-      await authService.actions.logout();
+      await logout();
       this.$router.push('/');
     },
   },
@@ -94,16 +94,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-  }
-  .deactivate-btn {
     margin-top: 16px;
-    background-color: red;
-    color: white;
-    font-weight: bold;
-  }
-  .deactivate-btn:disabled {
-    background-color: #FF8888;
-    cursor: not-allowed;
   }
 
 </style>

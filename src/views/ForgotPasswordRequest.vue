@@ -4,7 +4,7 @@
       <div class="page-title">
         Reset Password
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/login">
+      <router-link tag="button" class="btn--secondary-orange" to="/login">
         Back
       </router-link>
     </div>
@@ -23,13 +23,13 @@
         />
         <div v-if="error" class="error-text">{{ errorMessage }}</div>
       </div>
-      <button @click="submit" class="submit-btn btn--tertiary">Send Link</button>
+      <button @click="submit" class="btn--primary-orange">Send Link</button>
     </div>
   </div>
 </template>
 
 <script>
-import authApi from '../api/authApi';
+import { requestPasswordReset } from '../auth/authAPI';
 
 export default {
   name: 'forgot-password-request',
@@ -48,7 +48,7 @@ export default {
           email: this.email,
         };
         try {
-          await authApi.requestPasswordReset(body);
+          await requestPasswordReset(body);
           this.$router.push({
             name: 'forgot-password-confirmation',
             params: {

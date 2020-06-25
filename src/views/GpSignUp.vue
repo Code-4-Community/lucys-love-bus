@@ -21,15 +21,18 @@
           Something went wrong here...
         </div>
       </div>
+      <div v-if="hasServerErrors" class="server-error-message">
+        There was an error signing you up! Please go back to correct your information.
+      </div>
       <div class="nav-row">
         <div class="back-btn-box">
           <div v-if="pageNum > 0">
-            <button @click="backPage" class="btn--tertiary submit-btn">
+            <button @click="backPage" class="btn--primary-orange">
               Previous Page
             </button>
           </div>
           <div v-else>
-            <router-link to="/login" tag="button" class="btn--tertiary submit-btn">
+            <router-link to="/login" tag="button" class="btn--primary-orange">
               Back to Login
             </router-link>
           </div>
@@ -44,19 +47,16 @@
         </div>
         <div class="next-btn-box">
           <div v-if="pageNum < maxPage">
-            <button @click="nextPage" class="btn--tertiary submit-btn">
+            <button @click="nextPage" class="btn--primary-orange">
               Next Page
             </button>
           </div>
           <div v-else>
-            <button @click="submitForm" class="btn--primary submit-btn">
+            <button @click="submitForm" class="btn--primary-blue">
               Submit
             </button>
           </div>
         </div>
-      </div>
-      <div v-if="hasServerErrors" class="server-error-message">
-        There was an error signing you up! Please go back to correct your information.
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@
 import { mapMutations } from 'vuex';
 import PrimaryInfoForm from '../components/Forms/PrimaryInfoForm.vue';
 import AgreementsForm from '../components/Forms/AgreementsForm.vue';
-import authService from '../utils/service/authService';
+import { signup } from '../auth/authAPI';
 
 export default {
   name: 'GpSignUp',
@@ -163,7 +163,7 @@ export default {
             },
           };
           try {
-            await authService.actions.signup(user);
+            await signup(user);
             await this.$router.push({
               name: 'sign-up-confirmation',
               params: { accountType: 'general-public' },
@@ -195,13 +195,15 @@ export default {
   @import '../../assets/color-constants.less';
 
   .nav-row {
+    margin: 0 auto;
     margin-top: 24px;
     display: grid;
-    grid-template-columns: 25% 12.5% 25% 12.5% 25%;
-    grid-template-areas: "back-btn . page-track . next-btn";
+    grid-template-columns: 40% 20% 40%;
+    grid-template-areas: "back-btn page-track next-btn";
     box-sizing: border-box;
     text-align: center;
     align-items: center;
+    width: 30em;
   }
   .back-btn-box {
     grid-area: back-btn;

@@ -4,7 +4,7 @@
       <div class="page-title">
         Change Account Email
       </div>
-      <router-link tag="button" class="btn--secondary back-btn" to="/settings">
+      <router-link tag="button" class="btn--secondary-orange" to="/settings">
         Back
       </router-link>
     </div>
@@ -43,7 +43,7 @@
             {{ submitErrors[1] }}
           </div>
         </div>
-        <button type="submit" class="submit-btn btn--tertiary">Update</button>
+        <button type="submit" class="btn--primary-orange">Update</button>
         <div>
           Note that this will change the email associated with the
           primary account owner that receives

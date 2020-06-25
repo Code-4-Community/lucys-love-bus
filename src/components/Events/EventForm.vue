@@ -44,25 +44,25 @@
         <div class="time-inputs">
           <div class="input-box">
             <label class="input-label">
-              Start Time
+              <span class="time-label">Start Time</span>
               <input
-                  class="input-primary"
+                  class="input-primary time-input"
                   :class="{ 'error-input': !!submitErrors.startTime }"
                   v-model="startTime"
                   name="start time"
                   type="time"
-                  step="300">
+                  step="300" />
+               to
             </label>
             <div class="error-text">
               {{ submitErrors.startTime }}
             </div>
           </div>
-          <div>to</div>
           <div class="input-box">
             <label class="input-label">
-              End Time
+              <span class="time-label">End Time</span>
               <input
-                  class="input-primary"
+                  class="input-primary time-input"
                   :class="{ 'error-input': !!submitErrors.endTime }"
                   v-model="endTime"
                   name="end time"
@@ -85,7 +85,7 @@
                    v-model="event.spotsAvailable"
                    name="name"
                    type="number"
-                   placeholder="Spots Availible">
+                   placeholder="Spots Available">
           </label>
           <div class="error-text">
             {{ submitErrors.spotsAvailable }}
@@ -129,8 +129,12 @@
         </div>
       </div>
       <div class="form-box box-buttons">
+        <button v-on:click="cancel" class="btn--secondary-orange">
+          Cancel
+        </button>
         <button type="submit"
-                class="create-form-btn btn--primary"
+                class="btn--primary-blue"
+                style="margin-left: 1rem"
                 :disabled="imageUploaded === 1 || imageUploaded === 4">
           {{ submitName }}
         </button>
@@ -299,6 +303,9 @@ export default {
 
       return newSubmitErrors;
     },
+    cancel() {
+      this.$router.push({ path: 'upcoming-events' });
+    },
   },
 };
 </script>
@@ -380,7 +387,6 @@ export default {
     text-align: left;
   }
 
-
   .img-upload {
     display: flex;
     flex-direction: row;
@@ -406,8 +412,19 @@ export default {
   }
 
   .box-buttons {
+    padding-top: 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
+  }
+
+  .time-label {
+    display: block;
+    width: 100%;
+  }
+
+  .time-input {
+    width: 10rem;
+    margin-right: .5rem;
   }
 </style>

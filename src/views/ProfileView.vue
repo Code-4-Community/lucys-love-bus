@@ -78,7 +78,7 @@ import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
 import { USER, ROLE } from '../utils/constants/user';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
-import authService from '../utils/service/authService';
+import { logout } from '../auth/authAPI';
 
 export default {
   name: 'profile',
@@ -113,7 +113,7 @@ export default {
     },
     async logout() {
       try {
-        await authService.actions.logout();
+        await logout();
         this.setUser();
         this.$router.push('/');
       } catch (err) {

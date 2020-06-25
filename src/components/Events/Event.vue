@@ -55,10 +55,8 @@ export default {
   .event-container {
     display: grid;
     grid-template-columns: 2fr 8fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 150px;
     grid-template-areas: "img content actions";
-
-    height: 150px;
   }
 
   .event-img {

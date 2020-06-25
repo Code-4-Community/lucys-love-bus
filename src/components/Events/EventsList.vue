@@ -96,7 +96,7 @@ export default {
   }
 
   .events-container > div {
-    margin: 5px 0;
+    margin: 2rem 0;
   }
 
   .pagination-wrapper {

@@ -175,6 +175,7 @@ export default {
     background: white;
     /* this works as a border, except now we can round the inner corners. */
     box-shadow: 0 0 0 12px rgba(248, 134, 52, 0.5), 0 0 0 12px white;
+    border-radius: 6px;
     width: 50%;
     max-height: 500px;
     overflow-x: visible;

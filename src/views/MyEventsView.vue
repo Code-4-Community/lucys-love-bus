@@ -11,12 +11,12 @@
         </div>
         <button
             v-on:click="openRegistrationModal(slotProps.event)"
-            class="btn--primary-blue">
+            class="btn--primary-orange">
           Edit Registration
         </button>
         <router-link
             :to="{ name: 'single-event', params: { eventId: slotProps.event.id}}"
-            class="btn--secondary-blue" tag="button">
+            class="btn--secondary-orange" tag="button">
           Learn More
         </router-link>
       </template>

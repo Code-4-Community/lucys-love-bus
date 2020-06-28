@@ -76,10 +76,10 @@
         </div>
         <hr />
         <div class="button-row">
-          <button class="action-btn btn--secondary" @click="reject">
+          <button class="action-btn btn--primary-orange" @click="reject">
             Reject
           </button>
-          <button class="action-btn btn--primary" @click="approve">
+          <button class="action-btn btn--primary-blue" @click="approve">
             Approve
           </button>
         </div>

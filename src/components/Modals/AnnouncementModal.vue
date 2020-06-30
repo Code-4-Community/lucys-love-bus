@@ -73,7 +73,8 @@ export default {
   .modal {
     position: fixed;
     background: white;
-    border: solid 12px rgba(248, 134, 52, 0.5);
+    /* this works as a border, except now we can round the inner corners. */
+    box-shadow: 0 0 0 12px rgba(248, 134, 52, 0.5), 0 0 0 12px white;
     border-radius: 6px;
     width: 500px;
     max-height: 500px;

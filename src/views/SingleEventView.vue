@@ -41,7 +41,7 @@
     <div class="middle-content">
       <div class="event-img">
         <img v-if="singleEvent.thumbnail" :src="singleEvent.thumbnail" />
-        <img v-else src="https://www.guidestar.org/ViewEdoc.aspx?eDocId=5734064&approved=True" />
+        <img v-else src="https://lucys-love-bus.s3.us-east-2.amazonaws.com/events/lucys-1.600x400.jpg" />
       </div>
       <div class="event-info">
         <div class="info-block">

@@ -37,12 +37,7 @@
           <span class="checkmark"
                 :class="{ 'error-input': !!submitErrors.upToDateVaccination }"/>
           <span class="checkbox-message">
-            My children are up to date on all vaccinations
-            and I will provide a copy of my children’s immunization records prior to
-            attending any programs. (Children who are being treated for cancer often
-            have severely compromised immune systems, so we are required to collect
-            this information for their safety. All medical information will be stored
-            in a HIPPA-compliant manner.)
+            My children are up to date on all vaccinations.
           </span>
         </label>
       </div>

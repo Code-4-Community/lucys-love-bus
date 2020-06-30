@@ -4,7 +4,7 @@
       <p class="welcome-header">Welcome!</p>
       <p class="welcome-body">
         The Sajni Center: A space of hope and healing. We are excited to invite you and
-        your family to view the wide selection of group interactive therapies that we offer.
+        your family to view the wide selection of group integrative therapies that we offer.
       </p>
     </div>
     <div class="auth-container">

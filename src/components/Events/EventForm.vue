@@ -265,9 +265,13 @@ export default {
       const newSubmitErrors = {};
       if (this.event.title.length === 0) {
         newSubmitErrors.title = 'required';
+      } else if (this.event.title.length > 36) {
+        newSubmitErrors.title = 'must be less than 36 characters';
       }
       if (this.event.details.location.length === 0) {
         newSubmitErrors.location = 'required';
+      } else if (this.event.details.location.length > 120) {
+        newSubmitErrors.location = 'must be less than 120 characters';
       }
       if (this.event.spotsAvailable < 0) {
         newSubmitErrors.spotsAvailable = 'spots available must be positive';

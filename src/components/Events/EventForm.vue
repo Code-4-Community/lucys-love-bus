@@ -308,7 +308,7 @@ export default {
       return newSubmitErrors;
     },
     cancel() {
-      this.$router.push({ path: 'upcoming-events' });
+      this.$router.back();
     },
   },
 };

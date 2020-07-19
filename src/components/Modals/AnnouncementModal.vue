@@ -6,7 +6,12 @@
           <div class="announce-title">{{announcement.title}}</div>
           <div class="announce-date">{{ createdString }}</div>
         </div>
-        <div class="announce-body">{{announcement.description}}</div>
+        <div class="announce-body">
+          {{announcement.description}}
+          <access-control :roles="[USER[ROLE.ADMIN]]">
+            <button class="delete-btn" @click="deleteAnnouncement">Delete Announcement</button>
+          </access-control>
+        </div>
         <div
             class="close-btn"
             @click="close"
@@ -20,6 +25,8 @@
 
 <script>
 import DateUtils from '../../utils/DateUtils';
+import AccessControl from '../AccessControl/AccessControl.vue';
+import api from '../../api/api';
 
 export default {
   name: 'AnnouncementModal',
@@ -32,6 +39,9 @@ export default {
       type: Object,
     },
   },
+  components: {
+    AccessControl,
+  },
   computed: {
     createdString() {
       return DateUtils.toStringDate(this.announcement.created);
@@ -43,6 +53,10 @@ export default {
     },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
+    },
+    async deleteAnnouncement() {
+      const res = await api.deleteAnnouncement(this.announcement.id);
+      console.log(res);
     },
   },
 };
@@ -117,6 +131,22 @@ export default {
     text-align: center;
     vertical-align: middle;
     font-weight: bolder;
+  }
+
+  .delete-btn {
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    padding: .5rem 1rem .5rem 1rem;
+    color: white;
+    transition: .3s;
+    min-width: 10rem;
+    box-sizing: border-box;
+    background-color: red;
+    border: 1px solid red;
   }
 
 </style>

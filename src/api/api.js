@@ -142,6 +142,15 @@ async function getEventAnnouncements(id) {
   }
 }
 
+async function deleteAnnouncement(id) {
+  try {
+    const path = `/api/v1/protected/announcements/${id}`;
+    return await AxiosInstance.delete(path);
+  } catch (err) {
+    return err;
+  }
+}
+
 async function getPfRequests() {
   try {
     const path = '/api/v1/protected/requests';
@@ -238,6 +247,7 @@ export default {
   getSitewideAnnouncements,
   getEventAnnouncements,
   createAnnouncement,
+  deleteAnnouncement,
   getPfRequests,
   getRequestStatuses,
   approveRequest,

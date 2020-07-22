@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import { logout } from '../auth/authAPI';
 import AccessControl from './AccessControl/AccessControl.vue';
 import { USER, ROLE } from '../utils/constants/user';
@@ -50,15 +50,15 @@ export default {
     AccessControl,
   },
   methods: {
-    ...mapMutations('user', {
-      resetUser: 'resetUser',
+    ...mapActions({
+      clearAll: 'clearAll',
     }),
     async logout() {
       let res = '';
       try {
         res = await logout();
-        this.resetUser();
-        this.$router.push('/');
+        this.clearAll();
+        await this.$router.push('/');
       } catch (err) {
         res = err;
       }

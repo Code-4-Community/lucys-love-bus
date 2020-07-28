@@ -3,6 +3,9 @@
         <div class="page-title">Create Event</div>
         <div>
             <event-form :submit-name="'Create'" @submit-event-form="createEvent" />
+            <h3 class="error-text--large" v-if="response500">
+                We're sorry, we couldn't create this event. Please try again later
+            </h3>
         </div>
     </div>
 </template>
@@ -14,10 +17,15 @@ import api from '../api/api';
 export default {
   name: 'CreateEvent',
   components: { EventForm },
+  data: () => ({
+    response500: false,
+  }),
   methods: {
     async createEvent({ event }) {
       const response = await api.createEvent(event);
-      if (response) {
+      if (!(response.status) || response.status >= 500) {
+        this.response500 = true;
+      } else {
         await this.$router.push('/upcoming-events');
       }
     },

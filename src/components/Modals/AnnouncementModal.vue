@@ -9,7 +9,8 @@
         <div class="announce-body">
           {{announcement.description}}
           <access-control :roles="[USER[ROLE.ADMIN]]">
-            <button class="delete-btn" @click="deleteAnnouncement">Delete Announcement</button>
+            <br/>
+            <button class="btn--warning" @click="deleteAnnouncement">Delete</button>
           </access-control>
         </div>
         <div
@@ -27,6 +28,7 @@
 import DateUtils from '../../utils/DateUtils';
 import AccessControl from '../AccessControl/AccessControl.vue';
 import api from '../../api/api';
+import { ROLE, USER } from '../../utils/constants/user';
 
 export default {
   name: 'AnnouncementModal',
@@ -38,6 +40,12 @@ export default {
     announcement: {
       type: Object,
     },
+  },
+  data() {
+    return {
+      USER,
+      ROLE,
+    };
   },
   components: {
     AccessControl,
@@ -55,14 +63,21 @@ export default {
       return DateUtils.toStringDate(date);
     },
     async deleteAnnouncement() {
-      const res = await api.deleteAnnouncement(this.announcement.id);
-      console.log(res);
+      try {
+        await api.deleteAnnouncement(this.announcement.id);
+        this.$emit('close-announcement');
+        this.$emit('delete-announcement');
+      } catch (e) {
+        // eslint-disable-next-line
+        alert("Error: " + e);
+      }
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import '../../../assets/global-classes.less';
   .modal-fade-enter,
   .modal-fade-leave-active {
     opacity: 0;
@@ -131,22 +146,6 @@ export default {
     text-align: center;
     vertical-align: middle;
     font-weight: bolder;
-  }
-
-  .delete-btn {
-    cursor: pointer;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    text-decoration: none;
-    border-radius: 6px;
-    padding: .5rem 1rem .5rem 1rem;
-    color: white;
-    transition: .3s;
-    min-width: 10rem;
-    box-sizing: border-box;
-    background-color: red;
-    border: 1px solid red;
   }
 
 </style>

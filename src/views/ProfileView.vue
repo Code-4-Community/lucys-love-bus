@@ -61,13 +61,15 @@
         <announcements-list
             sitewide
             :count="announcementsCount"
+            :key="announcementsListKey"
             @open-announcement="openAnnouncementModal"/>
       </div>
     </div>
     <AnnouncementModal
         :open="openModal"
         :announcement="modalAnnouncement"
-        @close-announcement="closeAnnouncementModal"/>
+        @close-announcement="closeAnnouncementModal"
+        @delete-announcement="deleteAnnouncement"/>
   </div>
 </template>
 
@@ -88,6 +90,7 @@ export default {
       ROLE,
       openModal: false,
       modalAnnouncement: null,
+      announcementsListKey: 0, // arb. val that reloads announcements-list component when changed
     };
   },
   components: {
@@ -110,6 +113,9 @@ export default {
     },
     closeAnnouncementModal() {
       this.openModal = false;
+    },
+    deleteAnnouncement() {
+      this.announcementsListKey += 1; // reloads the announcements-list component
     },
     async logout() {
       try {

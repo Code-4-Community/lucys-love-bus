@@ -21,8 +21,9 @@ function stringDateFiveDaysBefore(date) {
   return toStringDate(d);
 }
 
-function isInPast(date) {
-  const d = moment(date);
+function isInPast(date, start) {
+  const str = date.concat(', ', start);
+  const d = moment(str, 'YYYY-MM-DD, HH:mm');
   return d.isBefore();
 }
 

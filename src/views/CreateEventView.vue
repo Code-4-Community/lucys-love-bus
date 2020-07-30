@@ -4,7 +4,7 @@
         <div>
             <event-form :submit-name="'Create'" @submit-event-form="createEvent" />
             <h3 class="error-text--large" v-if="internalError">
-                We're sorry, we couldn't create this event. Please try again later.
+                {{ this.internalErrorMsg }}
             </h3>
         </div>
     </div>
@@ -18,18 +18,17 @@ export default {
   name: 'CreateEvent',
   components: { EventForm },
   data: () => ({
-    internalError: false,
-    userError: false,
+    internalError: true,
+    internalErrorMsg: '',
   }),
   methods: {
     async createEvent({ event }) {
       const response = await api.createEvent(event);
-      if (!(response.status) || response.status >= 500) {
-        this.internalError = true;
-      } else if (response.status >= 400) {
-        this.userError = true;
-      } else {
+      if (response.status < 400) {
         await this.$router.push('/upcoming-events');
+      } else {
+        this.internalErrorMsg = response.message;
+        this.internalError = true;
       }
     },
   },

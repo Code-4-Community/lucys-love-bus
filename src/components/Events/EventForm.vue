@@ -289,7 +289,7 @@ export default {
 
       if (this.eventDate.length === 0) {
         newSubmitErrors.eventDate = 'required';
-      } else if (DateUtils.isInPast(this.eventDate)) {
+      } else if (DateUtils.isInPast(this.eventDate, this.startTime)) {
         newSubmitErrors.eventDate = 'event date must be in the future';
       }
 

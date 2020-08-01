@@ -1,23 +1,17 @@
 <template>
-  <div class="scroll-container">
-    <div v-for="(a, idx) in announcements" v-bind:key="a.id" >
-      <div class="announcement-block">
-        <div class="header-bar">
-          <div class="title-date">
-            <div class="announcement-title">
-              {{ a.title }}
-            </div>
-            <div class="announcement-date">
-              {{ toStringDate(a.created) }}
-            </div>
-          </div>
-          <div class="hide-button" @click="hideAnnouncement(idx)">
-            X
-          </div>
+  <div class="announcements-container">
+    <div v-if="announcements.length === 0">
+      <div class="blank-card">
+        <p>This event has no announcements!</p>
+      </div>
+    </div>
+    <div v-else v-for="a in announcements" v-bind:key="a.id" @click="showAnnouncement(a)" >
+      <div class="announcement-card">
+        <div class="announce-header">
+          <div class="announce-title">{{a.title}}</div>
+          <div class="announce-date">{{ toStringDate(a.created) }}</div>
         </div>
-        <div class="announcement-description">
-          {{ a.description }}
-        </div>
+        <div class="announce-body">{{a.description}}</div>
       </div>
     </div>
   </div>
@@ -25,79 +19,108 @@
 
 <script>
 import DateUtils from '../../utils/DateUtils';
+import api from '../../api/api';
 
 export default {
   name: 'EventAnnouncementsList',
   props: {
-    announcementsProp: {
-      type: Array,
+    eventId: {
+      type: String,
       required: true,
     },
   },
   data() {
     return {
-      announcements: this.announcementsProp,
+      announcements: [],
     };
   },
   methods: {
+    showAnnouncement(a) {
+      this.$emit('open-announcement', a);
+    },
     hideAnnouncement(idx) {
       this.announcements.splice(idx, 1);
     },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
+    async getAnnouncements() {
+      const res = await api.getEventAnnouncements(this.eventId);
+      return res.announcements;
+    },
+  },
+  async created() {
+    this.announcements = await this.getAnnouncements();
   },
 };
 </script>
 
 <style lang="less" scoped>
   @import '../../../assets/color-constants.less';
+  @import '../../../assets/global-classes.less';
 
-  .announcement-block {
-    border: 3px solid @button-bg;
-    border-radius: 4px;
-    padding: 6px 6px 6px 12px;
-    text-align: left;
-    margin: 6px 0;
+  .blank-card {
+    width: 90%;
+    height: 80px;
+    padding: 1rem;
+    border-radius: 2px;
+    margin: 0 auto;
+    background: white;
+    text-align: center;
   }
 
-  .header-bar {
+  .announce-header {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
   }
-  .title-date {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: baseline;
+  .announce-title {
+    flex-grow: 3;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  .announce-date {
+    text-align: right;
+  }
+  .announce-body {
+    margin-top: 6px;
+    text-align: left;
+  }
+  .announce-body:after {
+    content:"";
+    top:0;
+    left:0;
+    position: absolute;
+    width:100%;
+    height:100%;
+    background: linear-gradient(transparent 20px, white);
   }
 
-  .announcement-title {
-    font-size: 1.3rem;
-    margin-right: 12px;
-  }
-  .announcement-date {
-    font-size: 1rem;
-  }
-
-  .hide-button {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    font-size: 16pt;
+  .announcement-card {
+    position: relative;
+    width: 90%;
+    max-height: 100px;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 16px auto;
     overflow: hidden;
-    text-align: center;
-    background-color: @button-bg;
-    border: 1px solid @button-bg;
-    color: white;
-    border-radius: 50%;
+    background:white;
     cursor: pointer;
   }
 
-  .announcement-description {
-    padding-right: 6px;
+  .announcements-container {
+    box-sizing: border-box;
+    position: absolute;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 100%;
+    border: none;
+    border-radius: 6px;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(248, 134, 52, 0.5) 0%, rgba(255, 201, 102, 0.5) 100%);
   }
-
+  .announcements-container::-webkit-scrollbar {
+    display: none;
+  }
 </style>

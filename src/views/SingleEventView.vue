@@ -35,9 +35,6 @@
         </access-control>
       </div>
     </div>
-    <div class="announcement-container" v-if="announcements.length > 0">
-      <event-announcements-list :announcementsProp="announcements" />
-    </div>
     <div class="middle-content">
       <div class="event-img">
         <img v-if="singleEvent.thumbnail" :src="singleEvent.thumbnail" />
@@ -117,6 +114,10 @@
           </button>
         </access-control>
       </div>
+      <div class="announcement-list">
+        <event-announcements-list :eventId="eventId"
+                                  @open-announcement="openAnnouncementModal"/>
+      </div>
     </div>
     <EventModal :open="openModal"
                 :event="singleEvent"
@@ -124,6 +125,10 @@
                 @close-event-modal="closeEventModal"
                 @add-to-cart="addEventToCart"
     />
+    <AnnouncementModal
+        :open="announcementModalOpen"
+        :announcement="modalAnnouncement"
+        @close-announcement="closeAnnouncementModal"/>
     <event-registration-modal
         :open="registrationModalOpen"
         :event="singleEvent"
@@ -141,6 +146,7 @@ import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import EventModal from '../components/Modals/EventModal.vue';
 import EventAnnouncementsList from '../components/Announcements/EventAnnouncementsList.vue';
+import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import {
   USER, ROLE,
 } from '../utils/constants/user';
@@ -156,6 +162,7 @@ export default {
     EventAnnouncementsList,
     AccessControl,
     EventModal,
+    AnnouncementModal,
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
@@ -174,6 +181,8 @@ export default {
       openModal: false,
       roleModalOpen: false,
       registrationModalOpen: false,
+      modalAnnouncement: null,
+      announcementModalOpen: false,
     };
   },
   computed: {
@@ -208,6 +217,13 @@ export default {
     },
     closeEventModal() {
       this.openModal = false;
+    },
+    openAnnouncementModal(announcement) {
+      this.announcementModalOpen = true;
+      this.modalAnnouncement = announcement;
+    },
+    closeAnnouncementModal() {
+      this.announcementModalOpen = false;
     },
     addEventToCart(payload) {
       this.openModal = false;
@@ -329,7 +345,18 @@ export default {
   font-weight: bold;
 }
 
-
+.bottom-content {
+  display: flex;
+  flex-direction: column;
+}
+.announcement-list {
+    position: relative;
+    margin-top: 12px;
+    width: 100%;
+    height: 100%;
+    min-height: 20vh;
+    border-radius: 6px;
+}
 .event-buttons {
   display: flex;
   flex-direction: row;

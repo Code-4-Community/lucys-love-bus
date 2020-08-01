@@ -24,7 +24,7 @@ export default {
   methods: {
     async createEvent({ event }) {
       const response = await api.createEvent(event);
-      if (response.status < 400) {
+      if (response.status >= 200 && response.status < 300) {
         await this.$router.push('/upcoming-events');
       } else {
         this.internalErrorMsg = response.message;

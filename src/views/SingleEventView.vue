@@ -62,6 +62,14 @@
           {{ singleEvent.details.description }}
         </div>
       </div>
+      <div class="announcements-list-container">
+        <p class="subheader">Announcements</p>
+        <div class="announcement-list">
+          <announcements-list :sitewide="false"
+                              :eventID="this.eventId"
+                              @open-announcement="openAnnouncementModal"/>
+        </div>
+      </div>
     </div>
     <div class="bottom-content">
       <div class="event-buttons">
@@ -114,10 +122,6 @@
           </button>
         </access-control>
       </div>
-      <div class="announcement-list">
-        <event-announcements-list :eventId="eventId"
-                                  @open-announcement="openAnnouncementModal"/>
-      </div>
     </div>
     <EventModal :open="openModal"
                 :event="singleEvent"
@@ -145,7 +149,7 @@ import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import EventModal from '../components/Modals/EventModal.vue';
-import EventAnnouncementsList from '../components/Announcements/EventAnnouncementsList.vue';
+import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
 import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import {
   USER, ROLE,
@@ -159,7 +163,7 @@ export default {
   components: {
     EventRegistrationModal,
     AccountRoleModal,
-    EventAnnouncementsList,
+    AnnouncementsList,
     AccessControl,
     EventModal,
     AnnouncementModal,
@@ -312,22 +316,27 @@ export default {
 }
 
 .middle-content {
-  display: inline;
+  display: flex;
+  flex-direction: row;
   margin-top: 10px;
+  margin-bottom: 10px;
+  justify-content: space-between;
 }
 .event-img {
   position: relative;
   float: left;
-  max-width: 50%;
+  max-width: 30%;
   height: auto;
+  margin: 12px;
 }
 .event-img > img {
   float: left;
-  width: 90%;
+  width: 100%;
 }
 
 .event-info {
   text-align: left;
+  margin: 12px;
 }
 .info-block {
   margin-bottom: 10px;
@@ -345,17 +354,27 @@ export default {
   font-weight: bold;
 }
 
+.announcements-list-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 12px;
+  margin-left: 36px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  width: 30%;
+  height: auto;
+  min-height: 35vh;
+  overflow: hidden;
+}
+.announcement-list {
+  border-radius: 6px;
+  margin-top: 12px;
+}
+
 .bottom-content {
   display: flex;
   flex-direction: column;
-}
-.announcement-list {
-    position: relative;
-    margin-top: 12px;
-    width: 100%;
-    height: 100%;
-    min-height: 20vh;
-    border-radius: 6px;
 }
 .event-buttons {
   display: flex;

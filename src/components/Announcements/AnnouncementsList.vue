@@ -22,7 +22,11 @@ import DateUtils from '../../utils/DateUtils';
 import api from '../../api/api';
 
 export default {
-  /* TODO: This component should probably just be for site-wide announcements */
+  /*
+  This component now works for both sitewide and event-specific announcements.
+  If being used for sitewide, boolean is true and a count is passed.
+  If being used for event-specific, boolean is false and an event id is passed.
+  */
   name: 'AnnouncementsList',
   props: {
     sitewide: Boolean,

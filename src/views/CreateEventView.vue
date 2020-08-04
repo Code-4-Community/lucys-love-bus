@@ -18,7 +18,7 @@ export default {
   name: 'CreateEvent',
   components: { EventForm },
   data: () => ({
-    internalError: true,
+    internalError: false,
     internalErrorMsg: '',
   }),
   methods: {

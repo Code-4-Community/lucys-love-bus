@@ -228,6 +228,7 @@ export default {
     },
     closeAnnouncementModal() {
       this.announcementModalOpen = false;
+      this.modalAnnouncement = null;
     },
     addEventToCart(payload) {
       this.openModal = false;
@@ -317,7 +318,6 @@ export default {
 
 .middle-content {
   display: flex;
-  flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
   justify-content: space-between;
@@ -337,6 +337,7 @@ export default {
 .event-info {
   text-align: left;
   margin: 12px;
+  max-width: 40%;
 }
 .info-block {
   margin-bottom: 10px;
@@ -358,10 +359,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-top: 12px;
-  margin-left: 36px;
-  margin-right: 12px;
-  margin-bottom: 12px;
+  margin: 12px 12px 12px 36px;
   width: 30%;
   height: auto;
   min-height: 35vh;
@@ -370,6 +368,8 @@ export default {
 .announcement-list {
   border-radius: 6px;
   margin-top: 12px;
+  flex: 1;
+  position: relative;
 }
 
 .bottom-content {

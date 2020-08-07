@@ -102,7 +102,7 @@ export default {
     position: absolute;
     width:100%;
     height:100%;
-    background: linear-gradient(transparent 20px, white);
+    background: linear-gradient(rgba(255, 255, 255, 0) 20px, rgba(255, 255, 255, 1));
   }
 
   .announcement-card {

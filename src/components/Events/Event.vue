@@ -108,7 +108,7 @@ export default {
     position: absolute;
     width:100%;
     height:50%;
-    background: linear-gradient(transparent 10px, white);
+    background: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 1));
   }
 
   .content-wrapper > a {

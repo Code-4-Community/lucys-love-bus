@@ -228,7 +228,6 @@ export default {
     },
     closeAnnouncementModal() {
       this.announcementModalOpen = false;
-      this.modalAnnouncement = null;
     },
     addEventToCart(payload) {
       this.openModal = false;

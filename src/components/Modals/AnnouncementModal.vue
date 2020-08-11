@@ -10,7 +10,8 @@
           {{announcement.description}}
           <access-control :roles="[USER[ROLE.ADMIN]]">
             <br/>
-            <button class="btn--warning" @click="deleteAnnouncement">Delete</button>
+            <button class="btn--warning"
+                    @click="deleteAnnouncement(announcement.id)">Delete</button>
           </access-control>
         </div>
         <div
@@ -27,7 +28,6 @@
 <script>
 import DateUtils from '../../utils/DateUtils';
 import AccessControl from '../AccessControl/AccessControl.vue';
-import api from '../../api/api';
 import { ROLE, USER } from '../../utils/constants/user';
 
 export default {
@@ -39,6 +39,7 @@ export default {
     },
     announcement: {
       type: Object,
+      required: true,
     },
   },
   data() {
@@ -62,15 +63,9 @@ export default {
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
-    async deleteAnnouncement() {
-      try {
-        await api.deleteAnnouncement(this.announcement.id);
-        this.$emit('close-announcement');
-        this.$emit('delete-announcement');
-      } catch (e) {
-        // eslint-disable-next-line
-        alert("Error: " + e);
-      }
+    deleteAnnouncement(announcementId) {
+      this.$store.dispatch('announcements/deleteAnnouncement', announcementId);
+      this.close();
     },
   },
 };

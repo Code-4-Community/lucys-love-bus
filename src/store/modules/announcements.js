@@ -42,8 +42,9 @@ export default {
       const response = await api.getEventAnnouncements(eventId);
       commit('loadAnnouncements', { announcements: response.announcements });
     },
-    async deleteAnnouncement({ commit }, { announcementId }) {
-      await api.deleteAnnouncement(announcementId);
+    async deleteAnnouncement({ commit }, announcementId) {
+      const response = await api.deleteAnnouncement(announcementId);
+      console.log(response);
       commit('removeAnnouncement', { announcementId });
     },
   },

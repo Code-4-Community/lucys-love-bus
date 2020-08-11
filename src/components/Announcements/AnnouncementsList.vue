@@ -40,7 +40,7 @@ export default {
   methods: {
     async getAnnouncements() {
       let res;
-      if (this.count >= 0) {
+      if (!(this.eventId >= 0)) {
         res = await api.getSitewideAnnouncements({
           count: this.count,
         });

@@ -29,9 +29,8 @@ export default {
   */
   name: 'AnnouncementsList',
   props: {
-    sitewide: Boolean,
-    count: Number, // count needed if and only if sitewide
-    eventID: Number, // eventID needed if and only if NOT sitewide
+    count: Number, // given a value if and only if sitewide
+    eventID: Number, // given a value if and only if NOT sitewide
   },
   data() {
     return {
@@ -41,7 +40,7 @@ export default {
   methods: {
     async getAnnouncements() {
       let res;
-      if (this.sitewide) {
+      if (this.count >= 0) {
         res = await api.getSitewideAnnouncements({
           count: this.count,
         });

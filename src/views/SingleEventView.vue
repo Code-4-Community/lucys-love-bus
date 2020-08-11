@@ -65,8 +65,7 @@
       <div class="announcements-list-container">
         <p class="subheader">Announcements</p>
         <div class="announcement-list">
-          <announcements-list :sitewide="false"
-                              :eventID="this.eventId"
+          <announcements-list :eventID="this.eventId"
                               @open-announcement="openAnnouncementModal"/>
         </div>
       </div>

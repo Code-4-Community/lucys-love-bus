@@ -8,26 +8,30 @@ export default {
   getters: {
     getSitewideAnnouncements(state) {
       return state.announcements.filter(
-        ann => !("event_id" in ann));
+        ann => !('event_id' in ann),
+      );
     },
     getEventAnnouncements(state, eventId) {
       return state.announcements.filter(
-        ann => ("event_id" in ann) && ann['event_id'] === eventId);
-    }
+        ann => ('event_id' in ann) && ann.event_id === eventId,
+      );
+    },
   },
   mutations: {
     loadAnnouncements(state, { announcements }) {
-      state.announcements.push(announcements);
+      state.announcements = [];
+      announcements.forEach((ann) => {
+        state.announcements.push(ann);
+      });
     },
     removeAnnouncement(state, payload) {
-      state.announcements =
-        state
+      state.announcements = state
         .announcements
         .filter(ann => ann.id !== payload.announcementId);
     },
     clearAnnouncements(state) {
       state.announcements = [];
-    }
+    },
   },
   actions: {
     async loadSitewideAnnouncements({ commit }) {
@@ -40,7 +44,7 @@ export default {
     },
     async deleteAnnouncement({ commit }, { announcementId }) {
       await api.deleteAnnouncement(announcementId);
-      commit('removeAnnouncement', { announcementId })
-    }
+      commit('removeAnnouncement', { announcementId });
+    },
   },
 };

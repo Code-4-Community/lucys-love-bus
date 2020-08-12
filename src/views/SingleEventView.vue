@@ -35,9 +35,6 @@
         </access-control>
       </div>
     </div>
-    <div class="announcement-container" v-if="announcements.length > 0">
-      <event-announcements-list :announcementsProp="announcements" />
-    </div>
     <div class="middle-content">
       <div class="event-img">
         <img v-if="singleEvent.thumbnail" :src="singleEvent.thumbnail" />
@@ -63,6 +60,13 @@
         <div class="info-block">
           <p class="subheader">What</p>
           {{ singleEvent.details.description }}
+        </div>
+      </div>
+      <div class="announcements-list-container">
+        <p class="subheader">Announcements</p>
+        <div class="announcement-list">
+          <announcements-list :eventID="this.eventId"
+                              @open-announcement="openAnnouncementModal"/>
         </div>
       </div>
     </div>
@@ -124,6 +128,10 @@
                 @close-event-modal="closeEventModal"
                 @add-to-cart="addEventToCart"
     />
+    <AnnouncementModal
+        :open="announcementModalOpen"
+        :announcement="modalAnnouncement"
+        @close-announcement="closeAnnouncementModal"/>
     <event-registration-modal
         :open="registrationModalOpen"
         :event="singleEvent"
@@ -140,7 +148,8 @@ import moment from 'moment';
 import api from '../api/api';
 import AccessControl from '../components/AccessControl/AccessControl.vue';
 import EventModal from '../components/Modals/EventModal.vue';
-import EventAnnouncementsList from '../components/Announcements/EventAnnouncementsList.vue';
+import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
+import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import {
   USER, ROLE,
 } from '../utils/constants/user';
@@ -153,9 +162,10 @@ export default {
   components: {
     EventRegistrationModal,
     AccountRoleModal,
-    EventAnnouncementsList,
+    AnnouncementsList,
     AccessControl,
     EventModal,
+    AnnouncementModal,
   },
   props: {
     eventId: { // id is a number, but props are always passed as strings
@@ -174,6 +184,8 @@ export default {
       openModal: false,
       roleModalOpen: false,
       registrationModalOpen: false,
+      modalAnnouncement: null,
+      announcementModalOpen: false,
     };
   },
   computed: {
@@ -208,6 +220,13 @@ export default {
     },
     closeEventModal() {
       this.openModal = false;
+    },
+    openAnnouncementModal(announcement) {
+      this.announcementModalOpen = true;
+      this.modalAnnouncement = announcement;
+    },
+    closeAnnouncementModal() {
+      this.announcementModalOpen = false;
     },
     addEventToCart(payload) {
       this.openModal = false;
@@ -296,22 +315,27 @@ export default {
 }
 
 .middle-content {
-  display: inline;
+  display: flex;
   margin-top: 10px;
+  margin-bottom: 10px;
+  justify-content: space-between;
 }
 .event-img {
   position: relative;
   float: left;
-  max-width: 50%;
+  max-width: 30%;
   height: auto;
+  margin: 12px;
 }
 .event-img > img {
   float: left;
-  width: 90%;
+  width: 100%;
 }
 
 .event-info {
   text-align: left;
+  margin: 12px;
+  max-width: 40%;
 }
 .info-block {
   margin-bottom: 10px;
@@ -329,7 +353,27 @@ export default {
   font-weight: bold;
 }
 
+.announcements-list-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 12px 12px 12px 36px;
+  width: 30%;
+  height: auto;
+  min-height: 35vh;
+  overflow: hidden;
+}
+.announcement-list {
+  border-radius: 6px;
+  margin-top: 12px;
+  flex: 1;
+  position: relative;
+}
 
+.bottom-content {
+  display: flex;
+  flex-direction: column;
+}
 .event-buttons {
   display: flex;
   flex-direction: row;

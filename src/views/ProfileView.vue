@@ -59,7 +59,6 @@
       </div>
       <div class="announcement-list">
         <announcements-list
-            sitewide
             :count="announcementsCount"
             @open-announcement="openAnnouncementModal"/>
       </div>

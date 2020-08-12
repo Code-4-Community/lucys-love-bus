@@ -25,7 +25,8 @@ export default {
       });
     },
     removeAnnouncement(state, payload) {
-      state.announcements = state
+      state.announcements =
+        state
         .announcements
         .filter(ann => ann.id !== payload.announcementId);
     },
@@ -44,7 +45,6 @@ export default {
     },
     async deleteAnnouncement({ commit }, announcementId) {
       const response = await api.deleteAnnouncement(announcementId);
-      console.log(response);
       commit('removeAnnouncement', { announcementId });
     },
   },

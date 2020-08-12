@@ -25,8 +25,7 @@ export default {
       });
     },
     removeAnnouncement(state, payload) {
-      state.announcements =
-        state
+      state.announcements = state
         .announcements
         .filter(ann => ann.id !== payload.announcementId);
     },
@@ -39,12 +38,12 @@ export default {
       const response = await api.getSitewideAnnouncements();
       commit('loadAnnouncements', { announcements: response.announcements });
     },
-    async loadEventAnnouncements({ commit }, { eventId }) {
+    async loadEventAnnouncements({ commit }, eventId) {
       const response = await api.getEventAnnouncements(eventId);
       commit('loadAnnouncements', { announcements: response.announcements });
     },
     async deleteAnnouncement({ commit }, announcementId) {
-      const response = await api.deleteAnnouncement(announcementId);
+      await api.deleteAnnouncement(announcementId);
       commit('removeAnnouncement', { announcementId });
     },
   },

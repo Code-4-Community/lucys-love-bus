@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import announcements from './modules/announcements';
 import events from './modules/events';
 import cart from './modules/cart';
 import user from './modules/user';
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   namespaced: true,
   modules: {
+    announcements,
     events,
     cart,
     user,
@@ -18,6 +20,7 @@ export default new Vuex.Store({
   },
   actions: {
     clearAll({ commit }) {
+      commit('announcements/clearAnnouncements');
       commit('events/resetEvents');
       commit('cart/clearCart');
       commit('user/resetUser');

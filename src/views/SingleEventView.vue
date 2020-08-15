@@ -251,7 +251,7 @@ export default {
   },
   async created() {
     await this.getSingleEvent();
-    await this.getEventAnnouncements();
+    await this.$store.dispatch('announcements/loadEventAnnouncements', this.eventId);
   },
 };
 </script>

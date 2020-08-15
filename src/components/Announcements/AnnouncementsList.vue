@@ -9,6 +9,7 @@
       <div class="announcement-card">
         <div class="announce-header">
           <div class="announce-title">{{a.title}}</div>
+          <div>{{"id " + a.id}}</div>
           <div class="announce-date">{{ toStringDate(a.created) }}</div>
         </div>
         <div class="announce-body">{{a.description}}</div>
@@ -18,8 +19,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DateUtils from '../../utils/DateUtils';
-import api from '../../api/api';
 
 export default {
   /* TODO: This component should probably just be for site-wide announcements */
@@ -29,23 +30,7 @@ export default {
     count: Number, // count needed if and only if sitewide
     eventID: Number, // eventID needed if and only if NOT sitewide
   },
-  data() {
-    return {
-      announcements: [],
-    };
-  },
   methods: {
-    async getAnnouncements() {
-      let res;
-      if (this.sitewide) {
-        res = await api.getSitewideAnnouncements({
-          count: this.count,
-        });
-      } else {
-        res = await api.getEventAnnouncements(this.eventID);
-      }
-      return res.announcements;
-    },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
@@ -53,8 +38,13 @@ export default {
       this.$emit('open-announcement', a);
     },
   },
-  async created() {
-    this.announcements = await this.getAnnouncements();
+  computed: {
+    ...mapState('announcements', {
+      announcements: 'announcements',
+    }),
+  },
+  created() {
+    this.$store.dispatch('announcements/loadSitewideAnnouncements');
   },
 };
 </script>

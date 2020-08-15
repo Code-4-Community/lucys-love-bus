@@ -9,6 +9,7 @@
       <div class="announcement-card">
         <div class="announce-header">
           <div class="announce-title">{{a.title}}</div>
+          <div>{{"id " + a.id}}</div>
           <div class="announce-date">{{ toStringDate(a.created) }}</div>
         </div>
         <div class="announce-body">{{a.description}}</div>

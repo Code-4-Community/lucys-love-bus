@@ -19,9 +19,10 @@ export default {
   },
   mutations: {
     loadAnnouncements(state, { announcements }) {
-      state.announcements = [];
       announcements.forEach((ann) => {
-        state.announcements.push(ann);
+        if (state.announcements.filter(a => a.id === ann.id).length === 0) {
+          state.announcements.push(ann);
+        }
       });
     },
     removeAnnouncement(state, payload) {

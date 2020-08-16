@@ -145,7 +145,8 @@ async function getEventAnnouncements(id) {
 async function deleteAnnouncement(id) {
   try {
     const path = `/api/v1/protected/announcements/${id}`;
-    return await AxiosInstance.delete(path);
+    const { data } = AxiosInstance.delete(path);
+    return data;
   } catch (err) {
     return err;
   }

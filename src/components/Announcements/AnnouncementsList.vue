@@ -22,12 +22,15 @@ import { mapState } from 'vuex';
 import DateUtils from '../../utils/DateUtils';
 
 export default {
-  /* TODO: This component should probably just be for site-wide announcements */
+  /*
+  This component now works for both sitewide and event-specific announcements.
+  If being used for sitewide, boolean is true and a count is passed.
+  If being used for event-specific, boolean is false and an event id is passed.
+  */
   name: 'AnnouncementsList',
   props: {
-    sitewide: Boolean,
-    count: Number, // count needed if and only if sitewide
-    eventID: Number, // eventID needed if and only if NOT sitewide
+    count: Number, // given a value if and only if sitewide
+    eventID: Number, // given a value if and only if NOT sitewide
   },
   methods: {
     toStringDate(date) {
@@ -87,7 +90,7 @@ export default {
     position: absolute;
     width:100%;
     height:100%;
-    background: linear-gradient(transparent 20px, white);
+    background: linear-gradient(rgba(255, 255, 255, 0) 20px, rgba(255, 255, 255, 1));
   }
 
   .announcement-card {

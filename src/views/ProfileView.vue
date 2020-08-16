@@ -59,7 +59,6 @@
       </div>
       <div class="announcement-list">
         <announcements-list
-            sitewide
             :count="announcementsCount"
             @open-announcement="openAnnouncementModal"/>
       </div>
@@ -72,7 +71,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import AnnouncementsList from '../components/Announcements/AnnouncementsList.vue';
 import AnnouncementModal from '../components/Modals/AnnouncementModal.vue';
 import ANNOUNCEMENT_COUNT from '../utils/constants/announcements';
@@ -101,8 +100,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('user', {
-      setUser: 'setUser',
+    ...mapActions({
+      clearAll: 'clearAll',
     }),
     openAnnouncementModal(announcement) {
       this.openModal = true;
@@ -114,8 +113,8 @@ export default {
     async logout() {
       try {
         await logout();
-        this.setUser();
-        this.$router.push('/');
+        this.clearAll();
+        await this.$router.push('/');
       } catch (err) {
         // eslint-disable-next-line no-alert
         alert(`Error: ${err}`);

@@ -18,8 +18,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DateUtils from '../../utils/DateUtils';
-import api from '../../api/api';
 
 export default {
   /* TODO: This component should probably just be for site-wide announcements */
@@ -29,23 +29,7 @@ export default {
     count: Number, // count needed if and only if sitewide
     eventID: Number, // eventID needed if and only if NOT sitewide
   },
-  data() {
-    return {
-      announcements: [],
-    };
-  },
   methods: {
-    async getAnnouncements() {
-      let res;
-      if (this.sitewide) {
-        res = await api.getSitewideAnnouncements({
-          count: this.count,
-        });
-      } else {
-        res = await api.getEventAnnouncements(this.eventID);
-      }
-      return res.announcements;
-    },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
@@ -53,8 +37,13 @@ export default {
       this.$emit('open-announcement', a);
     },
   },
-  async created() {
-    this.announcements = await this.getAnnouncements();
+  computed: {
+    ...mapState('announcements', {
+      announcements: 'announcements',
+    }),
+  },
+  created() {
+    this.$store.dispatch('announcements/loadSitewideAnnouncements');
   },
 };
 </script>

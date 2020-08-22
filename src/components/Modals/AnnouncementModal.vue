@@ -42,11 +42,9 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      USER,
-      ROLE,
-    };
+  created() {
+    this.USER = USER;
+    this.ROLE = ROLE;
   },
   components: {
     AccessControl,

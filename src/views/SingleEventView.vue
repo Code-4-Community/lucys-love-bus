@@ -61,6 +61,10 @@
           <p class="subheader">What</p>
           {{ singleEvent.details.description }}
         </div>
+        <div class="info-block">
+          <p class="subheader">Price</p>
+          ${{ Number.parseFloat(singleEvent.price / 100).toFixed(2) }}
+        </div>
       </div>
       <div class="announcements-list-container">
         <p class="subheader">Announcements</p>

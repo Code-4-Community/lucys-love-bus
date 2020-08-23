@@ -92,6 +92,24 @@
           </div>
         </div>
       </div>
+      <div class="box-price">
+        <div class="input-box">
+          <label class="input-label">
+            Price ($)
+            <input class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.price }"
+                   v-validate="'number'"
+                   v-model="event.price"
+                   name="name"
+                   type="number"
+                   step="0.25"
+                   placeholder="Price">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.price }}
+          </div>
+        </div>
+      </div>
       <div class="box-description">
         <div class="input-box">
           <label class="input-label">
@@ -168,6 +186,7 @@ export default {
             start: null,
             end: null,
           },
+          price: null,
         };
       },
     },
@@ -186,6 +205,7 @@ export default {
           start: this.eventProp.details.start,
           end: this.eventProp.details.end,
         },
+        price: Number.parseFloat(this.eventProp.price / 100 || 5).toFixed(2),
       },
       eventDate: this.unixToDateTimeArray(this.eventProp.details.start)[0],
       startTime: this.unixToDateTimeArray(this.eventProp.details.start)[1],
@@ -257,6 +277,7 @@ export default {
       if (this.validateInput()) {
         this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
         this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
+        this.event.price = Math.round(this.event.price * 100); // convert dollars to cents
 
         this.$emit('submit-event-form', { event: this.event });
       }
@@ -278,6 +299,9 @@ export default {
       }
       if (this.event.spotsAvailable == null) {
         newSubmitErrors.spotsAvailable = 'required';
+      }
+      if (this.event.price < 0) {
+        newSubmitErrors.price = 'price must be positive';
       }
 
       this.submitErrors = this.validateTime(newSubmitErrors);
@@ -369,6 +393,10 @@ export default {
 
 
   .box-spots {
+    width: 20%;
+  }
+
+  .box-price {
     width: 20%;
   }
 

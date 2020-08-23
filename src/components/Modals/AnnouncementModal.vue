@@ -8,8 +8,7 @@
         </div>
         <div class="announce-body">
           {{announcement.description}}
-          <access-control :roles="[USER[ROLE.ADMIN]]">
-            <br/>
+          <access-control :roles="[USER[ROLE.ADMIN]]" class="access-control-wrapper">
             <button class="btn--warning"
                     @click="deleteAnnouncement(announcement.id)">Delete</button>
           </access-control>
@@ -139,6 +138,10 @@ export default {
     text-align: center;
     vertical-align: middle;
     font-weight: bolder;
+  }
+
+  .access-control-wrapper {
+    padding-top: 1rem;
   }
 
 </style>

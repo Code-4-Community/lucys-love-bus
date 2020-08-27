@@ -164,6 +164,7 @@
 <script>
 import moment from 'moment';
 import DateUtils from '../../utils/DateUtils';
+import ConversionUtils from '../../utils/ConversionUtils';
 
 export default {
   name: 'EventForm',
@@ -205,7 +206,7 @@ export default {
           start: this.eventProp.details.start,
           end: this.eventProp.details.end,
         },
-        price: Number.parseFloat(this.eventProp.price / 100 || 5).toFixed(2),
+        price: ConversionUtils.centsToDollars(this.eventProp.price),
       },
       eventDate: this.unixToDateTimeArray(this.eventProp.details.start)[0],
       startTime: this.unixToDateTimeArray(this.eventProp.details.start)[1],
@@ -277,7 +278,7 @@ export default {
       if (this.validateInput()) {
         this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
         this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
-        this.event.price = Math.round(this.event.price * 100); // convert dollars to cents
+        this.event.price = ConversionUtils.dollarsToCents(this.event.price);
 
         this.$emit('submit-event-form', { event: this.event });
       }

@@ -20,7 +20,8 @@ export default {
   mutations: {
     loadAnnouncements(state, { announcements }) {
       announcements.forEach((ann) => {
-        if (state.announcements.filter(a => a.id === ann.id).length === 0) {
+        // check if there's already some announcement with the same id
+        if (!(state.announcements.some(a => a.id === ann.id))) {
           state.announcements.push(ann);
         }
       });

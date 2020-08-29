@@ -1,11 +1,11 @@
 <template>
   <div class="announcements-container">
-    <div v-if="announcements.length === 0">
+    <div v-if="getAnnouncements().length === 0">
       <div class="blank-card">
         <p>There is nothing to be announced!</p>
       </div>
     </div>
-    <div v-else v-for="a in announcements" v-bind:key="a.id" @click="showAnnouncement(a)" >
+    <div v-else v-for="a in getAnnouncements()" v-bind:key="a.id" @click="showAnnouncement(a)" >
       <div class="announcement-card">
         <div class="announce-header">
           <div class="announce-title">{{a.title}}</div>
@@ -39,14 +39,30 @@ export default {
     showAnnouncement(a) {
       this.$emit('open-announcement', a);
     },
+    isEventSpecific() {
+      // eslint-disable-next-line radix
+      return parseInt(this.eventID) >= 0;
+    },
+    getAnnouncements() {
+      if (this.isEventSpecific()) {
+        return this.eventSpecificAnnouncements(1);
+      }
+      return this.sitewideAnnouncements;
+    },
   },
   computed: {
     ...mapState('announcements', {
-      announcements: 'sitewideAnnouncements',
+      sitewideAnnouncements: 'sitewideAnnouncements',
+      eventSpecificAnnouncements: 'eventSpecificAnnouncements',
     }),
   },
   created() {
-    this.$store.dispatch('announcements/loadSitewideAnnouncements');
+    if (this.isEventSpecific()) {
+      // eslint-disable-next-line radix
+      this.$store.dispatch('announcements/loadEventSpecificAnnouncements', parseInt(this.eventID));
+    } else {
+      this.$store.dispatch('announcements/loadSitewideAnnouncements');
+    }
   },
 };
 </script>

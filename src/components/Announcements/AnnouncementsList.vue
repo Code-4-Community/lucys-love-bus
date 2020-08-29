@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     ...mapState('announcements', {
-      announcements: 'announcements',
+      announcements: 'sitewideAnnouncements',
     }),
   },
   created() {

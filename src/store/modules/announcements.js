@@ -41,7 +41,7 @@ export default {
     getSitewideAnnouncements(state) {
       return state.sitewideAnnouncements;
     },
-    getEventAnnouncements(state, eventId) {
+    getEventSpecificAnnouncements(state, eventId) {
       return state.eventSpecificAnnouncements[eventId];
     },
   },

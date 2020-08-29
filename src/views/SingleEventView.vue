@@ -65,7 +65,7 @@
       <div class="announcements-list-container">
         <p class="subheader">Announcements</p>
         <div class="announcement-list">
-          <announcements-list :eventID="this.eventId"
+          <announcements-list :eventID="parseInt(this.eventId)"
                               @open-announcement="openAnnouncementModal"/>
         </div>
       </div>
@@ -246,9 +246,6 @@ export default {
     },
     async getSingleEvent() {
       this.singleEvent = await api.getEvent(this.eventId);
-    },
-    async getEventAnnouncements() {
-      this.announcements = await api.getEventAnnouncements(this.eventId);
     },
     async viewRSVP(event) {
       const resp = await api.getEventRSVP(this.eventId);

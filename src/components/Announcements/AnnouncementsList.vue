@@ -29,8 +29,8 @@ export default {
   */
   name: 'AnnouncementsList',
   props: {
-    count: Number, // given a value if and only if sitewide
-    eventID: Number, // given a value if and only if NOT sitewide
+    count: Number, // given a value if sitewide
+    eventID: Number, // given a value if  NOT sitewide
   },
   methods: {
     toStringDate(date) {
@@ -40,12 +40,14 @@ export default {
       this.$emit('open-announcement', a);
     },
     isEventSpecific() {
-      // eslint-disable-next-line radix
-      return parseInt(this.eventID) >= 0;
+      return this.eventID >= 0;
     },
     getAnnouncements() {
       if (this.isEventSpecific()) {
-        return this.eventSpecificAnnouncements(1);
+        if (this.eventSpecificAnnouncements[this.eventID]) {
+          return this.eventSpecificAnnouncements[this.eventID];
+        }
+        return [];
       }
       return this.sitewideAnnouncements;
     },
@@ -58,8 +60,7 @@ export default {
   },
   created() {
     if (this.isEventSpecific()) {
-      // eslint-disable-next-line radix
-      this.$store.dispatch('announcements/loadEventSpecificAnnouncements', parseInt(this.eventID));
+      this.$store.dispatch('announcements/loadEventSpecificAnnouncements', this.eventID);
     } else {
       this.$store.dispatch('announcements/loadSitewideAnnouncements');
     }

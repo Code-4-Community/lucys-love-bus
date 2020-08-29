@@ -168,8 +168,8 @@ export default {
     AnnouncementModal,
   },
   props: {
-    eventId: { // id is a number, but props are always passed as strings
-      type: String,
+    eventId: {
+      type: Number,
       required: true,
     },
   },

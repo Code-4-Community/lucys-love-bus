@@ -68,7 +68,12 @@ const allRoutes = [
     path: '/event/:eventId',
     name: 'single-event',
     component: SingleEventView,
-    props: true,
+    props(route) {
+      const props = { ...route.params };
+      // eslint-disable-next-line radix
+      props.eventId = parseInt(props.eventId);
+      return props;
+    },
   },
   {
     path: '/checkout',

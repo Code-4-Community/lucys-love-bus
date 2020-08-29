@@ -35,7 +35,7 @@ export default {
   state: {
     sitewideAnnouncements: [],
     // maps event_id -> list of announcements for that event
-    eventSpecificAnnouncements: new Map(),
+    eventSpecificAnnouncements: {},
   },
   getters: {
     getSitewideAnnouncements(state) {
@@ -55,13 +55,13 @@ export default {
     },
     loadEventSpecificAnnouncements(state, { announcements }) {
       announcements.forEach((ann) => {
+        console.log(state.eventSpecificAnnouncements);
         if (ann.eventId in state.eventSpecificAnnouncements) {
-          if (!containsAnnouncement(state.eventSpecificAnnouncements, ann)) {
-            state.eventSpecificAnnouncements.event_id.append(ann);
+          if (!containsAnnouncement(state.eventSpecificAnnouncements[ann.eventId], ann)) {
+            state.eventSpecificAnnouncements[ann.eventId].push(ann);
           }
         } else {
-          const tempList = [ann];
-          state.eventSpecificAnnouncements.set(ann.eventId, tempList);
+          state.eventSpecificAnnouncements[ann.eventId] = [ann];
         }
       });
     },
@@ -73,7 +73,7 @@ export default {
       } else {
         state.eventSpecificAnnouncements.set(payload.announcementId,
           removeAnnouncement(
-            state.eventSpecificAnnouncements.get(payload.announcementId),
+            state.eventSpecificAnnouncements[payload.announcementId],
             payload.announcementId,
           ));
       }

@@ -42,7 +42,6 @@ export default {
       return state.sitewideAnnouncements;
     },
     getEventSpecificAnnouncements(state) {
-      console.log(state.eventSpecificAnnouncements);
       return eventId => state.eventSpecificAnnouncements[eventId];
     },
   },
@@ -56,13 +55,13 @@ export default {
     },
     loadEventSpecificAnnouncements(state, { announcements }) {
       announcements.forEach((ann) => {
-        if (ann.event_id in state.eventSpecificAnnouncements) {
+        if (ann.eventId in state.eventSpecificAnnouncements) {
           if (!containsAnnouncement(state.eventSpecificAnnouncements, ann)) {
             state.eventSpecificAnnouncements.event_id.append(ann);
           }
         } else {
           const tempList = [ann];
-          state.eventSpecificAnnouncements.set(ann.event_id, tempList);
+          state.eventSpecificAnnouncements.set(ann.eventId, tempList);
         }
       });
     },

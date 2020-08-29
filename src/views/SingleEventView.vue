@@ -222,8 +222,8 @@ export default {
       this.openModal = false;
     },
     openAnnouncementModal(announcement) {
-      this.announcementModalOpen = true;
       this.modalAnnouncement = announcement;
+      this.announcementModalOpen = true;
     },
     closeAnnouncementModal() {
       this.announcementModalOpen = false;
@@ -267,7 +267,7 @@ export default {
   },
   async created() {
     await this.getSingleEvent();
-    await this.$store.dispatch('announcements/loadEventAnnouncements', this.eventId);
+    await this.$store.dispatch('announcements/loadEventSpecificAnnouncements', this.eventId);
   },
 };
 </script>

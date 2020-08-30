@@ -70,8 +70,7 @@ const allRoutes = [
     component: SingleEventView,
     props(route) {
       const props = { ...route.params };
-      // eslint-disable-next-line radix
-      props.eventId = parseInt(props.eventId);
+      props.eventId = +props.eventId; // cast as a Number
       return props;
     },
   },

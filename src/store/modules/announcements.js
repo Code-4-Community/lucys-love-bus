@@ -34,7 +34,6 @@ export default {
   namespaced: true,
   state: {
     sitewideAnnouncements: [],
-    // maps event_id -> list of announcements for that event
     eventSpecificAnnouncements: [],
   },
   getters: {
@@ -63,8 +62,6 @@ export default {
       });
     },
     deleteAnnouncement(state, payload) {
-      console.log(payload.announcement);
-      console.log(isEventSpecific(payload.announcement));
       if (isEventSpecific(payload.announcement)) {
         state.eventSpecificAnnouncements = removeAnnouncement(
           state.eventSpecificAnnouncements, payload.announcement.id,

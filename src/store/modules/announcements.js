@@ -6,7 +6,7 @@ import api from '../../api/api';
  * @returns {boolean} - True if the announcement is for an event. I.e. it contains an event ID.
  */
 function isEventSpecific(announcement) {
-  return announcement.eventId >= 0;
+  return announcement.eventId !== null;
 }
 
 /**
@@ -63,6 +63,8 @@ export default {
       });
     },
     deleteAnnouncement(state, payload) {
+      console.log(payload.announcement);
+      console.log(isEventSpecific(payload.announcement));
       if (isEventSpecific(payload.announcement)) {
         state.eventSpecificAnnouncements = removeAnnouncement(
           state.eventSpecificAnnouncements, payload.announcement.id,

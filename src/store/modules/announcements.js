@@ -6,7 +6,7 @@ import api from '../../api/api';
  * @returns {boolean} - True if the announcement is for an event. I.e. it contains an event ID.
  */
 function isEventSpecific(announcement) {
-  return announcement.event_id >= 0;
+  return announcement.eventId >= 0;
 }
 
 /**
@@ -35,14 +35,16 @@ export default {
   state: {
     sitewideAnnouncements: [],
     // maps event_id -> list of announcements for that event
-    eventSpecificAnnouncements: {},
+    eventSpecificAnnouncements: [],
   },
   getters: {
     getSitewideAnnouncements(state) {
       return state.sitewideAnnouncements;
     },
     getEventSpecificAnnouncements(state) {
-      return eventId => state.eventSpecificAnnouncements[eventId];
+      return eventId => state.eventSpecificAnnouncements.filter(
+        ann => ann.eventID === eventId,
+      );
     },
   },
   mutations: {
@@ -55,27 +57,20 @@ export default {
     },
     loadEventSpecificAnnouncements(state, { announcements }) {
       announcements.forEach((ann) => {
-        console.log(state.eventSpecificAnnouncements);
-        if (ann.eventId in state.eventSpecificAnnouncements) {
-          if (!containsAnnouncement(state.eventSpecificAnnouncements[ann.eventId], ann)) {
-            state.eventSpecificAnnouncements[ann.eventId].push(ann);
-          }
-        } else {
-          state.eventSpecificAnnouncements[ann.eventId] = [ann];
+        if (!containsAnnouncement(state.eventSpecificAnnouncements, ann)) {
+          state.eventSpecificAnnouncements.push(ann);
         }
       });
     },
     deleteAnnouncement(state, payload) {
-      if (!isEventSpecific(payload)) {
-        state.sitewideAnnouncements = removeAnnouncement(
-          state.sitewideAnnouncements, payload.announcementId,
+      if (isEventSpecific(payload.announcement)) {
+        state.eventSpecificAnnouncements = removeAnnouncement(
+          state.eventSpecificAnnouncements, payload.announcement.id,
         );
       } else {
-        state.eventSpecificAnnouncements.set(payload.announcementId,
-          removeAnnouncement(
-            state.eventSpecificAnnouncements[payload.announcementId],
-            payload.announcementId,
-          ));
+        state.sitewideAnnouncements = removeAnnouncement(
+          state.sitewideAnnouncements, payload.announcement.id,
+        );
       }
     },
     clearAnnouncements(state) {
@@ -92,9 +87,9 @@ export default {
       const response = await api.getEventAnnouncements(eventId);
       commit('loadEventSpecificAnnouncements', { announcements: response.announcements });
     },
-    async deleteAnnouncement({ commit }, announcementId) {
-      await api.deleteAnnouncement(announcementId);
-      commit('deleteAnnouncement', { announcementId });
+    async deleteAnnouncement({ commit }, announcement) {
+      await api.deleteAnnouncement(announcement.id);
+      commit('deleteAnnouncement', { announcement });
     },
   },
 };

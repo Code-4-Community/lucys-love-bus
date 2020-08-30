@@ -44,8 +44,8 @@ export default {
     },
     getAnnouncements() {
       if (this.isEventSpecific()) {
-        if (this.eventSpecificAnnouncements[this.eventID]) {
-          return this.eventSpecificAnnouncements[this.eventID];
+        if (this.eventSpecificAnnouncements) {
+          return this.eventSpecificAnnouncements.filter(ann => ann.eventId === this.eventID);
         }
         return [];
       }

@@ -10,7 +10,7 @@
           {{announcement.description}}
           <access-control :roles="[USER[ROLE.ADMIN]]" class="access-control-wrapper">
             <button class="btn--warning"
-                    @click="deleteAnnouncement(announcement.id)">Delete</button>
+                    @click="deleteAnnouncement(announcement)">Delete</button>
           </access-control>
         </div>
         <div
@@ -60,8 +60,8 @@ export default {
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
-    deleteAnnouncement(announcementId) {
-      this.$store.dispatch('announcements/deleteAnnouncement', announcementId);
+    deleteAnnouncement(announcement) {
+      this.$store.dispatch('announcements/deleteAnnouncement', announcement);
       this.close();
     },
   },

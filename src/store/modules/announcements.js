@@ -36,16 +36,6 @@ export default {
     sitewideAnnouncements: [],
     eventSpecificAnnouncements: [],
   },
-  getters: {
-    getSitewideAnnouncements(state) {
-      return state.sitewideAnnouncements;
-    },
-    getEventSpecificAnnouncements(state) {
-      return eventId => state.eventSpecificAnnouncements.filter(
-        ann => ann.eventID === eventId,
-      );
-    },
-  },
   mutations: {
     loadSitewideAnnouncements(state, { announcements }) {
       announcements.forEach((ann) => {

@@ -10,4 +10,4 @@ function centsToDollars(centValue) {
 export default {
   dollarsToCents,
   centsToDollars,
-}
+};

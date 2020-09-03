@@ -31,16 +31,6 @@
           </span>
         </label>
       </div>
-      <div class="checkbox-container">
-        <label class="checkbox-label">
-          <input type="checkbox" v-model="value.upToDateVaccination">
-          <span class="checkmark"
-                :class="{ 'error-input': !!submitErrors.upToDateVaccination }"/>
-          <span class="checkbox-message">
-            My children are up to date on all vaccinations.
-          </span>
-        </label>
-      </div>
     </div>
     <div class="instruction-text">
       Photo and Video Release
@@ -90,9 +80,6 @@ export default {
       }
       if (!this.value.parentsRemain) {
         newSubmitErrors.parentsRemain = 'required';
-      }
-      if (!this.value.upToDateVaccination) {
-        newSubmitErrors.upToDateVaccination = 'required';
       }
       if (!this.value.photoVideoReleaseConsent) {
         newSubmitErrors.photoVideoReleaseConsent = 'required';

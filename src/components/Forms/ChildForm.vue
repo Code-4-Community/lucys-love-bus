@@ -99,7 +99,7 @@
       <div class="half-input">
         <div class="input-box">
           <label class="input-label">
-            School Year
+            Grade
             <input v-model="value.schoolYear"
                    :disabled="disableChange"
                    type="text"

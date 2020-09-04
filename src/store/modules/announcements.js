@@ -64,7 +64,7 @@ export default {
     },
     clearAnnouncements(state) {
       state.sitewideAnnouncements = [];
-      state.eventSpecificAnnouncements = new Map();
+      state.eventSpecificAnnouncements = [];
     },
   },
   actions: {

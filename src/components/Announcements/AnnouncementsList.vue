@@ -1,11 +1,11 @@
 <template>
   <div class="announcements-container">
-    <div v-if="announcements.length === 0">
+    <div v-if="getAnnouncements().length === 0">
       <div class="blank-card">
         <p>There is nothing to be announced!</p>
       </div>
     </div>
-    <div v-else v-for="a in announcements" v-bind:key="a.id" @click="showAnnouncement(a)" >
+    <div v-else v-for="a in getAnnouncements()" v-bind:key="a.id" @click="showAnnouncement(a)" >
       <div class="announcement-card">
         <div class="announce-header">
           <div class="announce-title">{{a.title}}</div>
@@ -18,8 +18,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DateUtils from '../../utils/DateUtils';
-import api from '../../api/api';
 
 export default {
   /*
@@ -29,35 +29,41 @@ export default {
   */
   name: 'AnnouncementsList',
   props: {
-    count: Number, // given a value if and only if sitewide
-    eventID: Number, // given a value if and only if NOT sitewide
-  },
-  data() {
-    return {
-      announcements: [],
-    };
+    count: Number, // given a value if sitewide
+    eventID: Number, // given a value if  NOT sitewide
   },
   methods: {
-    async getAnnouncements() {
-      let res;
-      if (!(this.eventID >= 0)) {
-        res = await api.getSitewideAnnouncements({
-          count: this.count,
-        });
-      } else {
-        res = await api.getEventAnnouncements(this.eventID);
-      }
-      return res.announcements;
-    },
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
     showAnnouncement(a) {
       this.$emit('open-announcement', a);
     },
+    isEventSpecific() {
+      return this.eventID >= 0;
+    },
+    getAnnouncements() {
+      if (this.isEventSpecific()) {
+        if (this.eventSpecificAnnouncements) {
+          return this.eventSpecificAnnouncements.filter(ann => ann.eventId === this.eventID);
+        }
+        return [];
+      }
+      return this.sitewideAnnouncements;
+    },
   },
-  async created() {
-    this.announcements = await this.getAnnouncements();
+  computed: {
+    ...mapState('announcements', {
+      sitewideAnnouncements: 'sitewideAnnouncements',
+      eventSpecificAnnouncements: 'eventSpecificAnnouncements',
+    }),
+  },
+  created() {
+    if (this.isEventSpecific()) {
+      this.$store.dispatch('announcements/loadEventSpecificAnnouncements', this.eventID);
+    } else {
+      this.$store.dispatch('announcements/loadSitewideAnnouncements');
+    }
   },
 };
 </script>

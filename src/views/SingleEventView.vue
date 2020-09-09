@@ -168,8 +168,8 @@ export default {
     AnnouncementModal,
   },
   props: {
-    eventId: { // id is a number, but props are always passed as strings
-      type: String,
+    eventId: {
+      type: Number,
       required: true,
     },
   },
@@ -222,8 +222,8 @@ export default {
       this.openModal = false;
     },
     openAnnouncementModal(announcement) {
-      this.announcementModalOpen = true;
       this.modalAnnouncement = announcement;
+      this.announcementModalOpen = true;
     },
     closeAnnouncementModal() {
       this.announcementModalOpen = false;
@@ -247,9 +247,6 @@ export default {
     async getSingleEvent() {
       this.singleEvent = await api.getEvent(this.eventId);
     },
-    async getEventAnnouncements() {
-      this.announcements = await api.getEventAnnouncements(this.eventId);
-    },
     async viewRSVP(event) {
       const resp = await api.getEventRSVP(this.eventId);
       const isErr = (resp == null) || (resp.response && resp.response.status !== 200);
@@ -270,7 +267,7 @@ export default {
   },
   async created() {
     await this.getSingleEvent();
-    await this.getEventAnnouncements();
+    await this.$store.dispatch('announcements/loadEventSpecificAnnouncements', this.eventId);
   },
 };
 </script>

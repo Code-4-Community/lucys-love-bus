@@ -6,7 +6,13 @@
           <div class="announce-title">{{announcement.title}}</div>
           <div class="announce-date">{{ createdString }}</div>
         </div>
-        <div class="announce-body">{{announcement.description}}</div>
+        <div class="announce-body">
+          {{announcement.description}}
+          <access-control :roles="[USER[ROLE.ADMIN]]" class="access-control-wrapper">
+            <button class="btn--warning"
+                    @click="deleteAnnouncement(announcement)">Delete</button>
+          </access-control>
+        </div>
         <div
             class="close-btn"
             @click="close"
@@ -20,6 +26,8 @@
 
 <script>
 import DateUtils from '../../utils/DateUtils';
+import AccessControl from '../AccessControl/AccessControl.vue';
+import { ROLE, USER } from '../../utils/constants/user';
 
 export default {
   name: 'AnnouncementModal',
@@ -30,7 +38,15 @@ export default {
     },
     announcement: {
       type: Object,
+      required: true,
     },
+  },
+  created() {
+    this.USER = USER;
+    this.ROLE = ROLE;
+  },
+  components: {
+    AccessControl,
   },
   computed: {
     createdString() {
@@ -44,11 +60,16 @@ export default {
     toStringDate(date) {
       return DateUtils.toStringDate(date);
     },
+    deleteAnnouncement(announcement) {
+      this.$store.dispatch('announcements/deleteAnnouncement', announcement);
+      this.close();
+    },
   },
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+  @import '../../../assets/global-classes.less';
   .modal-fade-enter,
   .modal-fade-leave-active {
     opacity: 0;
@@ -117,6 +138,10 @@ export default {
     text-align: center;
     vertical-align: middle;
     font-weight: bolder;
+  }
+
+  .access-control-wrapper {
+    padding-top: 1rem;
   }
 
 </style>

@@ -64,6 +64,7 @@
       </div>
     </div>
     <AnnouncementModal
+        v-if="modalAnnouncement"
         :open="openModal"
         :announcement="modalAnnouncement"
         @close-announcement="closeAnnouncementModal"/>

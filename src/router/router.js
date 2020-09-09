@@ -68,7 +68,11 @@ const allRoutes = [
     path: '/event/:eventId',
     name: 'single-event',
     component: SingleEventView,
-    props: true,
+    props(route) {
+      const props = { ...route.params };
+      props.eventId = +props.eventId; // cast as a Number
+      return props;
+    },
   },
   {
     path: '/checkout',

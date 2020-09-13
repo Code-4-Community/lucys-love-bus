@@ -61,10 +61,12 @@
           <p class="subheader">What</p>
           {{ singleEvent.details.description }}
         </div>
-        <div class="info-block">
-          <p class="subheader">Price</p>
-          ${{ Number.parseFloat(singleEvent.price / 100).toFixed(2) }}
-        </div>
+        <access-control :roles="[USER[ROLE.GP], USER[ROLE.ADMIN]]">
+          <div class="info-block">
+            <p class="subheader">Price</p>
+            ${{ Number.parseFloat(singleEvent.price / 100).toFixed(2) }}
+          </div>
+        </access-control>
       </div>
       <div class="announcements-list-container">
         <p class="subheader">Announcements</p>

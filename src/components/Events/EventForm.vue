@@ -301,6 +301,9 @@ export default {
       if (this.event.spotsAvailable == null) {
         newSubmitErrors.spotsAvailable = 'required';
       }
+      if (this.event.price == null) {
+        newSubmitErrors.price = 'required';
+      }
       if (this.event.price < 0) {
         newSubmitErrors.price = 'price must be positive';
       }

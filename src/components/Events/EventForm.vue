@@ -98,7 +98,6 @@
             Price ($)
             <input class="input-primary"
                    :class="{ 'error-input': !!submitErrors.price }"
-                   v-validate="'number'"
                    v-model="event.price"
                    name="name"
                    type="number"
@@ -187,7 +186,7 @@ export default {
             start: null,
             end: null,
           },
-          price: null,
+          price: 500,
         };
       },
     },

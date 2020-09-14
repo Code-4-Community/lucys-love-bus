@@ -92,6 +92,23 @@
           </div>
         </div>
       </div>
+      <div class="box-price">
+        <div class="input-box">
+          <label class="input-label">
+            Price ($)
+            <input class="input-primary"
+                   :class="{ 'error-input': !!submitErrors.price }"
+                   v-model="event.price"
+                   name="name"
+                   type="number"
+                   step="0.25"
+                   placeholder="Price">
+          </label>
+          <div class="error-text">
+            {{ submitErrors.price }}
+          </div>
+        </div>
+      </div>
       <div class="box-description">
         <div class="input-box">
           <label class="input-label">
@@ -146,6 +163,7 @@
 <script>
 import moment from 'moment';
 import DateUtils from '../../utils/DateUtils';
+import ConversionUtils from '../../utils/ConversionUtils';
 
 export default {
   name: 'EventForm',
@@ -168,6 +186,7 @@ export default {
             start: null,
             end: null,
           },
+          price: 500,
         };
       },
     },
@@ -186,6 +205,8 @@ export default {
           start: this.eventProp.details.start,
           end: this.eventProp.details.end,
         },
+        // convert cents (from backend) to dollars
+        price: ConversionUtils.centsToDollars(this.eventProp.price),
       },
       eventDate: this.unixToDateTimeArray(this.eventProp.details.start)[0],
       startTime: this.unixToDateTimeArray(this.eventProp.details.start)[1],
@@ -257,6 +278,8 @@ export default {
       if (this.validateInput()) {
         this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
         this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
+        // convert dollars (from input) to cents (for backend)
+        this.event.price = ConversionUtils.dollarsToCents(this.event.price);
 
         this.$emit('submit-event-form', { event: this.event });
       }
@@ -278,6 +301,12 @@ export default {
       }
       if (this.event.spotsAvailable == null) {
         newSubmitErrors.spotsAvailable = 'required';
+      }
+      if (this.event.price == null) {
+        newSubmitErrors.price = 'required';
+      }
+      if (this.event.price < 0) {
+        newSubmitErrors.price = 'price must be positive';
       }
 
       this.submitErrors = this.validateTime(newSubmitErrors);
@@ -369,6 +398,10 @@ export default {
 
 
   .box-spots {
+    width: 20%;
+  }
+
+  .box-price {
     width: 20%;
   }
 

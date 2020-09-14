@@ -205,6 +205,7 @@ export default {
           start: this.eventProp.details.start,
           end: this.eventProp.details.end,
         },
+        // convert cents (from backend) to dollars
         price: ConversionUtils.centsToDollars(this.eventProp.price),
       },
       eventDate: this.unixToDateTimeArray(this.eventProp.details.start)[0],
@@ -277,6 +278,7 @@ export default {
       if (this.validateInput()) {
         this.event.details.start = this.dateTimeToUnix(this.eventDate, this.startTime);
         this.event.details.end = this.dateTimeToUnix(this.eventDate, this.endTime);
+        // convert dollars (from input) to cents (for backend)
         this.event.price = ConversionUtils.dollarsToCents(this.event.price);
 
         this.$emit('submit-event-form', { event: this.event });

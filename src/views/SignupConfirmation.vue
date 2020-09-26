@@ -55,5 +55,6 @@ export default {
   .profile-route-text {
     margin-top: 24px;
     font-size: 1.2rem;
+    text-align: center;
   }
 </style>

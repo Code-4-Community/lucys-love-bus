@@ -10,7 +10,7 @@ export default {
     },
     cartTickets(state) {
       return (eventId) => {
-        const event = state.cartEvents.find(e => e.id === eventId);
+        const event = state.cartEvents.find((e) => e.id === eventId);
         if (event) {
           return event.tickets;
         }
@@ -21,7 +21,7 @@ export default {
   mutations: {
     registerForEvent(state, { tickets, event }) {
       if (tickets > 0) {
-        const stateEvent = state.cartEvents.find(cartEvent => cartEvent.id === event.id);
+        const stateEvent = state.cartEvents.find((cartEvent) => cartEvent.id === event.id);
         if (stateEvent) {
           stateEvent.tickets = tickets;
         } else {
@@ -29,14 +29,14 @@ export default {
           state.cartEvents.push(newEvent);
         }
       } else {
-        const idx = state.cartEvents.findIndex(e => e.id === event.id);
+        const idx = state.cartEvents.findIndex((e) => e.id === event.id);
         if (idx > -1) {
           state.cartEvents.splice(idx, 1);
         }
       }
     },
     cancelRegistration(state, { event }) {
-      state.cartEvents = state.cartEvents.filter(cartEvent => cartEvent.id !== event.id);
+      state.cartEvents = state.cartEvents.filter((cartEvent) => cartEvent.id !== event.id);
     },
     clearCart(state) {
       state.cartEvents = [];

@@ -147,7 +147,6 @@
   </div>
 </template>
 
-
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex';
 import moment from 'moment';
@@ -395,6 +394,5 @@ export default {
   padding: 0 6px;
   cursor: pointer;
 }
-
 
 </style>

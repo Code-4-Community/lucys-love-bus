@@ -85,7 +85,6 @@ export default {
     }
   }
 
-
   .navlinks {
     display: flex;
     justify-content: space-between;

@@ -8,14 +8,14 @@ const API_VERIFY_EMAIL = '/api/v1/user/verify/';
 const API_REQUEST_PASSWORD_RESET = '/api/v1/user/forgot_password/request';
 const API_DO_PASSWORD_RESET = '/api/v1/user/forgot_password/reset';
 
-const to = route => `${process.env.VUE_APP_API_DOMAIN}${route}`;
+const to = (route) => `${process.env.VUE_APP_API_DOMAIN}${route}`;
 
-export const login = async user => Axios.post(to(API_LOGIN), user).then((response) => {
+export const login = async (user) => Axios.post(to(API_LOGIN), user).then((response) => {
   Token.setAccessToken(response.data.accessToken);
   Token.setRefreshToken(response.data.refreshToken);
 });
 
-export const signup = async user => Axios.post(to(API_SIGNUP), user).then((response) => {
+export const signup = async (user) => Axios.post(to(API_SIGNUP), user).then((response) => {
   Token.setAccessToken(response.data.accessToken);
   Token.setRefreshToken(response.data.refreshToken);
 });
@@ -43,8 +43,8 @@ export const refresh = async () => Axios.post(to(API_REFRESH_TOKEN), null, {
   Token.removeRefreshToken();
 });
 
-export const verifyEmail = async secretKey => Axios.post(to(`${API_VERIFY_EMAIL}${secretKey}`));
+export const verifyEmail = async (secretKey) => Axios.post(to(`${API_VERIFY_EMAIL}${secretKey}`));
 
-export const requestPasswordReset = async body => Axios.post(to(API_REQUEST_PASSWORD_RESET), body);
+export const requestPasswordReset = async (body) => Axios.post(to(API_REQUEST_PASSWORD_RESET), body);
 
-export const doPasswordReset = async body => Axios.post(to(API_DO_PASSWORD_RESET), body);
+export const doPasswordReset = async (body) => Axios.post(to(API_DO_PASSWORD_RESET), body);

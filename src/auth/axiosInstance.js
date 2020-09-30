@@ -19,7 +19,7 @@ AxiosInstance.interceptors.request.use((request) => {
 const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
 
 AxiosInstance.interceptors.response.use(
-  response => response,
+  (response) => response,
   (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401

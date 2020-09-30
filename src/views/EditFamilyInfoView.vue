@@ -176,7 +176,7 @@ export default {
         ...(this.$refs.additionalcontacts || []),
         ...(this.$refs.children || []),
       ];
-      const formValidations = formRefs.map(ref => ref.validateInput());
+      const formValidations = formRefs.map((ref) => ref.validateInput());
 
       return formValidations.reduce((acc, cur) => acc && cur, true);
     },

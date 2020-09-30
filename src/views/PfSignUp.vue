@@ -242,7 +242,7 @@ export default {
           ...(this.$refs.additionalcontacts || []),
           ...(this.$refs.children || []),
         ];
-        const formValidations = formRefs.map(ref => ref.validateInput());
+        const formValidations = formRefs.map((ref) => ref.validateInput());
 
         if (formValidations.reduce((acc, cur) => acc && cur, true)) {
           this.pageNum = 2;
@@ -260,7 +260,7 @@ export default {
           this.primaryInfo.phone = this.mainContact.phoneNumber;
           this.primaryInfo.allergies = this.mainContact.allergies;
         }
-        this.pageNum = this.pageNum - 1;
+        this.pageNum -= 1;
       }
     },
     addContact() {

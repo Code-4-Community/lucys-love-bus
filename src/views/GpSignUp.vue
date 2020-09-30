@@ -143,7 +143,7 @@ export default {
     },
     backPage() {
       if (this.pageNum > 0) {
-        this.pageNum = this.pageNum - 1;
+        this.pageNum -= 1;
       }
     },
     async submitForm() {

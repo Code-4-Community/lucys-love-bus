@@ -12,7 +12,7 @@ export default {
       state.pfRequests = requests;
     },
     removeRequest(state, payload) {
-      state.pfRequests = state.pfRequests.filter(req => req.id !== payload.request.id);
+      state.pfRequests = state.pfRequests.filter((req) => req.id !== payload.request.id);
     },
     resetRequests(state) {
       state.pfRequests = [];
@@ -24,12 +24,12 @@ export default {
       commit('setPfRequests', { requests: response.requests });
     },
     async approveRequest({ commit, state }, { requestId }) {
-      const request = state.pfRequests.find(req => req.id === requestId);
+      const request = state.pfRequests.find((req) => req.id === requestId);
       await api.approveRequest(requestId);
       commit('removeRequest', { request });
     },
     async rejectRequest({ commit, state }, { requestId }) {
-      const request = state.pfRequests.find(req => req.id === requestId);
+      const request = state.pfRequests.find((req) => req.id === requestId);
       await api.rejectRequest(requestId);
       commit('removeRequest', { request });
     },

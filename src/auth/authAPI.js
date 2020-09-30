@@ -45,6 +45,7 @@ export const refresh = async () => Axios.post(to(API_REFRESH_TOKEN), null, {
 
 export const verifyEmail = async (secretKey) => Axios.post(to(`${API_VERIFY_EMAIL}${secretKey}`));
 
+// eslint-disable-next-line
 export const requestPasswordReset = async (body) => Axios.post(to(API_REQUEST_PASSWORD_RESET), body);
 
 export const doPasswordReset = async (body) => Axios.post(to(API_DO_PASSWORD_RESET), body);

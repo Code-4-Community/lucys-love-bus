@@ -80,7 +80,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-
   .auth-container {
     margin-top: 30px;
   }

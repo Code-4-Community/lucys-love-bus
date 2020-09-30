@@ -1,7 +1,6 @@
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 
-
 /**
  * Returns a JWT Payload from localstorage OR falsy value if there is no valid token
  * @param {String} key one of ACCESS_TOKEN_KEY or REFRESH_TOKEN_KEY

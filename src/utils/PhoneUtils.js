@@ -1,4 +1,3 @@
-
 function formatPhoneString(unformattedNumber) {
   const cleaned = String(unformattedNumber).replace(/\D/g, '');
   const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);

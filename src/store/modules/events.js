@@ -8,7 +8,7 @@ export default {
     myEvents: [],
   },
   getters: {
-    getPageOfEvents: state => (currentPage, eventsPerPage) => {
+    getPageOfEvents: (state) => (currentPage, eventsPerPage) => {
       // pages are 0-indexed
       const firstEvent = currentPage * eventsPerPage;
       const lastEvent = firstEvent + eventsPerPage;
@@ -24,8 +24,8 @@ export default {
       state.myEvents = events;
     },
     deleteEvent(state, eventId) {
-      state.myEvents = state.myEvents.filter(event => event.id === eventId);
-      state.upcomingEvents = state.upcomingEvents.filter(event => event.id === eventId);
+      state.myEvents = state.myEvents.filter((event) => event.id === eventId);
+      state.upcomingEvents = state.upcomingEvents.filter((event) => event.id === eventId);
     },
     resetEvents(state) {
       state.myEvents = [];

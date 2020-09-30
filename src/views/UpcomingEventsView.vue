@@ -174,7 +174,6 @@ export default {
 <style lang="less" scoped>
   @import '../../assets/global-classes.less';
 
-
   .sold-out {
     background-color: #AAA;
     border: 1px solid #777;

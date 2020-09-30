@@ -17,7 +17,7 @@ function isEventSpecific(announcement) {
  *                      with the same announcement ID as the argument.
  */
 function containsAnnouncement(list, announcement) {
-  return list.some(a => a.id === announcement.id);
+  return list.some((a) => a.id === announcement.id);
 }
 
 /**
@@ -27,7 +27,7 @@ function containsAnnouncement(list, announcement) {
  * @returns {List} - List with the given announcement removed.
  */
 function removeAnnouncement(list, announcementId) {
-  return list.filter(ann => ann.id !== announcementId);
+  return list.filter((ann) => ann.id !== announcementId);
 }
 
 export default {

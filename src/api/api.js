@@ -31,7 +31,7 @@ const stripeApp = loadStripe(process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY);
 
 async function createEventRegistration(registeredEvents) {
   const body = {
-    lineItemRequests: registeredEvents.map(event => ({
+    lineItemRequests: registeredEvents.map((event) => ({
       eventId: event.id,
       quantity: event.tickets,
     })),
@@ -41,7 +41,7 @@ async function createEventRegistration(registeredEvents) {
 
 async function createEventRegistrationAndCheckoutSession(registeredEvents) {
   const body = {
-    lineItemRequests: registeredEvents.map(event => ({
+    lineItemRequests: registeredEvents.map((event) => ({
       eventId: event.id,
       quantity: event.tickets,
     })),

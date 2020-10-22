@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 Vue.config.devtools = true;
 
 Sentry.init({
-  dsn: 'https://511e6676b57a408ba3854b8ec3b1916a@o433473.ingest.sentry.io/5479172',
+  dsn: process.env.VUE_APP_SENTRY_DSN,
   integrations: [
     new VueIntegration({
       Vue,

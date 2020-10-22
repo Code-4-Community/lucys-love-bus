@@ -10,9 +10,23 @@
 </template>
 
 <script>
+import Bowser from 'bowser';
 import TheNavigation from './components/TheNavigation.vue';
 import { refresh } from './auth/authAPI';
 import tokenService from './auth/token';
+
+const browser = Bowser.getParser(window.navigator.userAgent);
+
+const isValidBrowser = browser.satisfies({
+  // or in general
+  chrome: '>86',
+  firefox: '>80',
+});
+
+if (!isValidBrowser) {
+  // eslint-disable-next-line
+  alert("Hi there! We noticed that you're not running the most up to date version of Chrome or Firefox.\n\nIts extremely important to use an updated modern browser for this and many other websites to work properly. We strongly encourage you to update to avoid potential errors. Thank you!");
+}
 
 export default {
   name: 'App',

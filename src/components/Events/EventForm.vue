@@ -186,7 +186,7 @@ export default {
             start: null,
             end: null,
           },
-          price: 500,
+          price: 0,
         };
       },
     },

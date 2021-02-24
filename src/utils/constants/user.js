@@ -1,7 +1,7 @@
 export const ROLE = {
-  GP: 0,
-  PF: 1,
-  ADMIN: 2,
+  GP: 'standard',
+  PF: 'pf',
+  ADMIN: 'admin',
   GUEST: -1,
 };
 

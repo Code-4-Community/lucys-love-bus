@@ -80,6 +80,9 @@ export default {
     hasEvents() {
       return this.cartEvents.length > 0;
     },
+    hasPaidEvents() {
+      return this.cartEvents.some((event) => event.price > 0);
+    },
   },
   methods: {
     ...mapMutations('cart', {
@@ -87,7 +90,9 @@ export default {
       registerForEvent: 'registerForEvent',
     }),
     async checkout() {
-      if (USER[this.adminLevel] === USER[ROLE.ADMIN] || USER[this.adminLevel] === USER[ROLE.PF]) {
+      if (USER[this.adminLevel] === USER[ROLE.ADMIN]
+          || USER[this.adminLevel] === USER[ROLE.PF]
+          || !this.hasPaidEvents) {
         try {
           await api.createEventRegistration(this.cartEvents);
           this.$router.push('/event-registration-confirmation/success');

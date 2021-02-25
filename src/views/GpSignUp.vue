@@ -161,6 +161,7 @@ export default {
               state: this.primaryInfo.state,
               zipCode: this.primaryInfo.zip,
             },
+            photoRelease: this.agreements.photoVideoReleaseConsent,
           };
           try {
             await signup(user);

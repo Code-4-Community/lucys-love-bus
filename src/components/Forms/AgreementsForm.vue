@@ -81,9 +81,6 @@ export default {
       if (!this.value.parentsRemain) {
         newSubmitErrors.parentsRemain = 'required';
       }
-      if (!this.value.photoVideoReleaseConsent) {
-        newSubmitErrors.photoVideoReleaseConsent = 'required';
-      }
 
       const noErrors = Object.keys(newSubmitErrors).length === 0
         && newSubmitErrors.constructor === Object;

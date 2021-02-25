@@ -313,6 +313,7 @@ export default {
               state: this.primaryInfo.state,
               zipCode: this.primaryInfo.zip,
             },
+            photoRelease: this.agreements.photoVideoReleaseConsent,
           };
           const contactInfo = {
             mainContact: this.mainContact,

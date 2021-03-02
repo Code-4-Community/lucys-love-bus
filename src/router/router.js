@@ -137,8 +137,8 @@ const allRoutes = [
     component: MyEventsView,
   },
   {
-    path: '/verify-email/:secret_key',
-    name: 'verify-email',
+    path: '/verify/:secret_key',
+    name: 'verify',
     component: VerifyEmailView,
   },
   {

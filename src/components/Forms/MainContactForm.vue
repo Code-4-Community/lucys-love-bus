@@ -226,7 +226,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   @import '../../../assets/global-classes.less';
 
   .input-box {
@@ -237,12 +237,11 @@ export default {
   }
   .input-datepicker {
     font-size: 10px;
-    input {
-      padding: 8px;
-      border: 2px solid #888;
-    }
   }
-
+  .input-datepicker::v-deep input {
+    padding: 8px;
+    border: 2px solid #888;
+  }
   .error-input {
     border-color: red;
   }

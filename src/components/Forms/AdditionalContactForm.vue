@@ -255,7 +255,13 @@ export default {
     font-size: 1rem;
     margin-left: 6px;
   }
-
+  .input-datepicker {
+    font-size: 10px;
+  }
+  .input-datepicker::v-deep input {
+    padding: 8px;
+    border: 2px solid #888;
+  }
   .input-box {
     margin-bottom: 0.5em;
   }

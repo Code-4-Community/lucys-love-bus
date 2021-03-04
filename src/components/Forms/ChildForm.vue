@@ -225,7 +225,13 @@ export default {
   .input-primary {
     margin-bottom: 0;
   }
-
+  .input-datepicker {
+    font-size: 10px;
+  }
+  .input-datepicker::v-deep input {
+    padding: 8px;
+    border: 2px solid #888;
+  }
   .error-input {
     border-color: red;
   }

@@ -67,9 +67,9 @@
         <div class="two-third-input">
             <label class="input-label">
               Email Address
-              <input v-model="value.email"
+              <input v-model.trim="value.email"
                      :disabled="disableChange"
-                     type="text"
+                     type="email"
                      class="input-primary"
                      :class="{ 'error-input': !!submitErrors.email }"
                      placeholder="Email Address *">

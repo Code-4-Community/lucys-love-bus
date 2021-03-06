@@ -38,10 +38,10 @@
       <div class="input-box">
         <label class="input-label">
           Email Address
-          <input v-model="value.email"
+          <input v-model.trim="value.email"
                  class="input-primary"
                  :class="{ 'error-input': !!submitErrors.email || !!serverErrors.email }"
-                 type="text"
+                 type="email"
                  placeholder="Email Address*">
         </label>
         <div class="error-text">

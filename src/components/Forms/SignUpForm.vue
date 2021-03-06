@@ -25,7 +25,7 @@
     <div class="full-input">
       <label class="input-label">
         Email Address
-        <input v-model="email" class="input-primary" type="text" placeholder="Email Address*">
+        <input v-model.trim="email" class="input-primary" type="email" placeholder="Email Address*">
       </label>
     </div>
     <div class="half-input">

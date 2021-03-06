@@ -110,12 +110,14 @@
         <div class="input-box">
           <label class="input-label">
             Date of Birth
-            <input v-model="value.dateOfBirth"
-                   :disabled="disableChange"
-                   type="date"
-                   class="input-primary"
-                   :class="{ 'error-input': !!submitErrors.dateOfBirth }"
-                   placeholder="Date of Birth    DD/MM/YYYY">
+            <date-pick v-model="value.dateOfBirth"
+                :disabled="disableChange"
+                class="input-datepicker"
+                :class="{ 'error-input': !!submitErrors.dateOfBirth }"
+                placeholder="Date of Birth  DD/MM/YYYY"
+                :selectableYearRange="{from: new Date().getFullYear()-100,
+                                       to: new Date().getFullYear()}"
+            />
           </label>
           <div class="error-text">
             {{ submitErrors.dateOfBirth }}
@@ -167,10 +169,13 @@
 </template>
 
 <script>
+import DatePick from 'vue-date-pick';
+import 'vue-date-pick/dist/vueDatePick.css';
 import DateUtils from '../../utils/DateUtils';
 
 export default {
   name: 'AdditionalContactForm',
+  components: { DatePick },
   props: {
     value: {
       type: Object,
@@ -250,7 +255,13 @@ export default {
     font-size: 1rem;
     margin-left: 6px;
   }
-
+  .input-datepicker {
+    font-size: 10px;
+  }
+  .input-datepicker::v-deep input {
+    padding: 8px;
+    border: 2px solid #888;
+  }
   .input-box {
     margin-bottom: 0.5em;
   }

@@ -78,7 +78,7 @@
       <div class="box-spots">
         <div class="input-box">
           <label class="input-label">
-            Spots Available
+            Capacity
             <input class="input-primary"
                    :class="{ 'error-input': !!submitErrors.capacity }"
                    v-model="event.capacity"

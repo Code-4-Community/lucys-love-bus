@@ -11,10 +11,10 @@
       <form @submit.prevent="onSubmit">
         <span class="form-title">Sign in to your account</span>
         <input
-          v-model="email"
+          v-model.trim="email"
           @focus="resetSubmit"
           class="input-primary"
-          type="text"
+          type="email"
           placeholder="Email Address"
         />
         <input

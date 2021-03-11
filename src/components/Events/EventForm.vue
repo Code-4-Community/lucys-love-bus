@@ -80,15 +80,14 @@
           <label class="input-label">
             Spots Available
             <input class="input-primary"
-                   :class="{ 'error-input': !!submitErrors.spotsAvailable }"
-                   v-validate="'required|integer'"
-                   v-model="event.spotsAvailable"
+                   :class="{ 'error-input': !!submitErrors.capacity }"
+                   v-model="event.capacity"
                    name="name"
                    type="number"
                    placeholder="Spots Available">
           </label>
           <div class="error-text">
-            {{ submitErrors.spotsAvailable }}
+            {{ submitErrors.capacity }}
           </div>
         </div>
       </div>
@@ -178,7 +177,7 @@ export default {
       default() {
         return {
           title: '',
-          spotsAvailable: null,
+          capacity: null,
           thumbnail: null,
           details: {
             description: '',
@@ -197,7 +196,7 @@ export default {
       imageName: '',
       event: {
         title: this.eventProp.title,
-        spotsAvailable: this.eventProp.spotsAvailable,
+        capacity: this.eventProp.capacity,
         thumbnail: this.eventProp.thumbnail,
         details: {
           description: this.eventProp.details.description,
@@ -296,11 +295,11 @@ export default {
       } else if (this.event.details.location.length > 120) {
         newSubmitErrors.location = 'must be less than 120 characters';
       }
-      if (this.event.spotsAvailable < 0) {
-        newSubmitErrors.spotsAvailable = 'spots available must be positive';
+      if (this.event.capacity < 0) {
+        newSubmitErrors.capacity = 'capacity must be positive';
       }
-      if (this.event.spotsAvailable == null) {
-        newSubmitErrors.spotsAvailable = 'required';
+      if (this.event.capacity == null) {
+        newSubmitErrors.capacity = 'required';
       }
       if (this.event.price == null) {
         newSubmitErrors.price = 'required';

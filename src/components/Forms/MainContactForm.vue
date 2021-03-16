@@ -69,7 +69,7 @@
           <input
               class="input-primary"
               :class="{ 'error-input': !!submitErrors.email }"
-              type="text"
+              type="email"
               v-bind:placeholder="value.email"
               :disabled="true">
         </label>

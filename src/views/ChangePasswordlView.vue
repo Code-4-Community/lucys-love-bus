@@ -90,6 +90,9 @@ export default {
       if (this.newPassword[0].length === 0) {
         newSubmitErrors[1] = 'Please enter a new password';
       }
+      if (this.currentPassword === this.newPassword[0]) {
+        newSubmitErrors[2] = 'Your new password cannot match your current password';
+      }
       if (this.newPassword[0] !== this.newPassword[1]) {
         newSubmitErrors[2] = 'Your passwords must match';
       }

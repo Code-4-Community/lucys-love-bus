@@ -134,7 +134,7 @@ export default {
     grid-template-areas: "right left";
 
     position: absolute;
-    height: calc(100vh - 85px);
+    height: calc(100vh - 130px); // should be 85 px without footer
     top: 0;
     left: 0;
     right: 0;

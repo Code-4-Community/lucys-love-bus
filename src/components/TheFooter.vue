@@ -1,12 +1,9 @@
 <template>
   <footer class="footer">
-    <div>
-        <p>The Sajni Center</p>
-    </div>
-    <div class="links">
-        <p>MOBILE APP</p>
-        <p>FAQs</p>
-        <p>SUPPORT</p>
+    <div class="content">
+      <img class="image-container" src="../../public/img/icons/bug_icon.png"  alt="bug"/>
+      Notice something off?
+      <a class="link" href="https://forms.gle/y9dMTMugskHYPWyM6" target="_blank">Submit a Bug Report!</a>
     </div>
   </footer>
 </template>
@@ -19,16 +16,22 @@ export default {
 
 <style lang="less" scoped>
 .footer {
-  display: flex;
-  justify-content: space-around;
-  height: 6em;
-  margin-top: 6em;
+  flex-shrink: 0;
+  position: relative;
+  background: rgba(151,244,86,0.83);
+  padding: 5px;
 
-  .links {
+  .content {
     display: flex;
-    text-transform: uppercase;
-    justify-content: space-around;
-    width: 50%;
+    justify-content: center;
+    align-items: center;
+    .image-container {
+      width: 1em;
+      height: 1em;
+    }
+    .link {
+      margin-left: 5px;
+    }
   }
 }
 </style>

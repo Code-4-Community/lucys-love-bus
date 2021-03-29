@@ -5,6 +5,7 @@
       <div class="main-content center">
         <router-view />
       </div>
+      <the-footer />
     </div>
   </div>
 </template>
@@ -12,6 +13,7 @@
 <script>
 import Bowser from 'bowser';
 import TheNavigation from './components/TheNavigation.vue';
+import TheFooter from './components/TheFooter.vue';
 import { refresh } from './auth/authAPI';
 import tokenService from './auth/token';
 
@@ -32,6 +34,7 @@ export default {
   name: 'App',
   components: {
     TheNavigation,
+    TheFooter,
   },
   beforeCreate() {
     if (tokenService.isRefreshTokenVaid()) {
@@ -78,13 +81,17 @@ input {
 }
 
 .content-wrap-for-footer {
-  min-height: 100vh;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
   width: 100%;
 }
 
 .main-content {
   position: relative;
-  margin: auto;
   padding: 2em;
+  flex: 1 0 auto;
 }
 </style>
